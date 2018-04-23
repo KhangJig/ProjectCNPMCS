@@ -1,12 +1,15 @@
 # ProjectCNPMCS
 
-Web bán hàng người yêu cũ<br/>
+Web bán hàng người yêu cũ <b>NYCshop</b><br/>
 
 Nhóm 15: <br/>
 - 14521076 Phạm Quang Vĩ<br/>
 - 15520338 Lê Dương Khang<br/>
 - 15520328 Nguyễn Đức Kế<br/>
 - 15520087 Ngô Hữu Nhất Đăng<br/>
+
+# Mô tả
+Web trao đổi mua bán giữa khách hàng với nhau, các mặt hàng là những đồ dùng, vật dụng mà các cặp đôi yêu nhau sau khi chia tay sẽ bán để lấy lại vốn liếng khi yêu đương mà không thành.
 
 # Các trang chính
 1. Trang chủ
