@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace NYCshop.Controllers
+namespace NYCshop.Areas.User.Controllers
 {
     public class AddItemController : Controller
     {
-        // GET: AddItem
+        // GET: User/AddItem
         public ActionResult Index()
         {
             return View();
