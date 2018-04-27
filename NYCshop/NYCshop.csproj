@@ -1,4 +1,5 @@
-﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -23,7 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <Use64BitIISExpress />
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,10 +45,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -57,6 +74,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -64,6 +85,10 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web.Razor">
@@ -89,6 +114,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\animate.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\custom.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\fonts\flexslider-icon.svg" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\owl.carousel.css" />
+    <Content Include="Content\owl.theme.css" />
+    <Content Include="Content\owl.transitions.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\style.blue.css" />
+    <Content Include="Content\style.default.css" />
+    <Content Include="Content\style.green.css" />
+    <Content Include="Content\style.mono.css" />
+    <Content Include="Content\style.pink.css" />
+    <Content Include="Content\style.violet.css" />
     <Content Include="css\login.css" />
     <Content Include="css\main.css" />
     <Content Include="css\main.min.css" />
@@ -2526,102 +2568,112 @@
     <Content Include="fonts\themify\SVG\zoom-out.svg" />
     <Content Include="fonts\themify\themify-icons.css" />
     <Content Include="Global.asax" />
-    <Content Include="images\banner-01.jpg" />
-    <Content Include="images\banner-02.jpg" />
-    <Content Include="images\banner-03.jpg" />
-    <Content Include="images\banner-04.jpg" />
-    <Content Include="images\banner-05.jpg" />
-    <Content Include="images\banner-06.jpg" />
-    <Content Include="images\banner-07.jpg" />
-    <Content Include="images\banner-08.jpg" />
-    <Content Include="images\banner-09.jpg" />
-    <Content Include="images\banner-10.jpg" />
-    <Content Include="images\banner-11.jpg" />
-    <Content Include="images\banner-12.jpg" />
-    <Content Include="images\banner-13.jpg" />
-    <Content Include="images\banner-14.jpg" />
-    <Content Include="images\banner.png" />
-    <Content Include="images\bg-banner-01.jpg" />
-    <Content Include="images\bg-banner-02.jpg" />
-    <Content Include="images\bg-video-01.jpg" />
-    <Content Include="images\blog-01.jpg" />
-    <Content Include="images\blog-02.jpg" />
-    <Content Include="images\blog-03.jpg" />
-    <Content Include="images\blog-04.jpg" />
-    <Content Include="images\blog-05.jpg" />
-    <Content Include="images\blog-06.jpg" />
-    <Content Include="images\blog-07.jpg" />
-    <Content Include="images\blog-08.jpg" />
-    <Content Include="images\blog-09.jpg" />
-    <Content Include="images\blog-10.jpg" />
-    <Content Include="images\gallery-01.jpg" />
-    <Content Include="images\gallery-02.jpg" />
-    <Content Include="images\gallery-03.jpg" />
-    <Content Include="images\gallery-04.jpg" />
-    <Content Include="images\gallery-05.jpg" />
-    <Content Include="images\gallery-06.jpg" />
-    <Content Include="images\gallery-07.jpg" />
-    <Content Include="images\gallery-08.jpg" />
-    <Content Include="images\gallery-09.jpg" />
-    <Content Include="images\gallery-10.jpg" />
-    <Content Include="images\gallery-11.jpg" />
-    <Content Include="images\gallery-12.jpg" />
-    <Content Include="images\gallery-13.jpg" />
-    <Content Include="images\gallery-14.jpg" />
-    <Content Include="images\gallery-15.jpg" />
-    <Content Include="images\heading-pages-01.jpg" />
-    <Content Include="images\heading-pages-02.jpg" />
-    <Content Include="images\heading-pages-03.jpg" />
-    <Content Include="images\heading-pages-04.jpg" />
-    <Content Include="images\heading-pages-05.jpg" />
-    <Content Include="images\heading-pages-06.jpg" />
-    <Content Include="images\icons\bg-01.jpg" />
-    <Content Include="images\icons\favicon.png" />
-    <Content Include="images\icons\icon-header-01.png" />
-    <Content Include="images\icons\icon-header-02.png" />
-    <Content Include="images\icons\icon-position-map.png" />
-    <Content Include="images\icons\logoweb.png" />
-    <Content Include="images\icons\video-16-9.jpg" />
-    <Content Include="images\item-01.jpg" />
-    <Content Include="images\item-02.jpg" />
-    <Content Include="images\item-03.jpg" />
-    <Content Include="images\item-04.jpg" />
-    <Content Include="images\item-05.jpg" />
-    <Content Include="images\item-06.jpg" />
-    <Content Include="images\item-07.jpg" />
-    <Content Include="images\item-08.jpg" />
-    <Content Include="images\item-09.jpg" />
-    <Content Include="images\item-10.jpg" />
-    <Content Include="images\item-11.jpg" />
-    <Content Include="images\item-12.jpg" />
-    <Content Include="images\item-13.jpg" />
-    <Content Include="images\item-14.jpg" />
-    <Content Include="images\item-15.jpg" />
-    <Content Include="images\item-16.jpg" />
-    <Content Include="images\item-17.jpg" />
-    <Content Include="images\item-cart-01.jpg" />
-    <Content Include="images\item-cart-02.jpg" />
-    <Content Include="images\item-cart-03.jpg" />
-    <Content Include="images\item-cart-04.jpg" />
-    <Content Include="images\item-cart-05.jpg" />
-    <Content Include="images\item-cart-06.jpg" />
-    <Content Include="images\master-slide-01.jpg" />
-    <Content Include="images\master-slide-02.jpg" />
-    <Content Include="images\master-slide-03.jpg" />
-    <Content Include="images\master-slide-04.jpg" />
-    <Content Include="images\master-slide-05.jpg" />
-    <Content Include="images\master-slide-06.jpg" />
-    <Content Include="images\master-slide-07.jpg" />
-    <Content Include="images\master-slide-08.jpg" />
-    <Content Include="images\product-detail-01.jpg" />
-    <Content Include="images\product-detail-02.jpg" />
-    <Content Include="images\product-detail-03.jpg" />
-    <Content Include="images\shop-item-09.jpg" />
-    <Content Include="images\thumb-item-01.jpg" />
-    <Content Include="images\thumb-item-02.jpg" />
-    <Content Include="images\thumb-item-03.jpg" />
-    <Content Include="images\UIT.png" />
-    <Content Include="images\Untitled-5.jpg" />
+    <Content Include="Images\banner-01.jpg" />
+    <Content Include="Images\banner-02.jpg" />
+    <Content Include="Images\banner-03.jpg" />
+    <Content Include="Images\banner-04.jpg" />
+    <Content Include="Images\banner-05.jpg" />
+    <Content Include="Images\banner-06.jpg" />
+    <Content Include="Images\banner-07.jpg" />
+    <Content Include="Images\banner-08.jpg" />
+    <Content Include="Images\banner-09.jpg" />
+    <Content Include="Images\banner-10.jpg" />
+    <Content Include="Images\banner-11.jpg" />
+    <Content Include="Images\banner-12.jpg" />
+    <Content Include="Images\banner-13.jpg" />
+    <Content Include="Images\banner-14.jpg" />
+    <Content Include="Images\banner.png" />
+    <Content Include="Images\bg-banner-01.jpg" />
+    <Content Include="Images\bg-banner-02.jpg" />
+    <Content Include="Images\bg-video-01.jpg" />
+    <Content Include="Images\blog-01.jpg" />
+    <Content Include="Images\blog-02.jpg" />
+    <Content Include="Images\blog-03.jpg" />
+    <Content Include="Images\blog-04.jpg" />
+    <Content Include="Images\blog-05.jpg" />
+    <Content Include="Images\blog-06.jpg" />
+    <Content Include="Images\blog-07.jpg" />
+    <Content Include="Images\blog-08.jpg" />
+    <Content Include="Images\blog-09.jpg" />
+    <Content Include="Images\blog-10.jpg" />
+    <Content Include="Images\gallery-01.jpg" />
+    <Content Include="Images\gallery-02.jpg" />
+    <Content Include="Images\gallery-03.jpg" />
+    <Content Include="Images\gallery-04.jpg" />
+    <Content Include="Images\gallery-05.jpg" />
+    <Content Include="Images\gallery-06.jpg" />
+    <Content Include="Images\gallery-07.jpg" />
+    <Content Include="Images\gallery-08.jpg" />
+    <Content Include="Images\gallery-09.jpg" />
+    <Content Include="Images\gallery-10.jpg" />
+    <Content Include="Images\gallery-11.jpg" />
+    <Content Include="Images\gallery-12.jpg" />
+    <Content Include="Images\gallery-13.jpg" />
+    <Content Include="Images\gallery-14.jpg" />
+    <Content Include="Images\gallery-15.jpg" />
+    <Content Include="Images\heading-pages-01.jpg" />
+    <Content Include="Images\heading-pages-02.jpg" />
+    <Content Include="Images\heading-pages-03.jpg" />
+    <Content Include="Images\heading-pages-04.jpg" />
+    <Content Include="Images\heading-pages-05.jpg" />
+    <Content Include="Images\heading-pages-06.jpg" />
+    <Content Include="Images\Icons\bg-01.jpg" />
+    <Content Include="Images\Icons\favicon.png" />
+    <Content Include="Images\Icons\icon-header-01.png" />
+    <Content Include="Images\Icons\icon-header-02.png" />
+    <Content Include="Images\Icons\icon-position-map.png" />
+    <Content Include="Images\Icons\logoweb.png" />
+    <Content Include="Images\Icons\video-16-9.jpg" />
+    <Content Include="Images\item-01.jpg" />
+    <Content Include="Images\item-02.jpg" />
+    <Content Include="Images\item-03.jpg" />
+    <Content Include="Images\item-04.jpg" />
+    <Content Include="Images\item-05.jpg" />
+    <Content Include="Images\item-06.jpg" />
+    <Content Include="Images\item-07.jpg" />
+    <Content Include="Images\item-08.jpg" />
+    <Content Include="Images\item-09.jpg" />
+    <Content Include="Images\item-10.jpg" />
+    <Content Include="Images\item-11.jpg" />
+    <Content Include="Images\item-12.jpg" />
+    <Content Include="Images\item-13.jpg" />
+    <Content Include="Images\item-14.jpg" />
+    <Content Include="Images\item-15.jpg" />
+    <Content Include="Images\item-16.jpg" />
+    <Content Include="Images\item-17.jpg" />
+    <Content Include="Images\item-cart-01.jpg" />
+    <Content Include="Images\item-cart-02.jpg" />
+    <Content Include="Images\item-cart-03.jpg" />
+    <Content Include="Images\item-cart-04.jpg" />
+    <Content Include="Images\item-cart-05.jpg" />
+    <Content Include="Images\item-cart-06.jpg" />
+    <Content Include="Images\master-slide-01.jpg" />
+    <Content Include="Images\master-slide-02.jpg" />
+    <Content Include="Images\master-slide-03.jpg" />
+    <Content Include="Images\master-slide-04.jpg" />
+    <Content Include="Images\master-slide-05.jpg" />
+    <Content Include="Images\master-slide-06.jpg" />
+    <Content Include="Images\master-slide-07.jpg" />
+    <Content Include="Images\master-slide-08.jpg" />
+    <Content Include="Images\product-detail-01.jpg" />
+    <Content Include="Images\product-detail-02.jpg" />
+    <Content Include="Images\product-detail-03.jpg" />
+    <Content Include="Images\Products\1.jpg" />
+    <Content Include="Images\Products\1_1.jpg" />
+    <Content Include="Images\Products\1_2.jpg" />
+    <Content Include="Images\Products\2.jpg" />
+    <Content Include="Images\Products\2_1.jpg" />
+    <Content Include="Images\Products\2_2.jpg" />
+    <Content Include="Images\Products\2_3.jpg" />
+    <Content Include="Images\shop-item-09.jpg" />
+    <Content Include="Images\Slides\slide1.jpg" />
+    <Content Include="Images\Slides\slide2.jpg" />
+    <Content Include="Images\Slides\slide3.jpg" />
+    <Content Include="Images\thumb-item-01.jpg" />
+    <Content Include="Images\thumb-item-02.jpg" />
+    <Content Include="Images\thumb-item-03.jpg" />
+    <Content Include="Images\UIT.png" />
+    <Content Include="Images\Untitled-5.jpg" />
     <Content Include="js\jquery.leanModal.min_.js" />
     <Content Include="js\jquery.min.js" />
     <Content Include="js\main.js" />
@@ -2630,6 +2682,44 @@
     <Content Include="js\map-custom.min.js" />
     <Content Include="js\slick-custom.js" />
     <Content Include="js\slick-custom.min.js" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\fonts\flexslider-icon.eot" />
+    <Content Include="Content\fonts\flexslider-icon.ttf" />
+    <Content Include="Content\fonts\flexslider-icon.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <None Include="Scripts\jquery-1.8.0.intellisense.js" />
+    <Content Include="Scripts\bootstrap-hover-dropdown.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\front.js" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-1.11.0.min.js" />
+    <Content Include="Scripts\jquery-1.8.0.js" />
+    <Content Include="Scripts\jquery-1.8.0.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
+    <Content Include="Scripts\jquery.flexslider.js" />
+    <Content Include="Scripts\jquery.flexslider.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\modernizr.js" />
+    <Content Include="Scripts\owl.carousel.min.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\waypoints.min.js" />
+    <None Include="Scripts\_references.js" />
     <Content Include="vendor\animate\animate.css" />
     <Content Include="vendor\animsition\css\animsition.css" />
     <Content Include="vendor\animsition\css\animsition.min.css" />
@@ -2702,18 +2792,86 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Areas\User\Controllers\AddItemController.cs" />
-    <Compile Include="Areas\User\UserAreaRegistration.cs" />
+    <Compile Include="Assets\MD5Assets.cs" />
+    <Compile Include="Attributes\CheckAdminAttribute.cs" />
+    <Compile Include="Attributes\CheckAuthorizeAttribute.cs" />
+    <Compile Include="Attributes\CheckUserAttribute.cs" />
     <Compile Include="Controllers\AboutController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\SignUpController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Metadata\CategoryMetadata.cs" />
+    <Compile Include="Metadata\CategoryViewModelMetadata.cs" />
+    <Compile Include="Metadata\ImageUrlMetadata.cs" />
+    <Compile Include="Metadata\ProductMetadata.cs" />
+    <Compile Include="Metadata\SubCategory.cs" />
+    <Compile Include="Metadata\SubCategoryMetadata.cs" />
+    <Compile Include="Metadata\UserMetadata.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\CategoryViewModel.cs" />
+    <Compile Include="Models\ExLoverShopDb.cs" />
+    <Compile Include="Models\ImageUrl.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\ResourceFiles\CategoryDisplay.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CategoryDisplay.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ResourceFiles\CategoryErrorMsg.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CategoryErrorMsg.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ResourceFiles\ImageUrlDisplay.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ImageUrlDisplay.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ResourceFiles\ImageUrlErrorMsg.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ImageUrlErrorMsg.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ResourceFiles\ProductDisplay.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProductDisplay.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ResourceFiles\ProductErrorMsg.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProductErrorMsg.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ResourceFiles\SubCategoryDisplay.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SubCategoryDisplay.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ResourceFiles\SubCategoryErrorMsg.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SubCategoryErrorMsg.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ResourceFiles\UserDisplay.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserDisplay.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ResourceFiles\UserErrorMsg.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserErrorMsg.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -2838,9 +2996,12 @@
     <Content Include="Views\SignUp\Index.cshtml" />
     <Content Include="Views\_Layout1.cshtml" />
     <Content Include="Views\_Layout2.cshtml" />
-    <Content Include="Areas\User\Views\web.config" />
-    <Content Include="Areas\User\Views\Shared\_Layout2.cshtml" />
-    <Content Include="Areas\User\Views\AddItem\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Shared\_MenuPartial.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2850,9 +3011,49 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\User\Models\" />
-    <Folder Include="Models\" />
-    <Folder Include="Views\Shared\" />
+    <Folder Include="Views\Layout\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ResourceFiles\CategoryDisplay.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CategoryDisplay.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ResourceFiles\CategoryErrorMsg.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CategoryErrorMsg.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ResourceFiles\ImageUrlDisplay.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ImageUrlDisplay.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ResourceFiles\ImageUrlErrorMsg.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ImageUrlErrorMsg.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ResourceFiles\ProductDisplay.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProductDisplay.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ResourceFiles\ProductErrorMsg.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProductErrorMsg.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ResourceFiles\SubCategoryDisplay.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SubCategoryDisplay.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ResourceFiles\SubCategoryErrorMsg.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SubCategoryErrorMsg.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ResourceFiles\UserDisplay.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UserDisplay.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ResourceFiles\UserErrorMsg.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UserErrorMsg.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

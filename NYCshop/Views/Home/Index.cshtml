@@ -1,448 +1,153 @@
-﻿
-@{
-    ViewBag.Title = "NYC shop";
-    Layout = "~/Views/_Layout1.cshtml";
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="animsition">
-    <!-- Slide1 -->
-    <section class="slide1">
-        <div class="wrap-slick1">
-            <div class="slick1">
-                <div class="item-slick1 item1-slick1" style="background-image: url(images/master-slide-02.jpg);">
-                    <div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
-                        <span class="caption1-slide1 m-text1 t-center animated visible-false m-b-15" data-appear="fadeInDown">
-                            New Jewelry
-                        </span>
 
-                        <h2 class="caption2-slide1 xl-text1 t-center animated visible-false m-b-37" data-appear="fadeInUp">
-                            Jewelry
-                        </h2>
+@Styles.Render("~/Content/extra-css")
+@*@Scripts.Render("~/bundles/modernizr")*@
 
-                        <div class="wrap-btn-slide1 w-size1 animated visible-false" data-appear="zoomIn">
-                            <!-- Button -->
-                            <a href="#" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
-                                Shop Now
-                            </a>
-                        </div>
-                    </div>
+<head>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100' rel='stylesheet' type='text/css'>
+
+    <!-- styles -->
+    <link href="~/Content/font-awesome.css" rel="stylesheet">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/animate.min.css" rel="stylesheet">
+    <link href="~/Content/owl.carousel.css" rel="stylesheet">
+    <link href="~/Content/owl.theme.css" rel="stylesheet">
+
+    <!-- theme stylesheet -->
+    <link href="~/Content/style.default.css" rel="stylesheet" id="theme-stylesheet">
+
+    <!-- your stylesheet with modifications -->
+    <link href="~/Content/custom.css" rel="stylesheet">
+
+    <script src="~/Scripts/respond.min.js"></script>
+</head>
+
+<div id="content">
+
+    <div class="container">
+        <div class="col-md-12">
+            <div id="main-slider">
+                <div class="item">
+                    <img src="~/Images/Slides/slide1.jpg" alt="" class="img-responsive">
                 </div>
-
-                <div class="item-slick1 item2-slick1" style="background-image: url(images/master-slide-03.jpg);">
-                    <div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
-                        <span class="caption1-slide1 m-text1 t-center animated visible-false m-b-15" data-appear="rollIn">
-                            New Books
-                        </span>
-
-                        <h2 class="caption2-slide1 xl-text1 t-center animated visible-false m-b-37" data-appear="lightSpeedIn">
-                            Books
-                        </h2>
-
-                        <div class="wrap-btn-slide1 w-size1 animated visible-false" data-appear="slideInUp">
-                            <!-- Button -->
-                            <a href="#" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
-                                Shop Now
-                            </a>
-                        </div>
-                    </div>
+                <div class="item">
+                    <img class="img-responsive" src="~/Images/Slides/slide2.jpg" alt="">
                 </div>
-
-                <div class="item-slick1 item3-slick1" style="background-image: url(images/master-slide-04.jpg);">
-                    <div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
-                        <span class="caption1-slide1 m-text1 t-center animated visible-false m-b-15" data-appear="rotateInDownLeft">
-                            New Vihicles
-                        </span>
-
-                        <h2 class="caption2-slide1 xl-text1 t-center animated visible-false m-b-37" data-appear="rotateInUpRight">
-                            Vihicles
-                        </h2>
-
-                        <div class="wrap-btn-slide1 w-size1 animated visible-false" data-appear="rotateIn">
-                            <!-- Button -->
-                            <a href="#" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
-                                Shop Now
-                            </a>
-                        </div>
-                    </div>
+                <div class="item">
+                    <img class="img-responsive" src="~/Images/Slides/slide3.jpg" alt="">
                 </div>
-
+            </div>
+            <!-- /#main-slider -->
+        </div>
+    </div>
+    <div id="hot">
+        <div class="box">
+            <div class="container">
+                <div class="col-md-12">
+                    <h2>Nổi bật trong tuần</h2>
+                </div>
             </div>
         </div>
-    </section>
 
-    <!-- Banner -->
-    <section class="banner bgwhite p-t-40 p-b-40">
         <div class="container">
-            <div class="row">
-                <div class="col-sm-10 col-md-8 col-lg-4 m-l-r-auto">
-                    <!-- block1 -->
-                    <div class="block1 hov-img-zoom pos-relative m-b-30">
-                        <img src="images/banner-02.jpg" alt="IMG-BENNER">
-
-                        <div class="block1-wrapbtn w-size2">
-                            <!-- Button -->
-                            <a href="#" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
-                                Jewelry
+            <div class="container">
+                <div class="product-slider">
+                    @for (int i = 0; i < 20; i++ )
+                    {
+                        <div class="item">
+                        <div class="product">
+                            <div class="flip-container">
+                                <div class="flipper">
+                                    <div class="front">
+                                        <a href="detail.html">
+                                            <img src="~/Images/Products/1_1.jpg" alt="" class="img-responsive">
+                                        </a>
+                                    </div>
+                                    <div class="back">
+                                        <a href="detail.html">
+                                            <img src="~/Images/Products/1_2.jpg" alt="" class="img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="detail.html" class="invisible">
+                                <img src="~/Images/Products/product1.jpg" alt="" class="img-responsive">
                             </a>
+                            <div class="text">
+                                <h3><a href="detail.html">Gấu tình nhân</a></h3>
+                                <p class="price">143.000<u>đ</u></p>
+                            </div>
+                            <!-- /.text -->
                         </div>
+                        <!-- /.product -->
                     </div>
-
-                    <!-- block1 -->
-                    <div class="block1 hov-img-zoom pos-relative m-b-30">
-                        <img src="images/banner-05.jpg" alt="IMG-BENNER">
-
-                        <div class="block1-wrapbtn w-size2">
-                            <!-- Button -->
-                            <a href="#" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
-                                Vehicle
-                            </a>
-                        </div>
-                    </div>
+                    }
                 </div>
-
-                <div class="col-sm-10 col-md-8 col-lg-4 m-l-r-auto">
-                    <!-- block1 -->
-                    <div class="block1 hov-img-zoom pos-relative m-b-30">
-                        <img src="images/banner-03.jpg" alt="IMG-BENNER">
-
-                        <div class="block1-wrapbtn w-size2">
-                            <!-- Button -->
-                            <a href="#" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
-                                Books
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- block1 -->
-                    <div class="block1 hov-img-zoom pos-relative m-b-30">
-                        <img src="images/banner-07.jpg" alt="IMG-BENNER">
-
-                        <div class="block1-wrapbtn w-size2">
-                            <!-- Button -->
-                            <a href="#" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
-                                Handmades
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-10 col-md-8 col-lg-4 m-l-r-auto">
-                    <!-- block1 -->
-                    <div class="block1 hov-img-zoom pos-relative m-b-30">
-                        <img src="images/banner-04.jpg" alt="IMG-BENNER">
-
-                        <div class="block1-wrapbtn w-size2">
-                            <!-- Button -->
-                            <a href="#" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
-                                Pets
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- block2 -->
-                    <div class="block2 wrap-pic-w pos-relative m-b-30">
-                        <img src="images/banner-05.jpg" alt="IMG-BENNER">
-
-                        <div class="block1-wrapbtn w-size2">
-                            <!-- Button -->
-                            <a href="#" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
-                                More
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                <!-- /.product-slider -->
             </div>
-        </div>
-    </section>
-
-    <!-- New update! -->
-    <section class="newproduct bgwhite p-t-45 p-b-105">
-        <div class="container">
-            <div class="sec-title p-b-60">
-                <h3 class="m-text5 t-center">
-                    New Update!
-                </h3>
-            </div>
-
-            <!-- Slide2 -->
-            <div class="wrap-slick2">
-                <div class="slick2">
-
-                    <div class="item-slick2 p-l-15 p-r-15">
-                        <!-- Block2 -->
-                        <div class="block2">
-                            <div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
-                                <img src="images/item-02.jpg" alt="IMG-PRODUCT">
-
-                                <div class="block2-overlay trans-0-4">
-                                    <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
-                                        <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
-                                        <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
-                                    </a>
-
-                                    <div class="block2-btn-addcart w-size1 trans-0-4">
-                                        <!-- Button -->
-                                        <button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
-                                            Add to Cart
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="block2-txt p-t-20">
-                                <a href="#" class="block2-name dis-block s-text3 p-b-5">
-                                    A
-                                </a>
-
-                                <span class="block2-price m-text6 p-r-5">
-                                    30.000 VND
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item-slick2 p-l-15 p-r-15">
-                        <!-- Block2 -->
-                        <div class="block2">
-                            <div class="block2-img wrap-pic-w of-hidden pos-relative">
-                                <img src="images/item-03.jpg" alt="IMG-PRODUCT">
-
-                                <div class="block2-overlay trans-0-4">
-                                    <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
-                                        <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
-                                        <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
-                                    </a>
-
-                                    <div class="block2-btn-addcart w-size1 trans-0-4">
-                                        <!-- Button -->
-                                        <button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
-                                            Add to Cart
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="block2-txt p-t-20">
-                                <a href="#" class="block2-name dis-block s-text3 p-b-5">
-                                    B
-                                </a>
-
-                                <span class="block2-price m-text6 p-r-5">
-                                    500.000 VND
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item-slick2 p-l-15 p-r-15">
-                        <!-- Block2 -->
-                        <div class="block2">
-                            <div class="block2-img wrap-pic-w of-hidden pos-relative">
-                                <img src="images/item-05.jpg" alt="IMG-PRODUCT">
-
-                                <div class="block2-overlay trans-0-4">
-                                    <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
-                                        <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
-                                        <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
-                                    </a>
-
-                                    <div class="block2-btn-addcart w-size1 trans-0-4">
-                                        <!-- Button -->
-                                        <button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
-                                            Add to Cart
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="block2-txt p-t-20">
-                                <a href="#" class="block2-name dis-block s-text3 p-b-5">
-                                    C
-                                </a>
-
-                                <span class="block2-price m-text6 p-r-5">
-                                    1.000.000 VND
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item-slick2 p-l-15 p-r-15">
-                        <!-- Block2 -->
-                        <div class="block2">
-                            <div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelsale">
-                                <img src="images/item-07.jpg" alt="IMG-PRODUCT">
-
-                                <div class="block2-overlay trans-0-4">
-                                    <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
-                                        <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
-                                        <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
-                                    </a>
-
-                                    <div class="block2-btn-addcart w-size1 trans-0-4">
-                                        <!-- Button -->
-                                        <button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
-                                            Add to Cart
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="block2-txt p-t-20">
-                                <a href="#" class="block2-name dis-block s-text3 p-b-5">
-                                    D
-                                </a>
-
-                                <span class="block2-oldprice m-text7 p-r-5">
-                                    100.000 VND
-                                </span>
-
-                                <span class="block2-newprice m-text8 p-r-5">
-                                    80.000 VND
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item-slick2 p-l-15 p-r-15">
-                        <!-- Block2 -->
-                        <div class="block2">
-                            <div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
-                                <img src="images/item-02.jpg" alt="IMG-PRODUCT">
-
-                                <div class="block2-overlay trans-0-4">
-                                    <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
-                                        <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
-                                        <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
-                                    </a>
-
-                                    <div class="block2-btn-addcart w-size1 trans-0-4">
-                                        <!-- Button -->
-                                        <button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
-                                            Add to Cart
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="block2-txt p-t-20">
-                                <a href="#" class="block2-name dis-block s-text3 p-b-5">
-                                    E
-                                </a>
-
-                                <span class="block2-price m-text6 p-r-5">
-                                    75.000 VND
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item-slick2 p-l-15 p-r-15">
-                        <!-- Block2 -->
-                        <div class="block2">
-                            <div class="block2-img wrap-pic-w of-hidden pos-relative">
-                                <img src="images/item-03.jpg" alt="IMG-PRODUCT">
-
-                                <div class="block2-overlay trans-0-4">
-                                    <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
-                                        <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
-                                        <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
-                                    </a>
-
-                                    <div class="block2-btn-addcart w-size1 trans-0-4">
-                                        <!-- Button -->
-                                        <button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
-                                            Add to Cart
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="block2-txt p-t-20">
-                                <a href="#" class="block2-name dis-block s-text3 p-b-5">
-                                    F
-                                </a>
-
-                                <span class="block2-price m-text6 p-r-5">
-                                    92.000 VND
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item-slick2 p-l-15 p-r-15">
-                        <!-- Block2 -->
-                        <div class="block2">
-                            <div class="block2-img wrap-pic-w of-hidden pos-relative">
-                                <img src="images/item-05.jpg" alt="IMG-PRODUCT">
-
-                                <div class="block2-overlay trans-0-4">
-                                    <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
-                                        <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
-                                        <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
-                                    </a>
-
-                                    <div class="block2-btn-addcart w-size1 trans-0-4">
-                                        <!-- Button -->
-                                        <button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
-                                            Add to Cart
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="block2-txt p-t-20">
-                                <a href="#" class="block2-name dis-block s-text3 p-b-5">
-                                    G
-                                </a>
-
-                                <span class="block2-price m-text6 p-r-5">
-                                    165.000 VND
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item-slick2 p-l-15 p-r-15">
-                        <!-- Block2 -->
-                        <div class="block2">
-                            <div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelsale">
-                                <img src="images/item-07.jpg" alt="IMG-PRODUCT">
-
-                                <div class="block2-overlay trans-0-4">
-                                    <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
-                                        <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
-                                        <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
-                                    </a>
-
-                                    <div class="block2-btn-addcart w-size1 trans-0-4">
-                                        <!-- Button -->
-                                        <button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
-                                            Add to Cart
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="block2-txt p-t-20">
-                                <a href="#" class="block2-name dis-block s-text3 p-b-5">
-                                    H
-                                </a>
-
-                                <span class="block2-oldprice m-text7 p-r-5">
-                                    29.000
-                                </span>
-
-                                <span class="block2-newprice m-text8 p-r-5">
-                                    15.000
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
+    </div>
 </div>
 
+    <div id="hot">
+        <div class="box">
+            <div class="container">
+                <div class="col-md-12">
+                    <h2>Thời trang, đồ dùng cá nhân</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="container">
+                <div class="product-slider">
+                    @for (int i = 0; i < 20; i++)
+                    {
+                        <div class="item">
+                            <div class="product">
+                                <div class="flip-container">
+                                    <div class="flipper">
+                                        <div class="front">
+                                            <a href="detail.html">
+                                                <img src="~/Images/Products/2_1.jpg" alt="" class="img-responsive">
+                                            </a>
+                                        </div>
+                                        <div class="back">
+                                            <a href="detail.html">
+                                                <img src="~/Images/Products/2_2.jpg" alt="" class="img-responsive">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="detail.html" class="invisible">
+                                    <img src="~/Images/Products/product1.jpg" alt="" class="img-responsive">
+                                </a>
+                                <div class="text">
+                                    <h3><a href="detail.html">Chăn tình nhân</a></h3>
+                                    <p class="price">199.000<u>đ</u></p>
+                                </div>
+                                <!-- /.text -->
+                            </div>
+                            <!-- /.product -->
+                        </div>
+                    }
+                </div>
+                <!-- /.product-slider -->
+            </div>
+        </div>
+    </div>
+
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/validate")
+@Scripts.Render("~/bundles/extra-js")
+<script src="~/Scripts/jquery-1.11.0.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.cookie.js"></script>
+<script src="~/Scripts/waypoints.min.js"></script>
+<script src="~/Scripts/modernizr.js"></script>
+<script src="~/Scripts/bootstrap-hover-dropdown.js"></script>
+<script src="~/Scripts/owl.carousel.min.js"></script>
+<script src="~/Scripts/front.js"></script>
