@@ -1,4 +1,5 @@
-﻿using NYCshop.Resources.ResourceFiles;
+﻿using NYCshop.Models;
+using NYCshop.Resources.ResourceFiles;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

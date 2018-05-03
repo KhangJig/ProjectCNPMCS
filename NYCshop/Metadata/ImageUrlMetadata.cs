@@ -14,6 +14,7 @@ namespace NYCshop.Metadata
         [Key]
         [Required(ErrorMessageResourceName = "ImageIDRequired", ErrorMessageResourceType = typeof(ImageUrlErrorMsg))]
         [Display(Name = "ImageID", ResourceType = typeof(ImageUrlDisplay))]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ImageID { get; set; }
 
         [Required(ErrorMessageResourceName = "UrlRequired", ErrorMessageResourceType = typeof(ImageUrlErrorMsg))]

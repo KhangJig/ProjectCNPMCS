@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<NYCshop.Models.Category>
+@{
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -25,8 +26,6 @@
     <script src="~/Scripts/respond.min.js"></script>
 </head>
 
-<div id="content">
-
     <div class="container">
         <div class="col-md-12">
             <div id="main-slider">
@@ -43,111 +42,26 @@
             <!-- /#main-slider -->
         </div>
     </div>
-    <div id="hot">
-        <div class="box">
-            <div class="container">
-                <div class="col-md-12">
-                    <h2>Nổi bật trong tuần</h2>
-                </div>
-            </div>
-        </div>
 
-        <div class="container">
-            <div class="container">
-                <div class="product-slider">
-                    @for (int i = 0; i < 20; i++ )
-                    {
-                        <div class="item">
-                        <div class="product">
-                            <div class="flip-container">
-                                <div class="flipper">
-                                    <div class="front">
-                                        <a href="detail.html">
-                                            <img src="~/Images/Products/1_1.jpg" alt="" class="img-responsive">
-                                        </a>
-                                    </div>
-                                    <div class="back">
-                                        <a href="detail.html">
-                                            <img src="~/Images/Products/1_2.jpg" alt="" class="img-responsive">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="detail.html" class="invisible">
-                                <img src="~/Images/Products/product1.jpg" alt="" class="img-responsive">
-                            </a>
-                            <div class="text">
-                                <h3><a href="detail.html">Gấu tình nhân</a></h3>
-                                <p class="price">143.000<u>đ</u></p>
-                            </div>
-                            <!-- /.text -->
-                        </div>
-                        <!-- /.product -->
+    @foreach (var item in Model)
+    {
+        <div id="hot">
+            <div class="box">
+                <div class="container">
+                    <div class="col-md-12">
+                        <h2>@item.CategoryName</h2>
                     </div>
-                    }
                 </div>
-                <!-- /.product-slider -->
             </div>
-    </div>
-</div>
 
-    <div id="hot">
-        <div class="box">
             <div class="container">
-                <div class="col-md-12">
-                    <h2>Thời trang, đồ dùng cá nhân</h2>
+                <div class="container">
+                    @{Html.RenderAction("CategoryDetail", "Home", new { @item.CategoryID });}
                 </div>
             </div>
         </div>
-
-        <div class="container">
-            <div class="container">
-                <div class="product-slider">
-                    @for (int i = 0; i < 20; i++)
-                    {
-                        <div class="item">
-                            <div class="product">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front">
-                                            <a href="detail.html">
-                                                <img src="~/Images/Products/2_1.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                        <div class="back">
-                                            <a href="detail.html">
-                                                <img src="~/Images/Products/2_2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="~/Images/Products/product1.jpg" alt="" class="img-responsive">
-                                </a>
-                                <div class="text">
-                                    <h3><a href="detail.html">Chăn tình nhân</a></h3>
-                                    <p class="price">199.000<u>đ</u></p>
-                                </div>
-                                <!-- /.text -->
-                            </div>
-                            <!-- /.product -->
-                        </div>
-                    }
-                </div>
-                <!-- /.product-slider -->
-            </div>
-        </div>
-    </div>
-
+    }
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/validate")
 @Scripts.Render("~/bundles/extra-js")
-<script src="~/Scripts/jquery-1.11.0.min.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>
-<script src="~/Scripts/jquery.cookie.js"></script>
-<script src="~/Scripts/waypoints.min.js"></script>
-<script src="~/Scripts/modernizr.js"></script>
-<script src="~/Scripts/bootstrap-hover-dropdown.js"></script>
-<script src="~/Scripts/owl.carousel.min.js"></script>
-<script src="~/Scripts/front.js"></script>

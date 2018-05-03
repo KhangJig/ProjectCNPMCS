@@ -14,6 +14,7 @@ namespace NYCshop.Metadata
         [Key]
         [Required(ErrorMessageResourceName = "ProductIDRequired", ErrorMessageResourceType = typeof(ProductErrorMsg))]
         [Display(Name = "ProductID", ResourceType = typeof(ProductDisplay))]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ProductID { get; set; }
 
         [Display(Name = "Username", ResourceType = typeof(UserDisplay))]
@@ -40,6 +41,7 @@ namespace NYCshop.Metadata
 
         [Required(ErrorMessageResourceName = "PriceRequired", ErrorMessageResourceType = typeof(ProductErrorMsg))]
         [Display(Name = "Price", ResourceType = typeof(ProductDisplay))]
+        [DisplayFormat(DataFormatString = "{0:0,0 đ}")]
         public long Price { get; set; }
 
         [Required(ErrorMessageResourceName = "SaleStatusRequired", ErrorMessageResourceType = typeof(ProductErrorMsg))]
@@ -47,8 +49,45 @@ namespace NYCshop.Metadata
         public bool SaleStatus { get; set; }
     }
 
-    public class ProductViewModelMetadata
+    public class ProductDetailViewModelMetadata
     {
+        [Key]
+        [Display(Name = "ProductID", ResourceType = typeof(ProductDisplay))]
+        public int ProductID { get; set; }
 
+        [Display(Name = "ProductName", ResourceType = typeof(ProductDisplay))]
+        public string ProductName { get; set; }
+
+        [Display(Name = "SubCategoryID", ResourceType = typeof(SubCategoryDisplay))]
+        public string SubCategory { get; set; }
+
+        [Display(Name = "CategoryName", ResourceType = typeof(CategoryDisplay))]
+        public string Category { get; set; }
+
+        [Display(Name = "Describe", ResourceType = typeof(ProductDisplay))]
+        public string Describe { get; set; }
+
+        [Display(Name = "Price", ResourceType = typeof(ProductDisplay))]
+        [DisplayFormat(DataFormatString = "{0:0,0 đ}")]
+        public long Price { get; set; }
+
+        public List<string> ListImages { get; set; }
+    }
+
+    public class CategoryDetailViewModelMetadata
+    {
+        [Key]
+        public int ProductID { get; set; }
+
+        [Required(ErrorMessageResourceName = "ProductNameRequired", ErrorMessageResourceType = typeof(ProductErrorMsg))]
+        [Display(Name = "ProductName", ResourceType = typeof(ProductDisplay))]
+        public string ProductName { get; set; }
+
+        [Required(ErrorMessageResourceName = "PriceRequired", ErrorMessageResourceType = typeof(ProductErrorMsg))]
+        [Display(Name = "Price", ResourceType = typeof(ProductDisplay))]
+        [DisplayFormat(DataFormatString = "{0:0,0 đ}")]
+        public long Price { get; set; }
+
+        public List<string> ListImages { get; set; }
     }
 }

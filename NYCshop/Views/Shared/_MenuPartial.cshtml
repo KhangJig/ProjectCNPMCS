@@ -4,7 +4,7 @@
 
     <ul class="nav navbar-nav navbar-left">
         <li class="active">
-            <a href="index.html">Trang chủ</a>
+            <a href="@Url.Action("Index", "Home")">Trang chủ</a>
         </li>
         @for (int i = 0; i < Model.Count; i++)
         {
@@ -12,7 +12,7 @@
             if (Model[i].ListSubCats.Count > 0)
             {
                 <li class="dropdown yamm-fw">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">@Model[i].CategoryName <b class="caret"></b></a>
+                    <a href="@Url.Action("Index", "Product", new { @Model[i].CategoryID })" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200" onclick="window.location.href = 'http://localhost:62881/Product?CategoryID=@Model[i].CategoryID'">@Model[i].CategoryName <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         @for (int j = 0; j < Model[i].ListSubCats.Count; j++)
                         {

@@ -117,11 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Describe" xml:space="preserve">
+  <data name="DescribeRequired" xml:space="preserve">
     <value>Yêu cầu nhập mô tả</value>
     <comment>required</comment>
   </data>
-  <data name="Price" xml:space="preserve">
+  <data name="PriceRequired" xml:space="preserve">
     <value>Yêu cầu nhập giá cả</value>
     <comment>required</comment>
   </data>
@@ -133,11 +133,11 @@
     <value>Yêu cầu nhập tên sản phẩm</value>
     <comment>required</comment>
   </data>
-  <data name="Quanlity" xml:space="preserve">
+  <data name="QuanlityRequired" xml:space="preserve">
     <value>Yêu cầu nhập số lượng</value>
     <comment>required</comment>
   </data>
-  <data name="SaleStatus" xml:space="preserve">
+  <data name="SaleStatusRequired" xml:space="preserve">
     <value>Yêu cầu chọn trạng thái bán</value>
     <comment>required</comment>
   </data>

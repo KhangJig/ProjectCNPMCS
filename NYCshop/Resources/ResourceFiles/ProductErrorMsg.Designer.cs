@@ -63,18 +63,18 @@ namespace NYCshop.Resources.ResourceFiles {
         /// <summary>
         ///   Looks up a localized string similar to Yêu cầu nhập mô tả.
         /// </summary>
-        public static string Describe {
+        public static string DescribeRequired {
             get {
-                return ResourceManager.GetString("Describe", resourceCulture);
+                return ResourceManager.GetString("DescribeRequired", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Yêu cầu nhập giá cả.
         /// </summary>
-        public static string Price {
+        public static string PriceRequired {
             get {
-                return ResourceManager.GetString("Price", resourceCulture);
+                return ResourceManager.GetString("PriceRequired", resourceCulture);
             }
         }
         
@@ -99,18 +99,18 @@ namespace NYCshop.Resources.ResourceFiles {
         /// <summary>
         ///   Looks up a localized string similar to Yêu cầu nhập số lượng.
         /// </summary>
-        public static string Quanlity {
+        public static string QuanlityRequired {
             get {
-                return ResourceManager.GetString("Quanlity", resourceCulture);
+                return ResourceManager.GetString("QuanlityRequired", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Yêu cầu chọn trạng thái bán.
         /// </summary>
-        public static string SaleStatus {
+        public static string SaleStatusRequired {
             get {
-                return ResourceManager.GetString("SaleStatus", resourceCulture);
+                return ResourceManager.GetString("SaleStatusRequired", resourceCulture);
             }
         }
     }
