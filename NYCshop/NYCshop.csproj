@@ -3029,10 +3029,8 @@
     <Content Include="Views\Shared\_CategoryDetailPartial.cshtml" />
     <Content Include="Views\Shared\_AccountLayout.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\ChangePassword.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
-    <Content Include="Views\Home\Upload.cshtml" />
-    <Content Include="Views\User\NewPost.cshtml" />
-    <Content Include="Views\Product\Detail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
