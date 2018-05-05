@@ -27,6 +27,7 @@ namespace NYCshop.Controllers
         }
 
         //
+<<<<<<< HEAD
         // GET: /User/ChangePersonalDetail
         public ActionResult ChangePersonalDetail()
         {
@@ -46,14 +47,28 @@ namespace NYCshop.Controllers
                     model.Phone = user.Phone;
                 }
             }
+=======
+        // GET: /User/ChangePassword
+        public ActionResult ChangePassword()
+        {
+            ChangePasswordViewModel model = new ChangePasswordViewModel();
+            if(Session["Username"] != null)
+                model.Username = Session["Username"].ToString();
+>>>>>>> 72f387bfd0c11282e09e50c8fe76e2517811a9d1
 
             return View(model);
         }
 
         //
+<<<<<<< HEAD
         // POST: /User/ChangePersonalDetail
         [HttpPost]
         public ActionResult ChangePersonalDetail(UserInfoViewModel model)
+=======
+        // POST: /User/ChangePassword
+        [HttpPost]
+        public ActionResult ChangePassword(ChangePasswordViewModel model)
+>>>>>>> 72f387bfd0c11282e09e50c8fe76e2517811a9d1
         {
             if (ModelState.IsValid)
             {
@@ -61,6 +76,7 @@ namespace NYCshop.Controllers
 
                 if (user != null)
                 {
+<<<<<<< HEAD
                     user.Username = model.Username;
                     user.Address = model.Address;
                     user.Email = model.Email;
@@ -71,8 +87,34 @@ namespace NYCshop.Controllers
                     ViewBag.UpdateInfoMsg = "Cập nhật thông tin thành công";
                 }
                 else ModelState.AddModelError("", "Cập nhật thông tin thất bại");
+=======
+                    // 1.4 Mật khẩu cũ không đúng
+                    if (md5.GetMd5Hash(model.OldPassword) != user.Password)
+                        ModelState.AddModelError("", "Mật khẩu cũ không đúng");
+                    else
+                    {
+                        string newPassword = md5.GetMd5Hash(model.NewPassword);
+                        // 1.1 trường hợp trùng mật khẩu mới và mật khẩu cũ
+                        if (newPassword == user.Password)
+                            ModelState.AddModelError("", "Mật khẩu mới không được trùng mật khẩu cũ");
+                        else
+                        {
+                            // 2. Đổi mật khẩu thành công
+                            user.Password = md5.GetMd5Hash(model.NewPassword);
+
+                            db.SaveChanges();
+                            ViewBag.ChangePasswordMsg = "Đổi mật khẩu thành công";
+                        }
+                    }
+                }
+                else ModelState.AddModelError("", "Đổi mật khẩu thất bại");
+>>>>>>> 72f387bfd0c11282e09e50c8fe76e2517811a9d1
             }
 
             return View(model);
         }
+<<<<<<< HEAD
+=======
+	}
+>>>>>>> 72f387bfd0c11282e09e50c8fe76e2517811a9d1
 }

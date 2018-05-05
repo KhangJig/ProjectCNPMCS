@@ -1,0 +1,59 @@
+﻿@model List<NYCshop.Models.CategoryDetailViewModel>
+
+<style>
+    .product {
+        min-height: 300px;
+    }
+
+    .front, .back, .product-image {
+        min-height: 200px;
+        max-height: 200px;
+    }
+</style>
+
+<div class="product-slider">
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <div class="item">
+            <div class="product">
+                @if (Model[i].ListImages.Count > 0)
+                {
+                    <div class="flip-container">
+                        <div class="flipper">
+                            <div class="front">
+                                <a href="@Url.Action("Detail", "Product", new { Model[i].ProductID })">
+                                    <img src="@Model[i].ListImages[0]" alt="" class="img-responsive product-image">
+                                </a>
+                            </div>
+                          
+                            <div class="back">
+                                <a href="detail.html">
+                                @if (@Model[i].ListImages.Count > 1)
+                                {
+                                    <img src="@Model[i].ListImages[1]" alt="" class="img-responsive product-image">
+                                }
+                                else
+                                {
+                                    <img src="@Model[i].ListImages[0]" alt="" class="img-responsive product-image">
+                                }
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <a href="@Url.Action("Detail", "Product", new { Model[i].ProductID })" class="invisible">
+                        <img src="@Model[i].ListImages[0]" alt="" class="img-responsive product-image">
+                    </a>
+                }
+                
+                <div class="text">
+                    <h3><a href="@Url.Action("Detail", "Product", new { Model[i].ProductID })">@Model[i].ProductName</a></h3>
+                    <p class="price">@string.Format("{0:0,0}", Model[i].Price)<u>đ</u></p>
+                </div>
+                <!-- /.text -->
+            </div>
+            <!-- /.product -->
+        </div>
+    }
+</div>
+<!-- /.product-slider -->
