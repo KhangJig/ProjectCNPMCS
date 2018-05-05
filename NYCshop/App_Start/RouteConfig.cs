@@ -18,6 +18,26 @@ namespace NYCshop
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            // hiển thị danh sách các sản phẩm trên 1 slide (chỉ giới hạn bao nhiêu sản phẩm thôi)
+            routes.MapRoute(
+                name: "AllProductsInCategory",
+                url: "{controller}/{action}/{categoryID}",
+                defaults: new { controller = "Home", action = "Index", categoryID = UrlParameter.Optional }
+            );
+
+            // hiển thị chi tiết tất cả các sản phẩm trên 1 trang (phân trang)
+            routes.MapRoute(
+                name: "CategoryDetail",
+                url: "{controller}/{action}/{categoryID}",
+                defaults: new { controller = "Product", action = "Index", categoryID = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "ProductDetail",
+                url: "{controller}/{action}/{productID}",
+                defaults: new { controller = "Product", action = "Detail", productID = UrlParameter.Optional }
+            );
         }
     }
 }

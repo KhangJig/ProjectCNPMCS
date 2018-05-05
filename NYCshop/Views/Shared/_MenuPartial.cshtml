@@ -1,0 +1,26 @@
+﻿@model List<NYCshop.Models.CategoryViewModel>
+
+<div class="navbar-collapse collapse" id="navigation">
+
+    <ul class="nav navbar-nav navbar-left">
+        <li class="active">
+            <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+        </li>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            // xét xem có bao nhiêu subcategory trong category hiện tại
+            if (Model[i].ListSubCats.Count > 0)
+            {
+                <li class="dropdown yamm-fw">
+                    <a href="@Url.Action("Index", "Product", new { @Model[i].CategoryID })" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200" onclick="window.location.href = 'http://localhost:62881/Product?CategoryID=@Model[i].CategoryID'">@Model[i].CategoryName <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        @for (int j = 0; j < Model[i].ListSubCats.Count; j++)
+                        {
+                            <li><a href="#">@Model[i].ListSubCats[j].SubCategoryName</a></li>
+                        }
+                    </ul>
+                </li>
+            }
+        }
+    </ul>
+</div>
