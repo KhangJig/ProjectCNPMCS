@@ -3026,11 +3026,18 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_MenuPartial.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+<<<<<<< HEAD
+    <Content Include="Views\Shared\_AccountLayout.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\ChangePersonalDetail.cshtml" />
+    <Content Include="Views\Home\Upload.cshtml" />
+=======
     <Content Include="Views\Shared\_CategoryDetailPartial.cshtml" />
     <Content Include="Views\Shared\_AccountLayout.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\ChangePassword.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
-    <Content Include="Views\Home\Upload.cshtml" />
+>>>>>>> 72f387bfd0c11282e09e50c8fe76e2517811a9d1
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3042,6 +3049,10 @@
     <Folder Include="App_Data\" />
     <Folder Include="Images\TestImages\" />
     <Folder Include="Views\Layout\" />
+<<<<<<< HEAD
+    <Folder Include="Views\Product\" />
+=======
+>>>>>>> 72f387bfd0c11282e09e50c8fe76e2517811a9d1
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\ResourceFiles\CategoryDisplay.resx">
