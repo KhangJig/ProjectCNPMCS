@@ -1,0 +1,90 @@
+﻿@model List<NYCshop.Models.SearchProductViewModel>
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Tìm kiếm sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string searchString = ViewBag.SearchString ?? "";
+    string searchType = ViewBag.SearchType ?? "";
+    PagedList.IPagedList pagedList = ViewBag.PagedList;
+}
+
+<style>
+    .product-image {
+        min-height: 208px;
+        max-height: 208px;
+    }
+</style>
+
+<div class="col-md-12">
+    <div class="box"> 
+        <h3>Tìm sản phẩm theo @searchType '@searchString'</h3>
+        @if (Model.Count == 0)
+        {
+            <div class="alert alert-warning alert-dismissible">
+                Không tìm thấy sản phẩm nào <a href="#">Thử lại</a>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-success alert-dismissible">
+                Tìm thấy <strong><u>@Model.Count</u></strong> sản phẩm
+            </div>
+            using(Html.BeginForm())
+            {
+                <div class="row products">
+                    @for (int i = pagedList.PageSize * (pagedList.PageNumber - 1); i < Model.Count && i < pagedList.PageSize * pagedList.PageNumber; i++)
+                    {
+                         <div class="col-md-3 col-sm-4">
+                            <div class="product">
+                                <div class="flip-container">
+                                    <div class="flipper">
+                                        <div class="front">
+                                            <a href="@Url.Action("Detail", "Product", new { Model[i].ProductID })">
+                                                <img src="@Model[i].Images[0]" alt="" class="img-responsive product-image">
+                                            </a>
+                                        </div>
+
+                                        <div class="back">
+                                            <a href="@Url.Action("Detail", "Product", new { Model[i].ProductID })">
+                                                @if (@Model[i].Images.Count > 1)
+                                                {
+                                                    <img src="@Model[i].Images[1]" alt="" class="img-responsive product-image">
+                                                }
+                                                else
+                                                {
+                                                    <img src="@Model[i].Images[0]" alt="" class="img-responsive product-image">
+                                                }
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="@Url.Action("Detail", "Product", new { Model[i].ProductID })" class="invisible">
+                                    @if (@Model[i].Images.Count > 0)
+                                    {
+                                        <img src="@Model[i].Images[0]" alt="" class="img-responsive product-image">
+                                    }
+                                </a>
+                                <div class="text">
+                                    <h3><a href="@Url.Action("Detail", "Product", new { Model[i].ProductID })">@Model[i].ProductName</a></h3>
+                                    <p class="price">@string.Format("{0:0,0}", Model[i].Price)<u>đ</u></p>
+                                    <p class="buttons">
+                                        <a href="@Url.Action("Detail", "Product", new { Model[i].ProductID })" class="btn btn-default">Xem chi tiết</a>
+                                        <a href="basket.html" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Thêm vào wishlist</a>
+                                    </p>
+                                </div>
+                                <!-- /.text -->
+                            </div>
+                            <!-- /.product -->
+                        </div>
+                    }
+                </div>
+                <!-- /.products -->
+            }
+            <label>Trang @(pagedList.PageCount < pagedList.PageNumber ? 0 : pagedList.PageNumber) / @pagedList.PageCount</label>
+            @Html.PagedListPager(pagedList, page => Url.Action("SearchProduct", new { page, searchString, searchType }))
+        }
+        
+    </div>
+</div>
+

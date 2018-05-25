@@ -1,0 +1,168 @@
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\csc.exe
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\csc.exe.config
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\csc.rsp
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\csi.exe
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\csi.rsp
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\System.AppContext.dll
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\System.Collections.Immutable.dll
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\System.IO.FileSystem.dll
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\System.Reflection.Metadata.dll
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\vbc.exe
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\vbc.exe.config
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\vbc.rsp
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\VBCSCompiler.exe
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\roslyn\VBCSCompiler.exe.config
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\NYCshop.dll.config
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\NYCshop.dll
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\NYCshop.pdb
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\Microsoft.Web.Infrastructure.dll
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\System.Web.Helpers.dll
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\System.Web.Mvc.dll
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\System.Web.Razor.dll
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\System.Web.Webpages.Deployment.dll
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\System.Web.Webpages.dll
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\System.Web.Webpages.Razor.dll
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\System.Web.Razor.xml
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\System.Web.Webpages.xml
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\System.Web.Webpages.Deployment.xml
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\System.Web.Webpages.Razor.xml
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\System.Web.Helpers.xml
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\bin\System.Web.Mvc.xml
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\obj\Debug\NYCshop.csprojResolveAssemblyReference.cache
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\obj\Debug\NYCshop.dll
+D:\Moodle\Project\ASP.NET\NYCshop\NYCshop\obj\Debug\NYCshop.pdb
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\csc.exe
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\csc.exe.config
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\csc.rsp
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\csi.exe
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\csi.rsp
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\System.AppContext.dll
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\vbc.exe
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\vbc.exe.config
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\vbc.rsp
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\VBCSCompiler.exe
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\NYCshop.dll.config
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\NYCshop.dll
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\NYCshop.pdb
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\System.Web.Helpers.dll
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\System.Web.Mvc.dll
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\System.Web.Razor.dll
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\System.Web.Webpages.Deployment.dll
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\System.Web.Webpages.dll
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\System.Web.Webpages.Razor.dll
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\System.Web.Razor.xml
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\System.Web.Webpages.xml
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\System.Web.Webpages.Deployment.xml
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\System.Web.Webpages.Razor.xml
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\System.Web.Helpers.xml
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\bin\System.Web.Mvc.xml
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\obj\Debug\NYCshop.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\obj\Debug\NYCshop.dll
+C:\Users\Administrator\Downloads\NYCshop\NYCshop\NYCshop\obj\Debug\NYCshop.pdb
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\csc.exe
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\csc.exe.config
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\csc.rsp
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\csi.exe
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\csi.rsp
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\System.AppContext.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\System.Collections.Immutable.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\System.IO.FileSystem.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\System.Reflection.Metadata.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\vbc.exe
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\vbc.exe.config
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\vbc.rsp
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\VBCSCompiler.exe
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\roslyn\VBCSCompiler.exe.config
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\NYCshop.dll.config
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\NYCshop.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\NYCshop.pdb
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\Antlr3.Runtime.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\EntityFramework.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\EntityFramework.SqlServer.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\Newtonsoft.Json.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\PagedList.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\PagedList.Mvc.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\System.Web.Helpers.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\System.Web.Mvc.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\System.Web.Optimization.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\System.Web.Razor.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\System.Web.WebPages.Deployment.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\System.Web.WebPages.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\System.Web.WebPages.Razor.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\WebGrease.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\Antlr3.Runtime.pdb
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\EntityFramework.xml
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\EntityFramework.SqlServer.xml
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\Newtonsoft.Json.xml
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\PagedList.xml
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\PagedList.Mvc.xml
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\System.Web.Helpers.xml
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\System.Web.Mvc.xml
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\System.Web.Optimization.xml
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\System.Web.Razor.xml
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\System.Web.WebPages.xml
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\System.Web.WebPages.Deployment.xml
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\bin\System.Web.WebPages.Razor.xml
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\obj\Debug\NYCshop.Resources.ResourceFiles.CategoryDisplay.resources
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\obj\Debug\NYCshop.Resources.ResourceFiles.CategoryErrorMsg.resources
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\obj\Debug\NYCshop.Resources.ResourceFiles.ImageUrlDisplay.resources
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\obj\Debug\NYCshop.Resources.ResourceFiles.ImageUrlErrorMsg.resources
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\obj\Debug\NYCshop.Resources.ResourceFiles.ProductDisplay.resources
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\obj\Debug\NYCshop.Resources.ResourceFiles.ProductErrorMsg.resources
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\obj\Debug\NYCshop.Resources.ResourceFiles.SubCategoryDisplay.resources
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\obj\Debug\NYCshop.Resources.ResourceFiles.SubCategoryErrorMsg.resources
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\obj\Debug\NYCshop.Resources.ResourceFiles.UserDisplay.resources
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\obj\Debug\NYCshop.Resources.ResourceFiles.UserErrorMsg.resources
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\obj\Debug\NYCshop.csproj.GenerateResource.Cache
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\obj\Debug\NYCshop.dll
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\obj\Debug\NYCshop.pdb
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\obj\Debug\NYCshop.csprojResolveAssemblyReference.cache
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\obj\Debug\NYCshop.Resources.ResourceFiles.ErrorLogErrorMsg.resources
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\obj\Debug\NYCshop.Resources.ResourceFiles.FunctionNameDisplay.resources
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\obj\Debug\NYCshop.Migrations.AddTableErrorLog.resources

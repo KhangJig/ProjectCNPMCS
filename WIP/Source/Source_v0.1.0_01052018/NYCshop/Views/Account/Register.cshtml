@@ -1,0 +1,92 @@
+﻿@model NYCshop.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .required {
+        color: red;
+    }
+</style>
+
+<div class="col-md-3"></div>
+<div class="box col-md-6">
+    <h1>Đăng ký</h1>
+    <hr>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div>
+            @Html.ValidationSummary(true)
+            @if (ViewBag.RegisterMsg != null)
+            {
+                <div>@ViewBag.RegisterMsg</div>
+                <hr />
+            }
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, new { @class = "control-label" })<label>(<label class="required">*</label>)</label>
+
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, new { @class = "control-label" })
+
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address, new { @class = "control-label" })
+
+                @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Address)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Phone, new { @class = "control-label" })<label>(<label class="required">*</label>)</label>
+
+                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Phone)
+            </div>
+
+            <hr>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Username, new { @class = "control-label" })<label>(<label class="required">*</label>)</label>
+
+                @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Username)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, new { @class = "control-label" })<label>(<label class="required">*</label>)</label>
+
+                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @type = "password" })
+                @Html.ValidationMessageFor(model => model.Password)
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ConfirmPassword, new { @class = "control-label" })<label>(<label class="required">*</label>)</label>
+
+                @Html.TextBoxFor(model => model.ConfirmPassword, new { @class = "form-control", @type = "password" })
+                @Html.ValidationMessageFor(model => model.ConfirmPassword)
+
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-user-md"></i>Đăng ký</button>
+            </div>
+        </div>
+    }
+</div>
+<div class="col-md-3"></div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script> 
