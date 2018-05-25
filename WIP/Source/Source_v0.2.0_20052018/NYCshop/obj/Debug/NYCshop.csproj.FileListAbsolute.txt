@@ -163,3 +163,6 @@ D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\obj\Debug\NYCsho
 D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\obj\Debug\NYCshop.dll
 D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\obj\Debug\NYCshop.pdb
 D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\obj\Debug\NYCshop.csprojResolveAssemblyReference.cache
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\obj\Debug\NYCshop.Resources.ResourceFiles.ErrorLogErrorMsg.resources
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\obj\Debug\NYCshop.Resources.ResourceFiles.FunctionNameDisplay.resources
+D:\study\cong nghe phan mem chuyen sau\Ung dung\NYCshop\NYCshop\obj\Debug\NYCshop.Migrations.AddTableErrorLog.resources

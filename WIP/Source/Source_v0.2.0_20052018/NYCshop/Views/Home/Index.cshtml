@@ -4,44 +4,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Styles.Render("~/Content/extra-css")
-@*@Scripts.Render("~/bundles/modernizr")*@
-
-<head>
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100' rel='stylesheet' type='text/css'>
-
-    <!-- styles -->
-    <link href="~/Content/font-awesome.css" rel="stylesheet">
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
-    <link href="~/Content/animate.min.css" rel="stylesheet">
-    <link href="~/Content/owl.carousel.css" rel="stylesheet">
-    <link href="~/Content/owl.theme.css" rel="stylesheet">
-
-    <!-- theme stylesheet -->
-    <link href="~/Content/style.default.css" rel="stylesheet" id="theme-stylesheet">
-
-    <!-- your stylesheet with modifications -->
-    <link href="~/Content/custom.css" rel="stylesheet">
-
-    <script src="~/Scripts/respond.min.js"></script>
-</head>
-
-    <div class="container">
-        <div class="col-md-12">
-            <div id="main-slider">
-                <div class="item">
-                    <img src="~/Images/Slides/slide1.jpg" alt="" class="img-responsive">
-                </div>
-                <div class="item">
-                    <img class="img-responsive" src="~/Images/Slides/slide2.jpg" alt="">
-                </div>
-                <div class="item">
-                    <img class="img-responsive" src="~/Images/Slides/slide3.jpg" alt="">
-                </div>
+<div class="container">
+    <div class="col-md-12">
+        <div id="main-slider">
+            <div class="item">
+                <img src="~/Images/Slides/slide1.jpg" alt="" class="img-responsive">
             </div>
-            <!-- /#main-slider -->
+            <div class="item">
+                <img class="img-responsive" src="~/Images/Slides/slide2.jpg" alt="">
+            </div>
+            <div class="item">
+                <img class="img-responsive" src="~/Images/Slides/slide3.jpg" alt="">
+            </div>
         </div>
+        <!-- /#main-slider -->
     </div>
+</div>
 
     @foreach (var item in Model)
     {

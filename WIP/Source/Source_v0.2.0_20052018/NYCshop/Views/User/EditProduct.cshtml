@@ -44,22 +44,13 @@
         @using (Html.BeginForm("EditProduct", "User", new { productID = Model.ProductID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
-            if (ViewBag.EditProductMsg != null)
+            if (ViewBag.AddProductMsg != null)
             {
-                <div class="alert alert-success alert-dismissible">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>Thành công!</strong> @ViewBag.EditProductMsg
-                </div>
+                <div>@ViewBag.AddProductMsg</div>
             }
             <div class="form-horizontal">
                 <hr />
-                @if (!ViewData.ModelState.IsValidField(""))
-                {
-                    <div class="alert alert-danger alert-dismissible">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        @Html.ValidationSummary(true)
-                    </div>
-                }
+                @Html.ValidationSummary(true)
 
                 <div class="row">
                     <div class="col-md-7">

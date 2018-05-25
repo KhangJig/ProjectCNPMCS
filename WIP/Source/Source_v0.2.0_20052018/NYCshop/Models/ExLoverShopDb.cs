@@ -14,5 +14,6 @@ namespace NYCshop.Models
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ImageUrl> ImageUrls { get; set; }
+        public DbSet<ErrorLog> ErrorLogs { get; set; }
     }
 }

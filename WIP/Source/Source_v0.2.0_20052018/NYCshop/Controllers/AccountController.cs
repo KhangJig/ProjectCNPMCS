@@ -2,6 +2,7 @@
 using NYCshop.Attributes;
 using NYCshop.Metadata;
 using NYCshop.Models;
+using NYCshop.Resources.ResourceFiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,18 +16,68 @@ namespace NYCshop.Controllers
         private ExLoverShopDb db = new ExLoverShopDb();
         private MD5Assets md5 = new MD5Assets();
 
-        //
-        // GET: /Account/
-        public ActionResult Index()
+        protected override void OnException(ExceptionContext filterContext)
         {
-            return View();
+            Exception e = filterContext.Exception;
+
+            //string controllerName = filterContext.RouteData.Values["controller"] as string;
+            string actionName = filterContext.RouteData.Values["action"] as string;
+            string httpMethod = filterContext.HttpContext.Request.HttpMethod;
+            ErrorLog error = new ErrorLog();
+            switch (actionName.ToLower())
+            {
+                case "login":
+                    error.ErrorContent = e.ToString();
+                    if (httpMethod.ToLower() == "get")
+                        error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.Login + "'";
+                    else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.Login + "'";
+                    if (Session["Username"] != null)
+                        error.Username = Session["Username"] as string;
+
+                    db.ErrorLogs.Add(error);
+                    db.SaveChanges();
+                    break;
+                case "register":
+                    error.ErrorContent = e.ToString();
+                    if (httpMethod.ToLower() == "get")
+                        error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.Register + "'";
+                    else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.Register + "'";
+
+                    db.ErrorLogs.Add(error);
+                    db.SaveChanges();
+                    break;
+                case "logoff":
+                    error.ErrorContent = e.ToString();
+                    if (httpMethod.ToLower() == "get")
+                        error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.LogOff + "'";
+                    else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.LogOff + "'";
+
+                    db.ErrorLogs.Add(error);
+                    db.SaveChanges();
+                    break;
+                default: break;
+            }
+
+            error.OccurDate = DateTime.Now;
+            if (Session["Username"] != null)
+                error.Username = Session["Username"] as string;
+
+            //Log Exception e
+            filterContext.ExceptionHandled = true;
+            filterContext.Result = new RedirectToRouteResult("Default",
+                    new System.Web.Routing.RouteValueDictionary{
+                        {"controller", "Error"},
+                        {"action", "Index"},
+                    });
         }
 
         //
         // GET: /Account/Login
         public ActionResult Login()
         {
-            return View();
+            if (Session["Username"] == null)
+                return View();
+            else return RedirectToAction("Index", "Home");
         }
 
         //
@@ -67,7 +118,9 @@ namespace NYCshop.Controllers
         // GET: /User/Register
         public ActionResult Register()
         {
-            return View();
+            if (Session["Username"] == null)
+                return View();
+            else return RedirectToAction("Index", "Home");
         }
 
         //
@@ -105,9 +158,8 @@ namespace NYCshop.Controllers
         }
 
         //
-        // POST: /User/LogOff
-        [CheckAuthorize]
-        //[HttpPost]
+        // GET: /Account/LogOff
+        [CheckAnynomous]
         public ActionResult LogOff()
         {
             Session["Username"] = null;
