@@ -10,6 +10,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using NYCshop.Resources.ResourceFiles;
 
 namespace NYCshop.Controllers
 {
@@ -19,6 +20,88 @@ namespace NYCshop.Controllers
         private ExLoverShopDb db = new ExLoverShopDb();
         private MD5Assets md5 = new MD5Assets();
         private GetListAndDict listAndDict = new GetListAndDict();
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            Exception e = filterContext.Exception;
+
+            //string controllerName = filterContext.RouteData.Values["controller"] as string;
+            string actionName = filterContext.RouteData.Values["action"] as string;
+            string httpMethod = filterContext.HttpContext.Request.HttpMethod;
+            ErrorLog error = new ErrorLog();
+            switch (actionName.ToLower())
+            {
+                case "newpost":
+                    error.ErrorContent = e.ToString();
+                    if (httpMethod.ToLower() == "get")
+                        error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.NewPost + "'";
+                    else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.NewPost + "'";
+                    if (Session["Username"] != null)
+                        error.Username = Session["Username"] as string;
+
+                    db.ErrorLogs.Add(error);
+                    db.SaveChanges();
+                    break;
+                case "index":
+                    error.ErrorContent = e.ToString();
+                    if (httpMethod.ToLower() == "get")
+                        error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.UserInfo + "'";
+                    else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.UserInfo + "'";
+
+                    db.ErrorLogs.Add(error);
+                    db.SaveChanges();
+                    break;
+                case "changepassword":
+                    error.ErrorContent = e.ToString();
+                    if (httpMethod.ToLower() == "get")
+                        error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.ChangePassword + "'";
+                    else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.ChangePassword + "'";
+
+                    db.ErrorLogs.Add(error);
+                    db.SaveChanges();
+                    break;
+                case "changepersonaldetail":
+                    error.ErrorContent = e.ToString();
+                    if (httpMethod.ToLower() == "get")
+                        error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.ChangePassword + "'";
+                    else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.ChangePassword + "'";
+
+                    db.ErrorLogs.Add(error);
+                    db.SaveChanges();
+                    break;
+                case "mypost": 
+                    error.ErrorContent = e.ToString();
+                    if (httpMethod.ToLower() == "get")
+                        error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.MyPost + "'";
+                    else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.MyPost + "'";
+
+                    db.ErrorLogs.Add(error);
+                    db.SaveChanges();
+                    break;
+                case "editproduct": 
+                    error.ErrorContent = e.ToString();
+                    if (httpMethod.ToLower() == "get")
+                        error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.EditProduct + "'";
+                    else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.EditProduct + "'";
+
+                    db.ErrorLogs.Add(error);
+                    db.SaveChanges();
+                    break;
+                default: break;
+            }
+
+            error.OccurDate = DateTime.Now;
+            if (Session["Username"] != null)
+                error.Username = Session["Username"] as string;
+
+            //Log Exception e
+            filterContext.ExceptionHandled = true;
+            filterContext.Result = new RedirectToRouteResult("Default",
+                    new System.Web.Routing.RouteValueDictionary{
+                        {"controller", "Error"},
+                        {"action", "Index"},
+                    });
+        }
 
         // trang thông tin tài khoản được ưu tiên hàng đầu
         // GET: /User/
@@ -32,7 +115,7 @@ namespace NYCshop.Controllers
         public ActionResult ChangePassword()
         {
             ChangePasswordViewModel model = new ChangePasswordViewModel();
-            if(Session["Username"] != null)
+            if (Session["Username"] != null)
                 model.Username = Session["Username"].ToString();
 
             return View(model);
@@ -43,6 +126,7 @@ namespace NYCshop.Controllers
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordViewModel model)
         {
+
             if (ModelState.IsValid)
             {
                 var user = db.Users.FirstOrDefault(u => u.Username == model.Username);
@@ -129,7 +213,7 @@ namespace NYCshop.Controllers
         public ActionResult MyPost(int? page)
         {
             // 2. Hiển thị tất cả tin của tôi thành công
-            if(Session["Username"] != null)
+            if (Session["Username"] != null)
             {
                 string username = Session["Username"].ToString();
 
@@ -142,16 +226,16 @@ namespace NYCshop.Controllers
                         dictImages.Add(img.ProductID, img.Url);
 
                 var products = (from p in db.Products
-                               where p.Username == username
-                               select new ProductManagerViewModel
-                               {
-                                   ProductID = p.ProductID,
-                                   ProductName = p.ProductName,
-                                   Price = p.Price,
-                                   Quanlity = p.Quanlity,
-                                   SaleStatus = p.SaleStatus,
-                                   Image = ""
-                               }).ToList();
+                                where p.Username == username
+                                select new ProductManagerViewModel
+                                {
+                                    ProductID = p.ProductID,
+                                    ProductName = p.ProductName,
+                                    Price = p.Price,
+                                    Quanlity = p.Quanlity,
+                                    SaleStatus = p.SaleStatus,
+                                    Image = ""
+                                }).ToList();
 
                 foreach (ProductManagerViewModel p in products)
                     if (dictImages.ContainsKey(p.ProductID))
@@ -185,7 +269,7 @@ namespace NYCshop.Controllers
         [HttpPost]
         public ActionResult NewPost(Product model, List<HttpPostedFileBase> files)
         {
-            if(Session["Username"] != null)
+            if (Session["Username"] != null)
             {
                 string username = Session["Username"] as string;
 
@@ -226,7 +310,7 @@ namespace NYCshop.Controllers
                         int currentMaxID = imageMaxID + 1;
 
                         List<ImageUrl> images = new List<ImageUrl>();
-                        for (int i = 0; i < files.Count; i++ )
+                        for (int i = 0; i < files.Count; i++)
                         {
                             HttpPostedFileBase postedFile = files[i];
                             if (files != null)
@@ -257,5 +341,204 @@ namespace NYCshop.Controllers
 
             return View();
         }
-	}
+
+        //
+        // GET: /User/EditProduct/{ProductID}
+        public ActionResult EditProduct(int productID)
+        {
+            string username = string.Empty;
+            if (Session["Username"] != null)
+                username = Session["Username"] as string;
+
+            var product = db.Products.FirstOrDefault(p => p.ProductID == productID && p.Username == username);
+            int categoryID = 3;
+            EditProductViewModel currProduct = new EditProductViewModel();
+
+            if (product != null) // người dùng hiện tại là người đăng sản phẩm này
+            {
+                currProduct.ProductID = product.ProductID;
+                currProduct.ProductName = product.ProductName;
+                currProduct.Quanlity = product.Quanlity;
+                currProduct.Price = product.Price;
+                currProduct.Describe = product.Describe;
+                currProduct.SaleStatus = product.SaleStatus;
+                currProduct.SubCategoryID = product.SubCategoryID;
+                currProduct.Update = false;
+
+                // thiết lập lại categoryID
+                var subCategory = db.SubCategories.FirstOrDefault(sc => sc.SubCategoryID == currProduct.SubCategoryID);
+                if (subCategory != null)
+                {
+                    categoryID = subCategory.CategoryID;
+
+                    // thiết lập loại sản phẩm và loại sản phẩm con đang được chọn
+                    List<SelectListItem> categories = listAndDict.GetListCategories(categoryID);
+                    ViewBag.Categories = categories;
+                    ViewBag.DictCategories = listAndDict.GetDictCategories(subCategory.SubCategoryID);
+                    ViewBag.CategoryID = categoryID;
+
+                    // thiết lập các hình ảnh của sản phẩm
+                    var images = (from i in db.ImageUrls
+                                  where i.ProductID == productID
+                                  select i);
+                    List<string> imageUrls = new List<string>();
+                    foreach (ImageUrl image in images)
+                        imageUrls.Add(image.Url);
+                    ViewBag.ListImages = imageUrls; // thêm danh sách hình ảnh vào ViewBag
+                }
+
+                return View(currProduct);
+            }
+
+            return RedirectToAction("AccessDenied", "Error");
+        }
+
+        //
+        // POST: /User/EditProduct/{ProductID}
+        [HttpPost]
+        public ActionResult EditProduct(EditProductViewModel model, List<HttpPostedFileBase> files, int productID)
+        {
+            if (Session["Username"] != null)
+            {
+                string username = Session["Username"] as string;
+                var product = db.Products.FirstOrDefault(p => p.ProductID == productID);
+                int currentSubCategory = model.SubCategoryID;
+
+                if (ModelState.IsValid)
+                {
+                    if ((files != null && files[0] != null) || !model.Update)
+                    {
+                        // cập nhật thông tin sản phẩm
+                        if (product != null)
+                        {
+                            product.ProductName = model.ProductName;
+                            product.Price = model.Price;
+                            product.Describe = model.Describe;
+                            product.Quanlity = model.Quanlity;
+                            product.SubCategoryID = model.SubCategoryID;
+                        }
+
+                        if (files != null && files[0] != null)
+                        {
+                            // xóa các hình ảnh hiện tại
+                            #region xóa các hình ảnh hiện tại
+                            var imageUrls = (from i in db.ImageUrls
+                                             where i.ProductID == productID
+                                             select i).AsEnumerable();
+
+                            foreach (ImageUrl image in imageUrls)
+                            {
+                                string url = Request.MapPath("~" + image.Url);
+                                if (System.IO.File.Exists(url))
+                                    System.IO.File.Delete(url);
+                            }
+
+                            // xóa các đường dẫn hình ảnh hiện tại
+                            db.ImageUrls.RemoveRange(imageUrls);
+                            #endregion
+
+                            // copy hình ảnh vào thư mục /Images/Products và đổi tên thích hợp
+                            #region copy hình ảnh vào thư mục /Images/Products và đổi tên thích hợp
+                            string path = Server.MapPath("~/Images/Products");
+                            if (!Directory.Exists(path))
+                            {
+                                Directory.CreateDirectory(path);
+                            }
+
+                            // lấy id lớn nhất trong ImagesUrl
+                            int imageMaxID = (from i in db.ImageUrls
+                                              select i).OrderByDescending(a => a.ImageID).FirstOrDefault().ImageID - imageUrls.Count();
+
+                            int currentMaxID = imageMaxID + 1;
+
+                            List<ImageUrl> images = new List<ImageUrl>();
+                            for (int i = 0; i < files.Count; i++)
+                            {
+                                HttpPostedFileBase postedFile = files[i];
+                                if (files != null)
+                                {
+                                    string extension = Path.GetExtension(postedFile.FileName);
+                                    string fileName = model.ProductID + "_" + (i + 1).ToString() + extension;
+                                    postedFile.SaveAs(Path.Combine(path, fileName));
+
+                                    // thêm đường dẫn hình ảnh vào CSDL
+                                    ImageUrl imageUrl = new ImageUrl();
+                                    imageUrl.ImageID = currentMaxID;
+                                    imageUrl.ProductID = model.ProductID;
+                                    imageUrl.Url = "/Images/Products/" + fileName;
+                                    images.Add(imageUrl);
+
+                                    currentMaxID++;
+                                }
+                            }
+                            #endregion
+
+                            db.ImageUrls.AddRange(images);
+                        }
+
+                        db.SaveChanges(); // lưu mọi thay đổi trong CSDL
+                        ViewBag.AddProductMsg = "Cập nhật sản phẩm thành công";
+                    }
+                    else
+                    {
+                        // khôi phục lại dữ liệu chưa được chỉnh sửa
+                        model.ProductName = product.ProductName;
+                        model.Quanlity = product.Quanlity;
+                        model.SaleStatus = product.SaleStatus;
+                        model.SubCategoryID = product.SubCategoryID;
+                        model.Price = product.Price;
+                        model.Describe = product.Describe;
+
+                        currentSubCategory = product.SubCategoryID;
+
+                        ModelState.AddModelError("", "Bạn phải chọn ảnh cho sản phẩm");
+                    }
+                }
+
+                // thiết lập loại sp, loại sp con để hiển thị
+                #region thiết lập loại sp, loại sp con để hiển thị
+                int categoryID = 3;
+
+                if (product != null)
+                {
+                    // thiết lập lại categoryID
+                    var subCategory = db.SubCategories.FirstOrDefault(sc => sc.SubCategoryID == currentSubCategory);
+                    if (subCategory != null)
+                    {
+                        categoryID = subCategory.CategoryID;
+
+                        // thiết lập loại sản phẩm và loại sản phẩm con đang được chọn
+                        List<SelectListItem> categories = listAndDict.GetListCategories(categoryID);
+                        ViewBag.Categories = categories;
+                        ViewBag.DictCategories = listAndDict.GetDictCategories(subCategory.SubCategoryID);
+                        ViewBag.CategoryID = categoryID;
+
+                        // thiết lập các hình ảnh của sản phẩm
+                        var images = (from i in db.ImageUrls
+                                      where i.ProductID == productID
+                                      select i);
+                        List<string> imageUrls = new List<string>();
+                        foreach (ImageUrl image in images)
+                            imageUrls.Add(image.Url);
+                        ViewBag.ListImages = imageUrls; // thêm danh sách hình ảnh vào ViewBag
+                    }
+                }
+                #endregion
+            }
+
+            return View(model);
+        }
+
+        // kiểm tra xem giá sản phẩm có >= 1000 vnđ không?
+        public JsonResult CheckPrice(long Price)
+        {
+            return Json(Price >= 1000, JsonRequestBehavior.AllowGet);
+        }
+
+        // kiểm tra xem số lượng sản phẩm có >= 1 không?
+        public JsonResult CheckQuanlity(int Quanlity)
+        {
+            return Json(Quanlity > 0, JsonRequestBehavior.AllowGet);
+        }
+    }
 }

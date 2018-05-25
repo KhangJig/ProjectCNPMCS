@@ -17,9 +17,18 @@
                 </li>
                 @if (childActionName != "")
                 {
-                    <li>
-                        <a href="@Url.Action(childActionName, "User")">@childSelectedFunction</a>
-                    </li>
+                    if (childActionName != "EditProduct")
+                    {
+                        <li>
+                            <a href="@Url.Action(childActionName, "User")">@childSelectedFunction</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a href="">@childSelectedFunction</a>
+                        </li>
+                    }
                 }
             </ul>
 

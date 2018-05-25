@@ -55,58 +55,61 @@
             </div>
             
             <table class="table">
-                <tr>
-                    <th>
-                        Xóa
-                    </th>
-                    <th>
-                        Sửa
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model[0].Image)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model[0].ProductName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model[0].Price)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model[0].Quanlity)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model[0].SaleStatus)
-                    </th>
-                    <th></th>
-                </tr>
-
-                @foreach (var item in Model)
-                {
+                <thead>
                     <tr>
-                        <td class="col">
-                            <a href="#"><img src="~/Images/Icons/delete-icon.png" class="delete-icon" /></a>
-                        </td>
-                        <td class="col">
-                            <a href="@Url.Action("EditProduct", "Product", new { item.ProductID }, null)"><img src="~/Images/Icons/edit-icon.png" class="edit-icon" /></a>
-                        </td>
-                        <td class="col">
-                            <img src="@item.Image" class="product-image"/>
-                        </td>
-                        <td class="col">
-                            @Html.DisplayFor(modelItem => item.ProductName)
-                        </td>
-                        <td class="col">
-                            @Html.DisplayFor(modelItem => item.Price)
-                        </td>
-                        <td class="col">
-                            @Html.DisplayFor(modelItem => item.Quanlity)
-                        </td>
-                        <td class="col">
-                            @Html.CheckBoxFor(modelItem => item.SaleStatus)
-                        </td>
+                        <th>
+                            Xóa
+                        </th>
+                        <th>
+                            Sửa
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model[0].Image)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model[0].ProductName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model[0].Price)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model[0].Quanlity)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model[0].SaleStatus)
+                        </th>
+                        <th></th>
                     </tr>
-                }
-
+                </thead>
+                
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="col">
+                                <a href="#"><img src="~/Images/Icons/delete-icon.png" class="delete-icon" /></a>
+                            </td>
+                            <td class="col">
+                                <a href="@Url.Action("EditProduct", "User", new { item.ProductID }, null)"><img src="~/Images/Icons/edit-icon.png" class="edit-icon" /></a>
+                            </td>
+                            <td class="col">
+                                <img src="@item.Image" class="product-image" />
+                            </td>
+                            <td class="col">
+                                @Html.DisplayFor(modelItem => item.ProductName)
+                            </td>
+                            <td class="col">
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td class="col">
+                                @Html.DisplayFor(modelItem => item.Quanlity)
+                            </td>
+                            <td class="col">
+                                @Html.CheckBoxFor(modelItem => item.SaleStatus)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
             </table>
 
             <label>Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</label>

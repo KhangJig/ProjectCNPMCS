@@ -160,15 +160,6 @@ namespace NYCshop.Resources.ResourceFiles {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tìm kiếm sản phẩm.
-        /// </summary>
-        public static string SearchProduct {
-            get {
-                return ResourceManager.GetString("SearchProduct", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Menu trên đầu.
         /// </summary>
         public static string TopMenu {
@@ -183,15 +174,6 @@ namespace NYCshop.Resources.ResourceFiles {
         public static string UserInfo {
             get {
                 return ResourceManager.GetString("UserInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hiển thị form tìm kiếm.
-        /// </summary>
-        public static string ViewSearch {
-            get {
-                return ResourceManager.GetString("ViewSearch", resourceCulture);
             }
         }
     }

@@ -5,12 +5,61 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using NYCshop.Resources.ResourceFiles;
 
 namespace NYCshop.Controllers
 {
     public class ProductController : Controller
     {
         private ExLoverShopDb db = new ExLoverShopDb();
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            Exception e = filterContext.Exception;
+
+            //string controllerName = filterContext.RouteData.Values["controller"] as string;
+            string actionName = filterContext.RouteData.Values["action"] as string;
+            string httpMethod = filterContext.HttpContext.Request.HttpMethod;
+            ErrorLog error = new ErrorLog();
+            switch (actionName.ToLower())
+            {
+                case "index":
+                    error.ErrorContent = e.ToString();
+                    if (httpMethod.ToLower() == "get")
+                        error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.CategoryDetail + "'";
+                    else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.CategoryDetail + "'";
+                    if (Session["Username"] != null)
+                        error.Username = Session["Username"] as string;
+
+                    db.ErrorLogs.Add(error);
+                    db.SaveChanges();
+                    break;
+                case "detail":
+                    error.ErrorContent = e.ToString();
+                    if (httpMethod.ToLower() == "get")
+                        error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.ProductDetail + "'";
+                    else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.ProductDetail + "'";
+                    if (Session["Username"] != null)
+                        error.Username = Session["Username"] as string;
+
+                    db.ErrorLogs.Add(error);
+                    db.SaveChanges();
+                    break;
+                default: break;
+            }
+
+            error.OccurDate = DateTime.Now;
+            if (Session["Username"] != null)
+                error.Username = Session["Username"] as string;
+
+            //Log Exception e
+            filterContext.ExceptionHandled = true;
+            filterContext.Result = new RedirectToRouteResult("Default",
+                    new System.Web.Routing.RouteValueDictionary{
+                        {"controller", "Error"},
+                        {"action", "Index"},
+                    });
+        }
 
         //
         // GET: /Product/
@@ -57,15 +106,15 @@ namespace NYCshop.Controllers
         {
             ProductDetailViewModel model = new ProductDetailViewModel();
             var product = db.Products.FirstOrDefault(p => p.ProductID == productID);
-            if(product != null)
+            if (product != null)
             {
                 var subCategory = db.SubCategories.FirstOrDefault(sc => sc.SubCategoryID == product.SubCategoryID);
                 var category = db.Categories.FirstOrDefault(c => c.CategoryID == subCategory.CategoryID);
                 var imageUrl = (from i in db.ImageUrls
-                               where i.ProductID == productID
-                               select i).ToList();
+                                where i.ProductID == productID
+                                select i).ToList();
                 List<string> lstImages = new List<string>();
-                if(imageUrl != null)
+                if (imageUrl != null)
                 {
                     foreach (ImageUrl img in imageUrl)
                         lstImages.Add(img.Url);
