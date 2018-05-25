@@ -51,6 +51,7 @@ namespace NYCshop.Models
         public int Quanlity { get; set; }
         public long Price { get; set; }
         public string Image { get; set; }
+        public bool DeleteProduct { get; set; }
         public bool SaleStatus { get; set; }
     }
 
@@ -68,7 +69,7 @@ namespace NYCshop.Models
         public string Describe { get; set; }
         public int Quanlity { get; set; }
         public long Price { get; set; }
-        public bool SaleStatus { get; set; }
+        public bool SaleStatus { get; set; } 
         public bool Update { get; set; }
     }
 }

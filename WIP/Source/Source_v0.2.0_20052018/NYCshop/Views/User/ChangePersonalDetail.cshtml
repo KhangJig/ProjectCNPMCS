@@ -23,12 +23,21 @@
         {
             @Html.AntiForgeryToken()
 
-            @Html.ValidationSummary(true)
+            if (!ViewData.ModelState.IsValidField(""))
+            {
+                <div class="alert alert-danger alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    @Html.ValidationSummary(true)
+                </div>
+            }
             @Html.HiddenFor(model => model.Username)
 
             if (ViewBag.UpdateInfoMsg != null)
             {
-                <div>@ViewBag.UpdateInfoMsg</div>
+                <div class="alert alert-success alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Thành công!</strong> @ViewBag.UpdateInfoMsg
+                </div>
             }
 
             <div class="row">

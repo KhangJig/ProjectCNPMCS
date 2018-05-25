@@ -131,22 +131,30 @@ namespace NYCshop.Controllers
             User newUser = new User();
             if (ModelState.IsValid)
             {
-                newUser.Username = user.Username;
-                newUser.Name = user.Name;
-                newUser.Address = user.Address;
-                newUser.Email = user.Email;
-                newUser.Phone = user.Password;
-                newUser.Active = true;
-                newUser.Role = "User";
-                newUser.JoiningDate = DateTime.Now;
-                newUser.Password = md5.GetMd5Hash(user.Password);
+                var findUser = db.Users.FirstOrDefault(u => u.Username == user.Username);
+                if(findUser == null) // chưa tồn tại người dùng
+                {
+                    newUser.Username = user.Username;
+                    newUser.Name = user.Name;
+                    newUser.Address = user.Address;
+                    newUser.Email = user.Email;
+                    newUser.Phone = user.Password;
+                    newUser.Active = true;
+                    newUser.Role = "User";
+                    newUser.JoiningDate = DateTime.Now;
+                    newUser.Password = md5.GetMd5Hash(user.Password);
 
-                db.Users.Add(newUser);
-                db.SaveChanges();
+                    db.Users.Add(newUser);
+                    db.SaveChanges();
 
-                ViewBag.RegisterMsg = "Thêm người dùng mới thành công";
-
-                return View();
+                    ViewBag.RegisterMsg = "Thêm người dùng mới thành công";
+                }
+                else // đã tồn tại người dùng
+                {
+                    ViewBag.RegisterErrorMsg = "Người dùng đã tồn tại";
+                    ModelState.AddModelError("", UserErrorMsg.UsernameExist);
+                    return View(user);
+                }
             }
 
             return View();
@@ -166,6 +174,19 @@ namespace NYCshop.Controllers
             Session["Role"] = null;
 
             return View("Index", "Home");
+        }
+
+        public ActionResult ConfirmPassword()
+        {
+            ConfirmPasswordViewModel model = new ConfirmPasswordViewModel();
+            model.Username = Session["Username"] as string;
+            model.Password = "";
+
+            var user = db.Users.FirstOrDefault(u => u.Username == model.Username);
+            if (user != null)
+                model.CorrectPassword = user.Password;
+
+            return PartialView("_ConfirmPasswordPartial", model);
         }
 	}
 }

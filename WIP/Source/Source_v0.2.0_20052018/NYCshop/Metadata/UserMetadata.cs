@@ -159,4 +159,17 @@ namespace NYCshop.Metadata
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
     }
+
+    public class ConfirmPasswordViewModelMetadata
+    {
+        [Key]
+        public string Username { get; set; }
+
+        [Required(ErrorMessageResourceName = "PasswordRequired", ErrorMessageResourceType = typeof(UserErrorMsg))]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        public string CorrectPassword { get; set; }
+    }
 }

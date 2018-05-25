@@ -111,6 +111,9 @@ namespace NYCshop.Metadata
         [DataType(DataType.ImageUrl)]
         public string Image { get; set; }
 
+        [Display(Name = "DeleteProduct", ResourceType = typeof(ProductDisplay))]
+        public bool DeleteProduct { get; set; }
+
         [Display(Name = "SaleStatus", ResourceType = typeof(ProductDisplay))]
         public bool SaleStatus { get; set; }
     }

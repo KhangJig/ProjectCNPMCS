@@ -38,6 +38,13 @@ namespace NYCshop
                 url: "{controller}/{action}/{productID}",
                 defaults: new { controller = "Product", action = "Detail", productID = UrlParameter.Optional }
             );
+
+            // chỉnh sửa sản phẩm
+            routes.MapRoute(
+                name: "EditProduct",
+                url: "{controller}/{action}/{productID}",
+                defaults: new { controller = "User", action = "EditProduct", productID = UrlParameter.Optional }
+            );
         }
     }
 }

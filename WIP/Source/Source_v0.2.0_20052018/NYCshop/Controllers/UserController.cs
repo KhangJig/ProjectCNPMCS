@@ -38,45 +38,30 @@ namespace NYCshop.Controllers
                     else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.NewPost + "'";
                     if (Session["Username"] != null)
                         error.Username = Session["Username"] as string;
-
-                    db.ErrorLogs.Add(error);
-                    db.SaveChanges();
                     break;
                 case "index":
                     error.ErrorContent = e.ToString();
                     if (httpMethod.ToLower() == "get")
                         error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.UserInfo + "'";
                     else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.UserInfo + "'";
-
-                    db.ErrorLogs.Add(error);
-                    db.SaveChanges();
                     break;
                 case "changepassword":
                     error.ErrorContent = e.ToString();
                     if (httpMethod.ToLower() == "get")
                         error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.ChangePassword + "'";
                     else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.ChangePassword + "'";
-
-                    db.ErrorLogs.Add(error);
-                    db.SaveChanges();
                     break;
                 case "changepersonaldetail":
                     error.ErrorContent = e.ToString();
                     if (httpMethod.ToLower() == "get")
                         error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.ChangePassword + "'";
                     else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.ChangePassword + "'";
-
-                    db.ErrorLogs.Add(error);
-                    db.SaveChanges();
                     break;
                 case "mypost": 
                     error.ErrorContent = e.ToString();
                     if (httpMethod.ToLower() == "get")
                         error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.MyPost + "'";
                     else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.MyPost + "'";
-
-                    db.ErrorLogs.Add(error);
-                    db.SaveChanges();
                     break;
                 case "editproduct": 
                     error.ErrorContent = e.ToString();
@@ -84,8 +69,6 @@ namespace NYCshop.Controllers
                         error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.EditProduct + "'";
                     else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.EditProduct + "'";
 
-                    db.ErrorLogs.Add(error);
-                    db.SaveChanges();
                     break;
                 default: break;
             }
@@ -93,6 +76,9 @@ namespace NYCshop.Controllers
             error.OccurDate = DateTime.Now;
             if (Session["Username"] != null)
                 error.Username = Session["Username"] as string;
+
+            db.ErrorLogs.Add(error);
+            db.SaveChanges();
 
             //Log Exception e
             filterContext.ExceptionHandled = true;
@@ -234,6 +220,7 @@ namespace NYCshop.Controllers
                                     Price = p.Price,
                                     Quanlity = p.Quanlity,
                                     SaleStatus = p.SaleStatus,
+                                    DeleteProduct = false,
                                     Image = ""
                                 }).ToList();
 
@@ -245,10 +232,104 @@ namespace NYCshop.Controllers
 
                 int pageSize = 10;
                 int pageNumber = (page ?? 1); // trả về giá trị của page nếu nó là 1 giá trị khác null, nếu không trả về 1
-                return View(products.OrderByDescending(p => p.ProductID).ToPagedList(pageNumber, pageSize));
+
+                ViewBag.PagedList = products.OrderByDescending(p => p.ProductID).ToPagedList(pageNumber, pageSize);
+                return View(products);
             }
 
             return View();
+        }
+
+        //
+        // POST: /User/MyPost/
+        [HttpPost]
+        public ActionResult MyPost(List<ProductManagerViewModel> model, int? page)
+        {
+            int pageSize = 10;
+            int pageNumber = (page ?? 1); // trả về giá trị của page nếu nó là 1 giá trị khác null, nếu không trả về 1
+
+            var deleteProduct = model.FirstOrDefault(m => m.DeleteProduct == true);
+            if(deleteProduct != null) // có sản phẩm bị xóa
+            {
+                if (Session["Username"] != null)
+                {
+                    string username = Session["Username"].ToString();
+
+                    // xóa sản phẩm được chọn
+                    #region xóa sản phẩm được chọn
+                    List<ProductManagerViewModel> delProducts = model.FindAll(m => m.DeleteProduct == true);
+                    foreach(ProductManagerViewModel delProduct in delProducts)
+                    {
+                        var currDelProduct = db.Products.FirstOrDefault(p => p.ProductID == delProduct.ProductID);
+                        if (currDelProduct != null)
+                        {
+                            // xóa sản phẩm
+                            db.Products.Remove(currDelProduct);
+
+                            // xóa đường dẫn hình ảnh của sản phẩm đó trong CSDL
+                            var imageUrls = (from i in db.ImageUrls
+                                            where i.ProductID == delProduct.ProductID
+                                            select i).ToList();
+
+                            foreach(ImageUrl img in imageUrls)
+                                db.ImageUrls.Remove(img);
+
+                            // xóa các hình ảnh trên server hiện tại
+                            foreach (ImageUrl image in imageUrls)
+                            {
+                                string url = Request.MapPath("~" + image.Url);
+                                if (System.IO.File.Exists(url))
+                                    System.IO.File.Delete(url);
+                            }
+                        }   
+                    }
+                    #endregion
+
+                    // cập nhật sản phẩm đã hết hàng
+                    #region cập nhật sản phẩm đã hết hàng
+                    #endregion
+
+                    db.SaveChanges();
+
+                    // 2. Hiển thị tất cả tin của tôi thành công
+                    #region 2. Hiển thị tất cả tin của tôi thành công
+
+                    Dictionary<int, string> dictImages = new Dictionary<int, string>();
+                    var images = from i in db.ImageUrls
+                                 select i;
+
+                    foreach (ImageUrl img in images)
+                        if (!dictImages.ContainsKey(img.ProductID))
+                            dictImages.Add(img.ProductID, img.Url);
+
+                    var products = (from p in db.Products
+                                    where p.Username == username
+                                    select new ProductManagerViewModel
+                                    {
+                                        ProductID = p.ProductID,
+                                        ProductName = p.ProductName,
+                                        Price = p.Price,
+                                        Quanlity = p.Quanlity,
+                                        SaleStatus = p.SaleStatus,
+                                        DeleteProduct = false,
+                                        Image = ""
+                                    }).ToList();
+
+                    foreach (ProductManagerViewModel p in products)
+                        if (dictImages.ContainsKey(p.ProductID))
+                            p.Image = dictImages[p.ProductID];
+
+                    ViewBag.PagedList = products.OrderByDescending(p => p.ProductID).ToPagedList(pageNumber, pageSize);
+                    ModelState.Clear(); // xóa sạch các dữ liệu cũ của model, tránh trường hợp không làm mới được dữ liệu
+
+                    ViewBag.DeleteProductMsg = "Đã xóa " + delProducts.Count + " sản phẩm";
+                    return View(products);
+                    #endregion
+                }
+            }
+
+            ViewBag.PagedList = model.OrderByDescending(p => p.ProductID).ToPagedList(pageNumber, pageSize);
+            return View(model);
         }
 
         //
@@ -477,7 +558,7 @@ namespace NYCshop.Controllers
                         }
 
                         db.SaveChanges(); // lưu mọi thay đổi trong CSDL
-                        ViewBag.AddProductMsg = "Cập nhật sản phẩm thành công";
+                        ViewBag.EditProductMsg = "Cập nhật sản phẩm thành công";
                     }
                     else
                     {
