@@ -14,22 +14,18 @@
 }
 
 <style>
-    #gallery {
-        margin-top: 15px;
+    .upload-image {
+        max-height: 80%;
+        max-width: 80%;
+        margin: 10%;
     }
 
-    #preview {
-        position: absolute;
-        border: 1px solid #ccc;
-        background: #333;
-        padding: 5px;
-        display: none;
-        color: #fff;
-    }
-
-    #img-preview {
-        max-width: 300px;
-        max-height: 300px;
+    .image-container {
+        vertical-align: central;
+        border: solid 1px black;
+        border-radius: 5px;
+        margin: 10px;
+        height: 130px;
     }
 </style>
 
@@ -42,28 +38,18 @@
             @Html.AntiForgeryToken()
             if (ViewBag.AddProductMsg != null)
             {
-                <div class="alert alert-success alert-dismissible">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>Thành công!</strong> @ViewBag.AddProductMsg
-                </div>
+                <div>@ViewBag.AddProductMsg</div>
             }
             <div class="form-horizontal">
                 <hr />
-                @if (!ViewData.ModelState.IsValidField(""))
-                {
-                    <div class="alert alert-danger alert-dismissible">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        @Html.ValidationSummary(true)
-                    </div>
-                }
-                
+                @Html.ValidationSummary(true)
 
                 <div class="row">
                     <div class="col-md-7">
                         <div class="form-group">
                             @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
-                                @Html.TextBoxFor(model => model.ProductName, new { @class = "form-control" })
+                                @Html.TextBoxFor(model => model.ProductName)
                                 @Html.ValidationMessageFor(model => model.ProductName)
                             </div>
                         </div>
@@ -71,7 +57,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Describe, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
-                                @Html.TextAreaFor(model => model.Describe, new { @class = "form-control", rows = "5", style = "width: 100%" })
+                                @Html.TextAreaFor(model => model.Describe, new { rows = "5", style = "width: 100%" })
                                 @Html.ValidationMessageFor(model => model.Describe)
                             </div>
                         </div>
@@ -79,7 +65,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Quanlity, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
-                                @Html.TextBoxFor(model => model.Quanlity, new { @class = "form-control", type = "number" })
+                                @Html.TextBoxFor(model => model.Quanlity)
                                 @Html.ValidationMessageFor(model => model.Quanlity)
                             </div>
                         </div>
@@ -87,7 +73,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
-                                @Html.TextBoxFor(model => model.Price, new { @class = "form-control" })
+                                @Html.TextBoxFor(model => model.Price)
                                 @Html.ValidationMessageFor(model => model.Price)
                             </div>
                         </div>
@@ -95,7 +81,7 @@
                         <div class="form-group">
                             <label for="Category" class="control-label col-md-3">Loại sản phẩm</label>
                             <div class="col-md-9">
-                                @Html.DropDownList("Category", categories, new { @class = "form-control", @onchange = "onchangeCategory(this)" })
+                                @Html.DropDownList("Category", categories, new { @onchange = "onchangeCategory(this)" })
                                 <script>
                                     function onchangeCategory(e) {
                                         $("#SubCategoryID").empty(); // xóa sạch danh sách loại sp cũ
@@ -112,7 +98,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.SubCategoryID, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
-                                @Html.DropDownListFor(model => model.SubCategoryID, dictCategories[@categoryID], new { @class = "form-control" })
+                                @Html.DropDownListFor(model => model.SubCategoryID, dictCategories[@categoryID])
                                 @Html.ValidationMessageFor(model => model.SubCategoryID)
                             </div>
                         </div>
@@ -136,12 +122,12 @@
                                         var reader = new FileReader();
                                         reader.fileName = names[i];
                                         reader.onload = function (event) {
-                                            var imageContainer = $('<div class="col-xs-6 image-container"></div>');
-                                            var imageSpan = $('<a href="" class="thumb preview"></a>').attr('src', event.target.result);
-                                            var image = $('<img class="img-responsive" />').attr('src', event.target.result);
+                                            var imageContainer = $('<div class="image-container text-center col-md-5"></div>');
+                                            var imageName = $('<span class="image-name"></span>');
+                                            var image = $('<img class="upload-image" />').attr('src', event.target.result);
 
-                                            imageSpan.append(image);
-                                            imageContainer.append(imageSpan);
+                                            imageContainer.append(image);
+                                            imageContainer.append(imageName);
 
                                             $(placeToInsertImagePreview).append(imageContainer);
                                         }

@@ -121,14 +121,6 @@
     <value>Yêu cầu nhập mô tả</value>
     <comment>required</comment>
   </data>
-  <data name="InvalidPrice" xml:space="preserve">
-    <value>Giá phải từ 1000đ trở lên</value>
-    <comment>invalid</comment>
-  </data>
-  <data name="InvalidQuanlity" xml:space="preserve">
-    <value>Số lượng phải từ 1 trở lên</value>
-    <comment>invalid</comment>
-  </data>
   <data name="PriceRequired" xml:space="preserve">
     <value>Yêu cầu nhập giá cả</value>
     <comment>required</comment>

@@ -23,20 +23,8 @@
             @Html.ValidationSummary(true)
             @if (ViewBag.RegisterMsg != null)
             {
-                <div class="alert alert-success alert-dismissible">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>Thành công!</strong> @ViewBag.RegisterMsg
-                </div>
-            }
-            else
-            {
-                if (ViewBag.RegisterErrorMsg != null)
-                {
-                    <div class="alert alert-danger alert-dismissible">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>Danger!</strong> @ViewBag.RegisterErrorMsg
-                    </div>
-                }
+                <div>@ViewBag.RegisterMsg</div>
+                <hr />
             }
             <div class="form-group">
                 @Html.LabelFor(model => model.Name, new { @class = "control-label" })<label>(<label class="required">*</label>)</label>

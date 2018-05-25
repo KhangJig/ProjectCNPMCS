@@ -70,24 +70,6 @@ namespace NYCshop.Resources.ResourceFiles {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Giá phải từ 1000đ trở lên.
-        /// </summary>
-        public static string InvalidPrice {
-            get {
-                return ResourceManager.GetString("InvalidPrice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Số lượng phải từ 1 trở lên.
-        /// </summary>
-        public static string InvalidQuanlity {
-            get {
-                return ResourceManager.GetString("InvalidQuanlity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Yêu cầu nhập giá cả.
         /// </summary>
         public static string PriceRequired {

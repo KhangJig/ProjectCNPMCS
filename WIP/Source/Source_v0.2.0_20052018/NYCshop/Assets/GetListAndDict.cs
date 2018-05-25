@@ -41,37 +41,6 @@ namespace NYCshop.Assets
             return dictCategories;
         }
 
-        public Dictionary<int, List<SelectListItem>> GetDictCategories(int subCategoryID)
-        {
-            // tìm tới đúng loại sản phẩm đó
-            var subCategory = db.SubCategories.FirstOrDefault(sc => sc.SubCategoryID == subCategoryID);
-            if(subCategory != null)
-            {
-                if(this.dictCategories.ContainsKey(subCategory.CategoryID))
-                    foreach(SelectListItem item in this.dictCategories[subCategory.CategoryID])
-                        if (item.Value == subCategoryID.ToString())
-                        {
-                            item.Selected = true; // thiết lập mặc định người dùng chọn loại sản phẩm con này
-                            break;
-                        }
-                            
-            }
-
-            return dictCategories;
-        }
-
-        public List<SelectListItem> GetListCategories(int categoryID)
-        {
-            foreach (SelectListItem item in lstCategories)
-                if(item.Value == categoryID.ToString())
-                {
-                    item.Selected = true;
-                    break;
-                }
-
-            return lstCategories;
-        }
-
         public List<SelectListItem> GetListCategories()
         {
             return lstCategories;

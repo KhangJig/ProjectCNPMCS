@@ -61,15 +61,6 @@ namespace NYCshop.Resources.ResourceFiles {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Xóa.
-        /// </summary>
-        public static string DeleteProduct {
-            get {
-                return ResourceManager.GetString("DeleteProduct", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Mô tả.
         /// </summary>
         public static string Describe {

@@ -64,12 +64,4 @@ namespace NYCshop.Models
         public string NewPassword { get; set; }
         public string ConfirmPassword { get; set; }
     }
-
-    [MetadataType(typeof(ConfirmPasswordViewModelMetadata))]
-    public class ConfirmPasswordViewModel
-    {
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string CorrectPassword { get; set; }
-    }
 }

@@ -55,7 +55,7 @@ namespace NYCshop.Attributes
                             context.Result = new RedirectToRouteResult("Default",
                                 new System.Web.Routing.RouteValueDictionary{
                                     {"controller", "Error"},
-                                    {"action", "AccessDenied"}
+                                    {"action", "Index"}
                                 });
                         break;
                     case "User":
