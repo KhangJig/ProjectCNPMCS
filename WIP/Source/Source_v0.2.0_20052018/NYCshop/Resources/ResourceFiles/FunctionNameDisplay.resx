@@ -156,4 +156,10 @@
   <data name="UserInfo" xml:space="preserve">
     <value>Thông tin người dùng</value>
   </data>
+  <data name="SearchProduct" xml:space="preserve">
+    <value>Tìm kiếm sản phẩm</value>
+  </data>
+  <data name="ViewSearch" xml:space="preserve">
+    <value>Hiển thị form tìm kiếm</value>
+  </data>
 </root>

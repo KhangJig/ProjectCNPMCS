@@ -18,23 +18,12 @@
     <link href="~/Content/style.blue.css" rel="stylesheet" id="theme-stylesheet">
     <link href="~/Content/custom.css" rel="stylesheet">
     <link href="~/Content/Site.css" rel="stylesheet">
-    @Scripts.Render("~/bundles/modernizr")
+    
 </head>
 <body>
     <div id="top">
         <div class="container">
-            <div class="col-md-6" data-animate="fadeInDown">
-                @*tìm kiếm*@
-                <form class="navbar-form" role="search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Tìm kiếm">
-                        <span class="input-group-btn">
-
-                            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-
-                        </span>
-                    </div>
-                </form>
+            <div class="col-md-6">
             </div>
             <div class="col-md-6" data-animate="fadeInDown">
                 @Html.Partial("_LoginPartial")
@@ -67,7 +56,7 @@
             </div>
             <!--/.navbar-header -->
             @{Html.RenderAction("TopMenu", "Layout");}
-
+            @{Html.RenderAction("ViewSearch", "Search");}
         </div>
         <!-- /.container -->
     </div>
@@ -210,7 +199,6 @@
                 @Scripts.Render("~/bundles/bootstrap")*@
             @Scripts.Render("~/bundles/jquery")
             @Scripts.Render("~/bundles/validate")
-            @Scripts.Render("~/bundles/extra-js")
             @RenderSection("scripts", required: false)
 </body>
 </html>
@@ -223,3 +211,4 @@
 <script src="~/Scripts/bootstrap-hover-dropdown.js"></script>
 <script src="~/Scripts/owl.carousel.min.js"></script>
 <script src="~/Scripts/front.js"></script>
+<script src="~/Scripts/respond.min.js"></script>

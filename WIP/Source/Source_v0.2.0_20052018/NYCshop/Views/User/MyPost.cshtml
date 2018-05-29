@@ -67,16 +67,19 @@
                         @Html.ValidationSummary(true)
                     </div>
                 }
+                
+                <h4>Hiện tại bạn có <u>@Model.Count</u> tin</h4>
             
                 <div class="row">
-                    <div class="col-xs-6 text-left">
+                    <div class="pull-left">
                         <button type="button" class="btn btn-primary" onclick="onclickSaveButton(this)" data-target="#myModal" data-keyboard="false" data-backdrop="static"><i class="fa fa-save"></i>Cập nhật</button>
                     </div>
-                    <div class="col-xs-6 text-right">
+                    <div class="pull-right">
                         <a href="@Url.Action("NewPost")" class="btn btn-primary"><i class="fa fa-cloud-upload"></i>Đăng tin mới</a>
                     </div>
                 </div>
 
+            <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
@@ -149,6 +152,7 @@
                         }
                     </tbody>
                 </table>
+                </div>
             }
 
             <label>Trang @(pagedList.PageCount < pagedList.PageNumber ? 0 : pagedList.PageNumber) / @pagedList.PageCount</label>
