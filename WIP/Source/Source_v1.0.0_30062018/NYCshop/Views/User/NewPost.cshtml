@@ -1,0 +1,189 @@
+﻿@model NYCshop.Models.Product
+@{
+    ViewBag.Title = "Đăng tin mới";
+    ViewBag.ParentActionName = "MyPost";
+    ViewBag.ParentSelectedFunction = "Quản lý tin";
+    ViewBag.ChildActionName = "NewPost";
+    ViewBag.ChildSelectedFunction = "Đăng tin mới";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+
+    List<SelectListItem> categories = ViewBag.Categories != null ? ViewBag.Categories as List<SelectListItem> : new List<SelectListItem>();
+    Dictionary<int, List<SelectListItem>> dictCategories = ViewBag.DictCategories != null ? ViewBag.DictCategories as Dictionary<int, List<SelectListItem>> : new Dictionary<int, List<SelectListItem>>();
+
+    int categoryID = 3;
+}
+
+<style>
+    #gallery {
+        margin-top: 15px;
+    }
+
+    #preview {
+        position: absolute;
+        border: 1px solid #ccc;
+        background: #333;
+        padding: 5px;
+        display: none;
+        color: #fff;
+    }
+
+    #img-preview {
+        max-width: 300px;
+        max-height: 300px;
+    }
+</style>
+
+<div class="col-md-9">
+    <div class="box">
+        <h3>Đăng tin mới</h3>
+
+        @using (Html.BeginForm("NewPost", "User", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            if (ViewBag.AddProductMsg != null)
+            {
+                <div class="alert alert-success alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Thành công!</strong> @ViewBag.AddProductMsg
+                </div>
+            }
+            <div class="form-horizontal">
+                <hr />
+                @if (!ViewData.ModelState.IsValidField(""))
+                {
+                    <div class="alert alert-danger alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        @Html.ValidationSummary(true)
+                    </div>
+                }
+                
+
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.ProductName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ProductName)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Describe, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextAreaFor(model => model.Describe, new { @class = "form-control", rows = "5", style = "width: 100%" })
+                                @Html.ValidationMessageFor(model => model.Describe)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Quanlity, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.Quanlity, new { @class = "form-control", type = "number" })
+                                @Html.ValidationMessageFor(model => model.Quanlity)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.Price, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Price)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Category" class="control-label col-md-3">Loại sản phẩm</label>
+                            <div class="col-md-9">
+                                @Html.DropDownList("Category", categories, new { @class = "form-control", @onchange = "onchangeCategory(this)" })
+                                <script>
+                                    function onchangeCategory(e) {
+                                        $("#SubCategoryID").empty(); // xóa sạch danh sách loại sp cũ
+                                        var categoryID = $(e).val(); // lấy mã loại sp
+                                        // lấy danh sách các loại sp con tương ứng với mã loại sp
+                                        var subCategoriesItem = $("#category" + categoryID).children("option").clone();
+                                        // thêm danh sách các loại sp con vào
+                                        $("#SubCategoryID").append(subCategoriesItem);
+                                    }
+                                </script>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SubCategoryID, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.DropDownListFor(model => model.SubCategoryID, dictCategories[@categoryID], new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.SubCategoryID)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <label for="files">Chọn hình sản phẩm</label>
+                        <input type="file" multiple id="gallery-photo-add" name="files" onchange="onchangeUploadFile(this)" value="Chọn hình">
+                        <div id="gallery"></div>
+                        <!--Upload hình ảnh lên server-->
+                        <script>
+                            // Multiple images preview in browser
+                            var imagesPreview = function (input, placeToInsertImagePreview) {
+                                if (input.files && input.files.length <= 6) {
+                                    var filesAmount = input.files.length;
+                                    $(".image-container").remove();
+
+                                    var files = $('#gallery-photo-add').prop("files");
+                                    var names = $.map(files, function (val) { return val.name; });
+
+                                    for (i = 0; i < filesAmount; i++) {
+                                        var reader = new FileReader();
+                                        reader.fileName = names[i];
+                                        reader.onload = function (event) {
+                                            var imageContainer = $('<div class="col-xs-6 image-container"></div>');
+                                            var imageSpan = $('<a href="" class="thumb preview"></a>').attr('src', event.target.result);
+                                            var image = $('<img class="img-responsive" />').attr('src', event.target.result);
+
+                                            imageSpan.append(image);
+                                            imageContainer.append(imageSpan);
+
+                                            $(placeToInsertImagePreview).append(imageContainer);
+                                        }
+
+                                        reader.readAsDataURL(input.files[i]);
+                                    }
+                                }
+                                else {
+                                    $(input).val("");
+                                    alert("Bạn chỉ được chọn tối đa 6 hình");
+                                }
+                            };
+
+                            function onchangeUploadFile(e) {
+                                imagesPreview(e, 'div#gallery');
+                            }
+                        </script>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-9">
+                        <input type="submit" value="Thêm sản phẩm" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div style="visibility: hidden">
+    @foreach (var category in categories)
+    {
+        <select id=@("category" + category.Value)>
+            @foreach (var subCategory in dictCategories[Int32.Parse(category.Value)])
+            {
+                <option value=@subCategory.Value>@subCategory.Text</option>
+            }
+        </select>
+    }
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

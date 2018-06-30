@@ -1,0 +1,37 @@
+﻿@model NYCshop.Models.Reply
+
+@{
+    string username = Session["Username"] != null ? Session["Username"].ToString() : "";
+    int commentID = ViewData["CommentID"] != null ? (int)ViewData["CommentID"] : 0;
+}
+
+@if (Session["Username"] != null)
+{
+    using (Html.BeginForm("ReplyComment", "User", new { returnUrl = Request.Url.ToString() }, FormMethod.Post))
+    {
+        <input type="number" id="CommentID" name="CommentID" value="@commentID" hidden />
+        <input id="Username" name="Username" value="@username" hidden />
+        <div class="row">
+            <div class="col-sm-3 col-md-2">
+
+            </div>
+            <div class="col-sm-9 col-md-10">
+                <div class="form-group">
+                    <label for="comment">
+                        Trả lời <label>(<label class="required">*</label>)</label>
+                    </label>
+                    @Html.TextAreaFor(model => model.ReplyContent, new { @class = "form-control", rows = 4 })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3 col-md-2">
+
+            </div>
+            <div class="col-sm-9 col-md-10 text-right">
+                <button class="btn btn-primary"><i class="fa fa-comment-o"></i> Trả lời</button>
+            </div>
+        </div>
+    }
+}

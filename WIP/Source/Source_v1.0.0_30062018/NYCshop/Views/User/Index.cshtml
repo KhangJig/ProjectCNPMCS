@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Tài khoản của tôi";
+    ViewBag.ParentActionName = "Index";
+    ViewBag.ParentSelectedFunction = "Tài khoản của tôi";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<div class="col-md-9">
+    <div class="box">
+        <h1>Tài khoản của tôi</h1>
+        <p class="lead">Đổi thông tin cá nhân hoặc mật khẩu của bạn tại đây</p>
+
+        @Html.ActionLink("Đổi mật khẩu", "ChangePassword", "User") <br/>
+        @Html.ActionLink("Cập nhật thông tin cá nhân", "ChangePersonalDetail", "User")
+    </div>
+</div>
+

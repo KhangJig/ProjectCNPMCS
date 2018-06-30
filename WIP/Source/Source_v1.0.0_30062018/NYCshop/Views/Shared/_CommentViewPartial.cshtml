@@ -1,0 +1,89 @@
+﻿@model Dictionary<int, NYCshop.Models.CommentInProductViewModel>
+
+@{
+    ViewBag.ProductID = ViewBag.ProductID;
+    int totalComment = Model.Count;
+    string username = Session["Username"] != null ? Session["Username"].ToString() : "";
+}
+
+<div class="box">
+    <h3>Bình luận</h3>
+    <h4><u>@totalComment bình luận</u></h4>
+    <div class="nav nav-pills nav-stacked" id="comments">
+        @foreach (KeyValuePair<int, NYCshop.Models.CommentInProductViewModel> comment in Model)
+        {
+            <div class="row comment">
+                <div class="col-sm-3 col-md-2 text-center-xs">
+                    <p>
+                        <img src="~/Images/Avatars/blog-avatar2.jpg" class="img-responsive img-circle" alt="">
+                    </p>
+                </div>
+                <div class="col-sm-9 col-md-10">
+                    <div class="row">
+                        <h5>@comment.Value.Name</h5>
+                        <p class="posted"><i class="fa fa-clock-o"></i> @comment.Value.TimeComment</p>
+                        <p>
+                            @comment.Value.CommentContent
+                        </p>
+                        @if(username != "")
+                        {
+                            <p class="reply">
+                                <a href="#reply-form-@comment.Value.CommentID" class="scroll-to" onclick="viewReplyTextbox(@comment.Value.CommentID)"><i class="fa fa-reply"></i> Trả lời</a>
+                            </p>
+                        }
+                        
+                    </div>
+                    <!--Phản hồi ở đây-->
+                    @foreach (NYCshop.Models.ReplyViewModel reply in comment.Value.Replies)
+                    {
+                        <div class="row">
+                            <div class="col-sm-3 col-md-2 text-center-xs">
+                                <p>
+                                    <img src="~/Images/Avatars/blog-avatar.jpg" class="img-responsive img-circle" alt="">
+                                </p>
+                            </div>
+
+                            <div class="col-sm-9 col-md-10">
+                                <h5>@reply.Name</h5>
+                                <p class="posted"><i class="fa fa-clock-o"></i> @reply.TimeReply</p>
+                                <p>
+                                    @reply.ReplyContent
+                                </p>
+                                @if (username != "")
+                                {
+                                    <p class="reply">
+                                        <a href="#reply-form-@comment.Value.CommentID" class="scroll-to" onclick="viewReplyTextbox(@comment.Value.CommentID)"><i class="fa fa-reply"></i> Trả lời</a>
+                                    </p>
+                                }
+                            </div>
+                        </div>
+                    }
+
+                    <!--Form Phản hồi ở đây-->
+                    <div id="reply-form-@comment.Value.CommentID" hidden>
+                        @Html.Partial("_CommentReplyFormPartial", new NYCshop.Models.Reply(), new ViewDataDictionary { { "CommentID", comment.Value.CommentID } })
+                    </div>
+                </div>
+
+
+
+            </div>
+        <!-- /.comment -->
+        }
+
+    </div>
+
+    <!--Yêu cầu đăng nhập nếu người dùng chưa đăng nhập-->
+    <!--Comment form-->
+    @Html.Partial("_CommentFormPartial", new NYCshop.Models.Comment())
+</div>
+
+<script>
+    function viewReplyTextbox(commentID) {
+        event.preventDefault();
+        // nếu form Phản hồi chưa hiển thị thì hiển thị nó
+        if ($("#reply-form-" + commentID).prop("hidden"))
+            $("#reply-form-" + commentID).prop("hidden", false);
+    }
+</script>
+

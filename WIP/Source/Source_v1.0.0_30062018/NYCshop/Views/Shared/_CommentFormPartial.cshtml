@@ -1,0 +1,45 @@
+﻿@model NYCshop.Models.Comment
+
+@{
+    string username = Session["Username"] != null ? Session["Username"].ToString() : "";
+    int productID = ViewData["ProductID"] != null ? (int)ViewData["ProductID"] : 0;
+}
+
+@if (username == "")
+{
+    <div class="text-center">
+        <a href="@Url.Action("Login", "Account", new { returnUrl = Request.Url.ToString() })" class="btn btn-primary"><i class="fa fa-comment-o"></i> Đăng nhập để bình luận</a><br /><br />
+    </div>
+}
+else
+{
+    <div id="comment-form">
+
+        <h4>Cho tôi biết suy nghĩ của bạn</h4>
+
+        @using (Html.BeginForm("Comment", "User", new { returnUrl = Request.Url.ToString() }, FormMethod.Post))
+        {
+
+            <input type="number" id="ProductID" name="ProductID" value="@productID" hidden />
+            <input id="Username" name="Username" value="@username" hidden />
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="comment">
+                            Bình luận <label>(<label class="required">*</label>)</label>
+                        </label>
+                        @Html.TextAreaFor(model => model.CommentContent, new { @class = "form-control", id="comment", rows = 4 })
+                        @Html.ValidationMessageFor(model => model.CommentContent)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 text-right">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-comment-o"></i> Bình luận</button>
+                </div>
+            </div>
+        }
+    </div>
+}
