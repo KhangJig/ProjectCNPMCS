@@ -1,0 +1,82 @@
+﻿@model PagedList.IPagedList<NYCshop.ViewModels.ProductViewModel.ProductDetailViewModel>
+@using PagedList.Mvc
+
+@{
+    string username = ViewBag.Username;
+    string name = ViewBag.Name ?? "";
+    int productQuanlity = ViewBag.ProductQuanlity ?? 0;
+}
+
+<style>
+    .product-image {
+        min-height: 208px;
+        max-height: 208px;
+    }
+</style>
+
+@if (Model.Count == 0)
+{
+    <div class="alert alert-warning alert-dismissible">
+        Không tìm thấy sản phẩm nào <a href="#">Thử lại</a>
+    </div>
+}
+else
+{
+    <div class="alert alert-success alert-dismissible">
+        Tìm thấy <strong><u>@productQuanlity</u></strong> sản phẩm của <b>@name</b>
+    </div>
+    using (Html.BeginForm())
+    {
+        <div class="row products">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <div class="col-md-3 col-sm-4">
+                    <div class="product">
+                        <div class="flip-container">
+                            <div class="flipper">
+                                <div class="front">
+                                    <a href="@Url.Action("Detail", "Product", new { Model[i].ProductID })">
+                                        <img src="@Model[i].ListImages[0]" alt="" class="img-responsive product-image">
+                                    </a>
+                                </div>
+
+                                <div class="back">
+                                    <a href="@Url.Action("Detail", "Product", new { Model[i].ProductID })">
+                                        @if (@Model[i].ListImages.Count > 1)
+                                        {
+                                            <img src="@Model[i].ListImages[1]" alt="" class="img-responsive product-image">
+                                        }
+                                        else
+                                        {
+                                            <img src="@Model[i].ListImages[0]" alt="" class="img-responsive product-image">
+                                        }
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="@Url.Action("Detail", "Product", new { Model[i].ProductID })" class="invisible">
+                            @if (@Model[i].ListImages.Count > 0)
+                            {
+                                <img src="@Model[i].ListImages[0]" alt="" class="img-responsive product-image">
+                            }
+                        </a>
+                        <div class="text">
+                            <h3><a href="@Url.Action("Detail", "Product", new { Model[i].ProductID })">@Model[i].ProductName</a></h3>
+                            <p class="price">@string.Format("{0:0,0}", Model[i].Price)<u>đ</u></p>
+                            <p class="buttons">
+                                <a href="@Url.Action("Detail", "Product", new { Model[i].ProductID })" class="btn btn-default">Xem chi tiết</a>
+                                <a href="basket.html" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Thêm vào wishlist</a>
+                            </p>
+                        </div>
+                        <!-- /.text -->
+                    </div>
+                    <!-- /.product -->
+                </div>
+            }
+        </div>
+                <!-- /.products -->
+    }
+    <label>Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount</label>
+    @Html.PagedListPager(Model, page => Url.Action("AccountInfo", "Info", new { page, username }))
+}
+

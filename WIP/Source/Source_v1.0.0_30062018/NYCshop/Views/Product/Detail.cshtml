@@ -60,11 +60,13 @@
                 <div class="box">
                     <h1 class="text-center">@Model.ProductName</h1>
 
-                    <p><a href="" style="font-size: 20px;">@Model.Name</a></p>
+                    <p>
+                        <a href="@Url.Action("AccountInfo", "Info", new { username = Model.Username })" style="font-size: 20px;">@Model.Name</a>
+                    </p>
 
                     <hr />
 
-                    <p class="goToDescription">
+                    <p class="goToDescription" style="font-size: 20px">
                         <a href="#memory" class="scroll-to">Chi tiết & Kỷ niệm</a>
                     </p>
 
@@ -72,6 +74,25 @@
 
                     <p class="text-center buttons">
                         <a href="basket.html" class="btn btn-default"><i class="fa fa-heart"></i> Thêm vào wishlist</a>
+                    </p>
+
+                    <hr />
+
+                    <p>
+                        @if(Session["Username"] == null)
+                        {
+                            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Bạn cần đăng nhập để thực hiện chức năng này">
+                                <a href="@Url.Action("ReportSpam", "User", new { productID = Model.ProductID })">
+                                    <input type="submit" class="btn btn-warning" value="Báo cáo bài viết vi phạm" />
+                                </a>
+                            </span>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("ReportSpam", "User", new { productID = Model.ProductID })">
+                                <input type="submit" class="btn btn-warning" value="Báo cáo bài viết vi phạm" />
+                            </a>
+                        }
                     </p>
                 </div>
             </div>

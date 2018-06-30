@@ -32,5 +32,9 @@ namespace NYCshop.Metadata.UserMetadatas
         [Display(Name = "Phone", ResourceType = typeof(UserDisplay))]
         [DataType(DataType.PhoneNumber, ErrorMessageResourceName = "InvalidPhone", ErrorMessageResourceType = typeof(UserErrorMsg))]
         public string Phone { get; set; }
+
+        [Display(Name = "JoiningDate", ResourceType = typeof(UserDisplay))]
+        [DataType(DataType.Date)]
+        public DateTime JoiningDate { get; set; }
     }
 }

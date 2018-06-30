@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NYCshop.ViewModels.ErrorViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -27,6 +28,23 @@ namespace NYCshop.Controllers
         public ActionResult AccessDenied()
         {
             return View();
+        }
+
+        /// <summary>
+        /// Chuyển sang trang lỗi
+        /// </summary>
+        /// <param name="model">Thông tin về lỗi</param>
+        /// <returns></returns>
+        public ActionResult SharedError()
+        {
+            ErrorViewModel model = new ErrorViewModel();
+            if (TempData.ContainsKey("Error"))
+            {
+                // gán lỗi vào biến model
+                model = TempData["Error"] as ErrorViewModel;
+            }
+
+            return View(model);
         }
 	}
 }

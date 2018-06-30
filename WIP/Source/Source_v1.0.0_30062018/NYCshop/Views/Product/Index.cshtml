@@ -19,72 +19,73 @@
 <div id="content">
     <div class="container">
         <div>
-        <div class="col-md-12">
+            <div class="col-md-12">
 
-            <ul class="breadcrumb">
-                <li>
-                    <a href="@Url.Action("Index", "Home")">Trang chủ</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", new { categoryID = id, page = 1 })">@categoryName</a>
-                </li>
-            </ul>
-            <div class="box">
-                <div class="row products">
-                    @for(int i = 0; i < Model.Count; i++)
-                    {
-                        <div class="col-md-3 col-sm-4">
-                            <div class="product">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front">
-                                            <a href="@Url.Action("Detail", "Product", new { Model[i].ProductID })">
-                                                <img src="@Model[i].ListImages[0]" alt="" class="img-responsive product-image">
-                                            </a>
-                                        </div>
-
-                                        <div class="back">
-                                            <a href="@Url.Action("Detail", "Product", new { Model[i].ProductID })">
-                                                @if (@Model[i].ListImages.Count > 1)
-                                            {
-                                                    <img src="@Model[i].ListImages[1]" alt="" class="img-responsive product-image">
-                                            }
-                                            else
-                                            {
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="@Url.Action("Index", "Home")">Trang chủ</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", new { categoryID = id, page = 1 })">@categoryName</a>
+                    </li>
+                </ul>
+                <div class="box">
+                    <div class="row products">
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <div class="col-md-3 col-sm-4">
+                                <div class="product">
+                                    <div class="flip-container">
+                                        <div class="flipper">
+                                            <div class="front">
+                                                <a href="@Url.Action("Detail", "Product", new { Model[i].ProductID })">
                                                     <img src="@Model[i].ListImages[0]" alt="" class="img-responsive product-image">
-                                            }
-                                            </a>
+                                                </a>
+                                            </div>
+
+                                            <div class="back">
+                                                <a href="@Url.Action("Detail", "Product", new { Model[i].ProductID })">
+                                                    @if (@Model[i].ListImages.Count > 1)
+                                                    {
+                                                        <img src="@Model[i].ListImages[1]" alt="" class="img-responsive product-image">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="@Model[i].ListImages[0]" alt="" class="img-responsive product-image">
+                                                    }
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
+                                    <a href="@Url.Action("Detail", "Product", new { Model[i].ProductID })" class="invisible">
+                                        @if (@Model[i].ListImages.Count > 0)
+                                        {
+                                            <img src="@Model[i].ListImages[0]" alt="" class="img-responsive product-image">
+                                        }
+                                    </a>
+                                    <div class="text">
+                                        <h3><a href="@Url.Action("Detail", "Product", new { Model[i].ProductID })">@Model[i].ProductName</a></h3>
+                                        <p class="price">@string.Format("{0:0,0}", Model[i].Price)<u>đ</u></p>
+                                        <p class="buttons">
+                                            <a href="@Url.Action("Detail", "Product", new { Model[i].ProductID })" class="btn btn-default">Xem chi tiết</a>
+                                            <a href="basket.html" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Thêm vào wishlist</a>
+                                        </p>
+                                    </div>
+                                    <!-- /.text -->
                                 </div>
-                                <a href="@Url.Action("Detail", "Product", new { Model[i].ProductID })" class="invisible">
-                                    @if (@Model[i].ListImages.Count > 0)
-                                {
-                                        <img src="@Model[i].ListImages[0]" alt="" class="img-responsive product-image">
-                                }
-                                </a>
-                                <div class="text">
-                                    <h3><a href="@Url.Action("Detail", "Product", new { Model[i].ProductID })">@Model[i].ProductName</a></h3>
-                                    <p class="price">@string.Format("{0:0,0}", Model[i].Price)<u>đ</u></p>
-                                    <p class="buttons">
-                                        <a href="@Url.Action("Detail", "Product", new { Model[i].ProductID })" class="btn btn-default">Xem chi tiết</a>
-                                        <a href="basket.html" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Thêm vào wishlist</a>
-                                    </p>
-                                </div>
-                                <!-- /.text -->
+                                <!-- /.product -->
                             </div>
-                            <!-- /.product -->
-                        </div>
-                    }
+                        }
+                    </div>
+                    <!-- /.products -->
+                    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) của @Model.PageCount
+
+                    @Html.PagedListPager(Model, page => Url.Action("", new { page = page, categoryID = @ViewBag.CategoryID }))
                 </div>
-                <!-- /.products -->
-                Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) của @Model.PageCount
-
-                @Html.PagedListPager(Model, page => Url.Action("", new { page = page, categoryID = @ViewBag.CategoryID }))
             </div>
-        </div>
-        <!-- /.col-md-9 -->
+            <!-- /.col-md-9 -->
 
+        </div>
+        <!-- /.container -->
     </div>
-    <!-- /.container -->
 </div>

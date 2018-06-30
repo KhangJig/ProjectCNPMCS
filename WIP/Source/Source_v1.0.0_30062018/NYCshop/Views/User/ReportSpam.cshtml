@@ -1,0 +1,99 @@
+﻿@model NYCshop.ViewModels.SpamViewModels.ReportSpamViewModel
+
+@{
+    ViewBag.Title = "Báo cáo vi phạm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="content">
+    <div class="container">
+        @if (ViewBag.AddNewSpamMsg != null)
+        {
+            <div class="alert alert-success alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Thành công!</strong> @ViewBag.AddNewSpamMsg
+            </div>
+        }
+        <div class="panel panel-default col-md-6">
+            @{Html.RenderAction("ReportProduct", "User", new { productID = Model.ProductID });}
+        </div>
+        <div class="panel panel-default col-md-5 col-md-offset-1">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div>
+                    <h4>Báo cáo vi phạm</h4>
+                    <hr />
+                    @Html.ValidationSummary(true)
+                    <input type="hidden" name="ProductID" value="@Model.ProductID" />
+                    <form>
+                        <label class="radio-inline">
+                            <input type="radio" name="optradio" onclick="onclickSpamSelection(this)" value="Bài viết hư cấu, bịa đặt" />Bài viết hư cấu, bịa đặt
+                        </label><br />
+                        <label class="radio-inline">
+                            <input type="radio" name="optradio" onclick="onclickSpamSelection(this)" value="Bài viết chứa hình ảnh máu me, bạo lực, vi phạm thuần phong mỹ tục" />Bài viết chứa hình ảnh máu me, bạo lực, vi phạm thuần phong mỹ tục
+                        </label><br />
+                        <label class="radio-inline">
+                            <input type="radio" name="optradio" onclick="onclickSpamSelection(this)" value="Số điện thoại của người đăng không tồn tại" />Số điện thoại của người đăng không tồn tại
+                        </label><br />
+                        <label class="radio-inline">
+                            <input type="radio" name="optradio" onclick="onclickSpamSelection(this)" value="Khác" />Khác
+                        </label>
+                    </form>
+
+                    <div id="other-spam-input" class="form-group" hidden >
+                        @Html.LabelFor(model => model.SpamContent, new { @class = "control-label" })
+                        @Html.TextAreaFor(model => model.SpamContent, new { @class = "form-control", rows = "5" })
+                        @Html.ValidationMessageFor(model => model.SpamContent)
+                    </div>
+
+                    <hr />
+
+                    <div>
+                        <label><b><u>Lưu ý:</u></b></label><br />
+                        <label>
+                            Nếu báo cáo <i><b>không đúng sự thật</b></i> sẽ bị:<br />
+                            - <b>Lần 1</b>: Gửi thông báo cảnh cáo<br />
+                            - <b>Lần 2</b>: Khóa tài khoản trong vòng 2 ngày<br />
+                            - <b>Lần 3</b>: Khóa tài khoản trong vòng 1 tuần<br />
+                            - <b>Nhiều lần hơn</b>: Khóa tài khoản vĩnh viễn<br />
+                        </label>
+                    </div>
+
+                    <hr />
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <button type="submit" class="btn btn-warning"><i class="fa fa-exclamation-triangle"></i> Báo cáo</button><br /><br />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    function onclickSpamSelection(e) {
+        var selectedOptionText = $(e).val();
+        if (selectedOptionText != null) {
+            if (selectedOptionText == "Khác") {
+                // hiển thị ô để nhập nội dung vi phạm khác
+                $("#other-spam-input").prop("hidden", false);
+
+                // xóa nội dung của ô để nhập nội dung vi phạm khác
+                $("#SpamContent").val("");
+                // chuyển con trỏ chuột với ô nhập nội dung vi phạm khác
+                $("#SpamContent").focus();
+            }
+            else {
+                // ẩn ô để nhập nội dung vi phạm khác
+                $("#other-spam-input").prop("hidden", true);
+
+                // gán nội dung vi phạm cho textedit có id là SpamContent
+                $("#SpamContent").val(selectedOptionText);
+            }
+        }
+    }
+</script>

@@ -1,19 +1,13 @@
-﻿using NYCshop.Metadata.SubCategoryMetadatas;
-using NYCshop.Models;
+using NYCshop.Metadata.SubCategoryMetadatas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace NYCshop.Models
 {
     [MetadataType(typeof(SubCategoryMetadata))]
-    public class SubCategory
+    public partial class SubCategory
     {
-        public int SubCategoryID { get; set; }
-        public int CategoryID { get; set; }
-        private Category Category { get; set; }
-        public string SubCategoryName { get; set; }
+
     }
 }

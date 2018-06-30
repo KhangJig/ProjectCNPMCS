@@ -1,0 +1,24 @@
+﻿@model NYCshop.ViewModels.ProductViewModel.ProductReportViewModel
+
+<style>
+    #product-image {
+        width: 100%;
+    }
+</style>
+
+<div>
+    <h4>Thông tin sản phẩm</h4>
+
+    <hr />
+
+    <div class="col-md-7 text-center">
+        <img src="@Model.Url" id="product-image" />
+        <a href="@Url.Action("Detail", "Product", new { productID = Model.ProductID })" target="_blank">@Model.ProductName</a><br /><br />
+    </div>
+    <div class="col-md-5">
+        <b>Người đăng:</b> @Html.DisplayFor(m => m.Name) <br />
+        <b>@Html.DisplayNameFor(m => m.UploadDate):</b> @Html.DisplayFor(m => m.UploadDate) <br />
+        <b>@Html.DisplayNameFor(m => m.Phone):</b> @Html.DisplayFor(m => m.Phone) <br />
+    </div>
+</div>
+

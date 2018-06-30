@@ -241,6 +241,14 @@
     <Compile Include="Attributes\CheckAdminAttribute.cs" />
     <Compile Include="Attributes\CheckAnynomousAttribute.cs" />
     <Compile Include="Attributes\CheckUserAttribute.cs" />
+    <Compile Include="DataAccess\SpamDAO.cs" />
+    <Compile Include="MappingModels\Category.cs" />
+    <Compile Include="MappingModels\Comment.cs" />
+    <Compile Include="MappingModels\ErrorLog.cs" />
+    <Compile Include="MappingModels\ImageUrl.cs" />
+    <Compile Include="MappingModels\Product.cs" />
+    <Compile Include="MappingModels\Reply.cs" />
+    <Compile Include="MappingModels\Spam.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -248,21 +256,27 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InfoController.cs" />
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="CustomTypes\DeleteProductsResultType.cs" />
+    <Compile Include="CustomTypes\GetAccountInfoResultType.cs" />
+    <Compile Include="CustomTypes\GetListProductResultType.cs" />
     <Compile Include="CustomTypes\LoginResultType.cs" />
     <Compile Include="CustomTypes\SuccessAndMsg.cs" />
     <Compile Include="DataAccess\AccountDAO.cs" />
     <Compile Include="DataAccess\CategoryDAO.cs" />
     <Compile Include="DataAccess\ImageDAO.cs" />
+    <Compile Include="DataAccess\InfoDAO.cs" />
     <Compile Include="DataAccess\ProductDAO.cs" />
     <Compile Include="DataAccess\UserDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="MappingModels\SubCategory.cs" />
+    <Compile Include="MappingModels\User.cs" />
     <Compile Include="Metadata\CategoryMetadatas\CategoryDetailViewModelMetadata.cs" />
     <Compile Include="Metadata\CategoryMetadatas\CategoryMetadata.cs" />
     <Compile Include="Metadata\CategoryMetadatas\CateWithSubViewModelMetadata.cs" />
@@ -274,10 +288,13 @@
     <Compile Include="Metadata\ProductMetadatas\ProductDetailViewModelMetadata.cs" />
     <Compile Include="Metadata\ProductMetadatas\ProductManagerViewModelMetadata.cs" />
     <Compile Include="Metadata\ProductMetadatas\ProductMetadata.cs" />
+    <Compile Include="Metadata\ProductMetadatas\ProductReportViewModelMetadata.cs" />
     <Compile Include="Metadata\ReplyMetadatas\ReplyMetadata.cs" />
     <Compile Include="Metadata\ReplyMetadatas\ReplyViewModelMetadata.cs" />
     <Compile Include="Metadata\SearchMetadata\SearchProductViewModelMetadata.cs" />
     <Compile Include="Metadata\SearchMetadata\SearchViewModelMetadata.cs" />
+    <Compile Include="Metadata\SpamMetadatas\ReportSpamViewModelMetadata.cs" />
+    <Compile Include="Metadata\SpamMetadatas\SpamMetadata.cs" />
     <Compile Include="Metadata\SubCategoryMetadatas\SubCategoryMetadata.cs" />
     <Compile Include="Metadata\UserMetadatas\ChangePasswordViewModelMetadata.cs" />
     <Compile Include="Metadata\UserMetadatas\ConfirmPasswordViewModelMetadata.cs" />
@@ -285,14 +302,15 @@
     <Compile Include="Metadata\UserMetadatas\RegisterViewModelMetadata.cs" />
     <Compile Include="Metadata\UserMetadatas\UserInfoViewModelMetadata.cs" />
     <Compile Include="Metadata\UserMetadatas\UserMetadata.cs" />
-    <Compile Include="Migrations\201806270320314_FirstMigration.cs" />
-    <Compile Include="Migrations\201806270320314_FirstMigration.Designer.cs">
-      <DependentUpon>201806270320314_FirstMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201806281259420_AddTableSpam.cs" />
+    <Compile Include="Migrations\201806281259420_AddTableSpam.Designer.cs">
+      <DependentUpon>201806281259420_AddTableSpam.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\ErrorLog.cs" />
     <Compile Include="Models\Reply.cs" />
+    <Compile Include="Models\Spam.cs" />
     <Compile Include="Models\SubCategory.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\ExLoverShopDb.cs" />
@@ -325,6 +343,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DeleteProductResult.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\ActionMessageInController\GetAccountInfoResult.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetAccountInfoResult.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ActionMessageInController\GetListProductResult.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GetListProductResult.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\ActionMessageInController\LoginResult.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -334,6 +362,31 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RegisterResult.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ActionMessageInController\UserControllerMsg.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserControllerMsg.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\DataAccessMessage\ImageUrlDAOMsg.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ImageUrlDAOMsg.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\DataAccessMessage\ProductDAOMsg.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProductDAOMsg.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\DataAccessMessage\SpamDAOMsg.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SpamDAOMsg.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\DataAccessMessage\UserDAOMsg.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserDAOMsg.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\ResourceFiles\CategoryDisplay.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -375,6 +428,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ImageUrlErrorMsg.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\ResourceFiles\InfoActionErrorMsg.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InfoActionErrorMsg.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\ResourceFiles\ProductDisplay.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -394,6 +452,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ReplyErrorMsg.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ResourceFiles\SpamDisplay.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SpamDisplay.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ResourceFiles\SpamErrorMsg.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SpamErrorMsg.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\ResourceFiles\SubCategoryDisplay.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -418,17 +486,20 @@
     <Compile Include="ViewModels\CategoryViewModel\CategoryDetailViewModel.cs" />
     <Compile Include="ViewModels\CategoryViewModel\CateWithSubViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel\CommentInProductViewModel.cs" />
+    <Compile Include="ViewModels\ErrorViewModels\ErrorViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel\EditProductViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel\ProductDetailViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel\ProductManagerViewModel.cs" />
+    <Compile Include="ViewModels\ProductViewModel\ProductReportViewModel.cs" />
     <Compile Include="ViewModels\ReplyViewModels\ReplyViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel\SearchProductViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel\SearchViewModel.cs" />
+    <Compile Include="ViewModels\SpamViewModels\ReportSpamViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel\ConfirmPasswordViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel\RegisterViewModel.cs" />
-    <Compile Include="ViewModels\UserViewModel\UserInfoViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel\AccountInfoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -470,6 +541,12 @@
     <Content Include="Views\Admin\ManagePost.cshtml" />
     <Content Include="Views\Admin\ShowDetailDemo.cshtml" />
     <Content Include="Views\Product\ProductNotFound.cshtml" />
+    <Content Include="Views\Info\AccountInfo.cshtml" />
+    <Content Include="Views\Shared\_GetAccountPostPartial.cshtml" />
+    <Content Include="Views\Info\Error.cshtml" />
+    <Content Include="Views\User\ReportSpam.cshtml" />
+    <Content Include="Views\Shared\_ProductIsReportedPartial.cshtml" />
+    <Content Include="Views\Error\SharedError.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -479,11 +556,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Info\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201806270320314_FirstMigration.resx">
-      <DependentUpon>201806270320314_FirstMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806281259420_AddTableSpam.resx">
+      <DependentUpon>201806281259420_AddTableSpam.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ActionMessageInController\ActionMessage.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -505,6 +581,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>DeleteProductResult.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ActionMessageInController\GetAccountInfoResult.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>GetAccountInfoResult.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ActionMessageInController\GetListProductResult.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>GetListProductResult.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\ActionMessageInController\LoginResult.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>LoginResult.Designer.cs</LastGenOutput>
@@ -512,6 +596,26 @@
     <EmbeddedResource Include="Resources\ActionMessageInController\RegisterResult.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>RegisterResult.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ActionMessageInController\UserControllerMsg.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UserControllerMsg.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DataAccessMessage\ImageUrlDAOMsg.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ImageUrlDAOMsg.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DataAccessMessage\ProductDAOMsg.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProductDAOMsg.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DataAccessMessage\SpamDAOMsg.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SpamDAOMsg.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DataAccessMessage\UserDAOMsg.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UserDAOMsg.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ResourceFiles\CategoryDisplay.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -545,6 +649,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ImageUrlErrorMsg.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ResourceFiles\InfoActionErrorMsg.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>InfoActionErrorMsg.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\ResourceFiles\ProductDisplay.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ProductDisplay.Designer.cs</LastGenOutput>
@@ -560,6 +668,14 @@
     <EmbeddedResource Include="Resources\ResourceFiles\ReplyErrorMsg.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ReplyErrorMsg.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ResourceFiles\SpamDisplay.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SpamDisplay.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ResourceFiles\SpamErrorMsg.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SpamErrorMsg.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ResourceFiles\SubCategoryDisplay.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -99,7 +99,7 @@ namespace NYCshop.DataAccess
             return new SuccessAndMsg(false, ChangePassResult.ChangePassFailed);
         }
 
-        public SuccessAndMsg ChangePersonalDetail(UserInfoViewModel model)
+        public SuccessAndMsg ChangePersonalDetail(AccountInfoViewModel model)
         {
             var user = db.Users.FirstOrDefault(u => u.Username == model.Username);
 

@@ -1,0 +1,2 @@
+- Bước 1: Tạo 1 CSDL SQL Server tên là ExLoverShop
+- Bước 2: Mở file ExLoverShop.sql bằng SQL Server và nhấn Run

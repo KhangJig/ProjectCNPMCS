@@ -146,7 +146,7 @@ namespace NYCshop.Controllers
         // GET: /Admin/ChangePersonalDetail
         public ActionResult ChangePersonalDetail()
         {
-            UserInfoViewModel model = new UserInfoViewModel();
+            AccountInfoViewModel model = new AccountInfoViewModel();
             if (Session["Username"] != null)
             {
                 string username = Session["Username"].ToString();
@@ -169,7 +169,7 @@ namespace NYCshop.Controllers
         //
         // POST: /Admin/ChangePersonalDetail
         [HttpPost]
-        public ActionResult ChangePersonalDetail(UserInfoViewModel model)
+        public ActionResult ChangePersonalDetail(AccountInfoViewModel model)
         {
             if (ModelState.IsValid)
             {

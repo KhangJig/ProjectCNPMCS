@@ -2,6 +2,7 @@
 using NYCshop.CustomTypes;
 using NYCshop.Models;
 using NYCshop.Resources.ActionMessageInController;
+using NYCshop.Resources.DataAccessMessage;
 using NYCshop.ViewModels.ProductViewModel;
 using NYCshop.ViewModels.UserViewModel;
 using System;
@@ -359,6 +360,20 @@ namespace NYCshop.DataAccess
         public void EditProduct(EditProductViewModel model, List<HttpPostedFileBase> files, int productID)
         {
 
+        }
+
+        /// <summary>
+        /// Lấy ra người dùng với tên người dùng
+        /// </summary>
+        /// <param name="username">Tên người dùng</param>
+        /// <returns></returns>
+        public SuccessAndMsg GetUser(string username)
+        {
+            User user = db.Users.FirstOrDefault(u => u.Username == username);
+            if (user != null)
+                return new SuccessAndMsg(true, UserDAOMsg.GetUserSuccessful, user);
+
+            return new SuccessAndMsg(false, UserDAOMsg.GetUserFailed);
         }
     }
 }

@@ -61,6 +61,24 @@ namespace NYCshop.Resources.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lấy danh sách đường dẫn hình ảnh thất bại.
+        /// </summary>
+        public static string GetListUrlFailed {
+            get {
+                return ResourceManager.GetString("GetListUrlFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lấy danh sách đường dẫn hình ảnh thành công.
+        /// </summary>
+        public static string GetListUrlSuccessful {
+            get {
+                return ResourceManager.GetString("GetListUrlSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yêu cầu nhập mã hình ảnh.
         /// </summary>
         public static string ImageIDRequired {

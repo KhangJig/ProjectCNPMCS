@@ -16,6 +16,9 @@ namespace NYCshop.Metadata.ProductMetadatas
         [Display(Name = "ProductName", ResourceType = typeof(ProductDisplay))]
         public string ProductName { get; set; }
 
+        [Display(Name = "Username", ResourceType = typeof(UserDisplay))]
+        public string Username { get; set; }
+
         [Display(Name = "Name", ResourceType = typeof(UserDisplay))]
         public string Name { get; set; }
 

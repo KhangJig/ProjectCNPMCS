@@ -120,4 +120,7 @@
   <data name="MissingOrInvalidInfo" xml:space="preserve">
     <value>Bạn nhập thiếu dữ liệu hoặc dữ liệu không hợp lệ</value>
   </data>
+  <data name="NotLogin" xml:space="preserve">
+    <value>Bạn chưa đăng nhập</value>
+  </data>
 </root>

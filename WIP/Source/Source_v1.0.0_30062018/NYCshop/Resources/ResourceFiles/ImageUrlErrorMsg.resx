@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="GetListUrlFailed" xml:space="preserve">
+    <value>Lấy danh sách đường dẫn hình ảnh thất bại</value>
+  </data>
+  <data name="GetListUrlSuccessful" xml:space="preserve">
+    <value>Lấy danh sách đường dẫn hình ảnh thành công</value>
+  </data>
   <data name="ImageIDRequired" xml:space="preserve">
     <value>Yêu cầu nhập mã hình ảnh</value>
     <comment>required</comment>

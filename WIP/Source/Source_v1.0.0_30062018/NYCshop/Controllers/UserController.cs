@@ -16,6 +16,8 @@ using NYCshop.ViewModels.ProductViewModel;
 using NYCshop.DataAccess;
 using NYCshop.CustomTypes;
 using NYCshop.Resources.ActionMessageInController;
+using NYCshop.ViewModels.SpamViewModels;
+using NYCshop.ViewModels.ErrorViewModels;
 
 namespace NYCshop.Controllers
 {
@@ -27,6 +29,8 @@ namespace NYCshop.Controllers
         private GetListAndDict listAndDict = new GetListAndDict();
         private AccountDAO accountDAO = new AccountDAO();
         private UserDAO dao = new UserDAO();
+        private ProductDAO productDAO = new ProductDAO();
+        private SpamDAO spamDAO = new SpamDAO();
 
         protected override void OnException(ExceptionContext filterContext)
         {
@@ -155,7 +159,7 @@ namespace NYCshop.Controllers
         /// <returns></returns>
         public ActionResult ChangePersonalDetail()
         {
-            UserInfoViewModel model = new UserInfoViewModel();
+            AccountInfoViewModel model = new AccountInfoViewModel();
             if (Session["Username"] != null)
             {
                 string username = Session["Username"].ToString();
@@ -165,7 +169,7 @@ namespace NYCshop.Controllers
                 if (user != null)
                 {
                     // thiết lập thông tin cho model
-                    model = new UserInfoViewModel(user);
+                    model = new AccountInfoViewModel(user);
                 }
             }
 
@@ -179,7 +183,7 @@ namespace NYCshop.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult ChangePersonalDetail(UserInfoViewModel model)
+        public ActionResult ChangePersonalDetail(AccountInfoViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -618,6 +622,75 @@ namespace NYCshop.Controllers
             else ModelState.AddModelError("", "Phản hồi bình luận thất bại");
 
             return Redirect(returnUrl);
+        }
+
+        /// <summary>
+        /// GET: /User/ReportSpam
+        /// Báo cáo vi phạm
+        /// </summary>
+        /// <param name="productID">Mã sản phẩm</param>
+        /// <returns></returns>
+        public ActionResult ReportSpam(int productID)
+        {
+            ReportSpamViewModel model = new ReportSpamViewModel();
+            model.ProductID = productID;
+
+            return View(model);
+        }
+
+        /// <summary>
+        /// POST: /User/ReportSpam
+        /// Báo cáo vi phạm
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ReportSpam(ReportSpamViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if(Session["Username"] != null)
+                {
+                    string username = Session["Username"] as string;
+                    Spam spam = new Spam(model, username);
+                    SuccessAndMsg addNewSpamResult = spamDAO.AddNewSpam(spam);
+                    if(!addNewSpamResult.IsSuccess)
+                    {
+                        // thêm báo cáo vi phạm thất bại, chuyển đến trang lỗi
+                        TempData["Error"] = new ErrorViewModel(addNewSpamResult.Message);
+                        return RedirectToAction("SharedError", "Error");
+                    }
+                    else ViewBag.AddNewSpamMsg = addNewSpamResult.Message;
+                }
+                
+            }
+            else ModelState.AddModelError("", ActionMessage.MissingOrInvalidInfo);
+
+            return View(model);
+        }
+
+        /// <summary>
+        /// Lấy ra sản phẩm bị báo cáo vi phạm
+        /// </summary>
+        /// <param name="productID">Mã sản phẩm</param>
+        /// <returns></returns>
+        public ActionResult ReportProduct(int productID)
+        {
+            if(Session["Username"] != null)
+            {
+                SuccessAndMsg getReportProductResult = productDAO.GetProductReport(productID);
+
+                if(getReportProductResult.IsSuccess)
+                {
+                    ProductReportViewModel model = getReportProductResult.Value as ProductReportViewModel;
+                    return PartialView("_ProductIsReportedPartial", model);
+                }
+
+                TempData["Error"] = new ErrorViewModel(getReportProductResult.Message);
+                return RedirectToAction("SharedError", "Error");
+            }
+
+            return RedirectToAction("SharedError", "Error");
         }
     }
 }

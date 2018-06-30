@@ -1,0 +1,58 @@
+﻿@model NYCshop.ViewModels.UserViewModel.AccountInfoViewModel
+@{
+    ViewBag.Title = "Thông tin người dùng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int? page = ViewBag.Page;
+    string name = ViewBag.Name;
+}
+
+<style>
+    .sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+    }
+</style>
+
+<div id="content">
+    <div class="container">
+        <div class="col-md-3 sticky">
+            <!-- *** CUSTOMER MENU ***
+            _________________________________________________________ -->
+            <div class="panel panel-default sidebar-menu">
+
+                <div class="panel-heading">
+                    <h3 class="panel-title">@Html.DisplayFor(m => m.Name)</h3>
+                </div>
+
+                <div class="panel-body">
+
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><b>@Html.DisplayNameFor(m => m.Phone)</b>: @Html.DisplayFor(m => m.Phone)</li>
+                        <li><b>@Html.DisplayNameFor(m => m.JoiningDate)</b>: @Html.DisplayFor(m => m.JoiningDate)</li>
+                        <li><b>@Html.DisplayNameFor(m => m.Address)</b>: @Html.DisplayFor(m => m.Address)</li>
+                        @if(Model.Email != null)
+                        {
+                            <li><b>@Html.DisplayNameFor(m => m.Email)</b>: @Html.DisplayFor(m => m.Email)</li>
+                        } 
+                    </ul>
+                </div>
+
+            </div>
+            <!-- /.col-md-3 -->
+            <!-- *** CUSTOMER MENU END *** -->
+        </div>
+
+
+
+        <div class="box col-md-9">
+            @{Html.RenderAction("AccountPost", "Info", new { page, username = Model.Username, name });}
+        </div>
+
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /#content -->
+
+

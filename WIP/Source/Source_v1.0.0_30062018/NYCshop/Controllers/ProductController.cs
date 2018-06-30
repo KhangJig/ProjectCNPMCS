@@ -150,6 +150,7 @@ namespace NYCshop.Controllers
                 model.Name = name;
                 model.Phone = phone;
                 model.CategoryID = category.CategoryID;
+                model.Username = product.Username;
 
                 return View(model);
             }
