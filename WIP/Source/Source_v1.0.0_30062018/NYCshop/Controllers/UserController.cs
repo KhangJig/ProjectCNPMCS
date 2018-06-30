@@ -11,6 +11,11 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using NYCshop.Resources.ResourceFiles;
+using NYCshop.ViewModels.UserViewModel;
+using NYCshop.ViewModels.ProductViewModel;
+using NYCshop.DataAccess;
+using NYCshop.CustomTypes;
+using NYCshop.Resources.ActionMessageInController;
 
 namespace NYCshop.Controllers
 {
@@ -20,6 +25,8 @@ namespace NYCshop.Controllers
         private ExLoverShopDb db = new ExLoverShopDb();
         private MD5Assets md5 = new MD5Assets();
         private GetListAndDict listAndDict = new GetListAndDict();
+        private AccountDAO accountDAO = new AccountDAO();
+        private UserDAO dao = new UserDAO();
 
         protected override void OnException(ExceptionContext filterContext)
         {
@@ -28,50 +35,48 @@ namespace NYCshop.Controllers
             //string controllerName = filterContext.RouteData.Values["controller"] as string;
             string actionName = filterContext.RouteData.Values["action"] as string;
             string httpMethod = filterContext.HttpContext.Request.HttpMethod;
+
+            // ghi thông tin lỗi vào csdl
             ErrorLog error = new ErrorLog();
+            error.OccurDate = DateTime.Now;
+            if (Session["Username"] != null)
+                error.Username = Session["Username"] as string;
+            error.ErrorContent = e.ToString();
+
             switch (actionName.ToLower())
             {
                 case "newpost":
-                    error.ErrorContent = e.ToString();
                     if (httpMethod.ToLower() == "get")
                         error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.NewPost + "'";
                     else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.NewPost + "'";
-                    if (Session["Username"] != null)
-                        error.Username = Session["Username"] as string;
                     break;
                 case "index":
-                    error.ErrorContent = e.ToString();
                     if (httpMethod.ToLower() == "get")
                         error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.UserInfo + "'";
                     else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.UserInfo + "'";
                     break;
                 case "changepassword":
-                    error.ErrorContent = e.ToString();
                     if (httpMethod.ToLower() == "get")
                         error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.ChangePassword + "'";
                     else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.ChangePassword + "'";
                     break;
                 case "changepersonaldetail":
-                    error.ErrorContent = e.ToString();
                     if (httpMethod.ToLower() == "get")
                         error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.ChangePassword + "'";
                     else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.ChangePassword + "'";
                     break;
-                case "mypost": 
-                    error.ErrorContent = e.ToString();
+                case "mypost":
                     if (httpMethod.ToLower() == "get")
                         error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.MyPost + "'";
                     else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.MyPost + "'";
                     break;
                 case "editproduct": 
-                    error.ErrorContent = e.ToString();
                     if (httpMethod.ToLower() == "get")
                         error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.EditProduct + "'";
                     else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.EditProduct + "'";
 
                     break;
                 case "comment":
-                    error.ErrorContent = e.ToString();
                     if (httpMethod.ToLower() == "get")
                         error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.Comment + "'";
                     else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.Comment + "'";
@@ -79,10 +84,6 @@ namespace NYCshop.Controllers
                     break;
                 default: break;
             }
-
-            error.OccurDate = DateTime.Now;
-            if (Session["Username"] != null)
-                error.Username = Session["Username"] as string;
 
             db.ErrorLogs.Add(error);
             db.SaveChanges();
@@ -103,8 +104,11 @@ namespace NYCshop.Controllers
             return View();
         }
 
-        //
-        // GET: /User/ChangePassword
+        /// <summary>
+        /// GET: /User/ChangePassword
+        /// Hiển thị giao diện Đổi mật khẩu người dùng
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ChangePassword()
         {
             ChangePasswordViewModel model = new ChangePasswordViewModel();
@@ -119,40 +123,36 @@ namespace NYCshop.Controllers
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordViewModel model)
         {
-
             if (ModelState.IsValid)
             {
-                var user = db.Users.FirstOrDefault(u => u.Username == model.Username);
+                SuccessAndMsg changePassResult = accountDAO.ChangePassword(model);
 
-                if (user != null)
+                if(changePassResult.IsSuccess)
                 {
-                    // 1.4 Mật khẩu cũ không đúng
-                    if (md5.GetMd5Hash(model.OldPassword) != user.Password)
-                        ModelState.AddModelError("", "Mật khẩu cũ không đúng");
-                    else
-                    {
-                        string newPassword = md5.GetMd5Hash(model.NewPassword);
-                        // 1.1 trường hợp trùng mật khẩu mới và mật khẩu cũ
-                        if (newPassword == user.Password)
-                            ModelState.AddModelError("", "Mật khẩu mới không được trùng mật khẩu cũ");
-                        else
-                        {
-                            // 2. Đổi mật khẩu thành công
-                            user.Password = md5.GetMd5Hash(model.NewPassword);
-
-                            db.SaveChanges();
-                            ViewBag.ChangePasswordMsg = "Đổi mật khẩu thành công";
-                        }
-                    }
+                    // đổi mật khẩu thành công
+                    ViewBag.ChangePasswordMsg = changePassResult.Message;
+                    ModelState.Clear();
                 }
-                else ModelState.AddModelError("", "Đổi mật khẩu thất bại");
+                else
+                {
+                    // đổi mật khẩu thất bại
+                    ModelState.AddModelError("", changePassResult.Message);
+                }
+            }
+            else
+            {
+                // đổi mật khẩu thất bại
+                ModelState.AddModelError("", ActionMessage.MissingOrInvalidInfo);
             }
 
-            return View(model);
+            return View();
         }
 
-        //
-        // GET: /User/ChangePersonalDetail
+        /// <summary>
+        /// GET: /User/ChangePersonalDetail
+        /// Hiển thị thông tin người dùng
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ChangePersonalDetail()
         {
             UserInfoViewModel model = new UserInfoViewModel();
@@ -164,38 +164,42 @@ namespace NYCshop.Controllers
 
                 if (user != null)
                 {
-                    model.Username = user.Username;
-                    model.Address = user.Address;
-                    model.Email = user.Email;
-                    model.Name = user.Name;
-                    model.Phone = user.Phone;
+                    // thiết lập thông tin cho model
+                    model = new UserInfoViewModel(user);
                 }
             }
 
             return View(model);
         }
 
-        //
-        // POST: /User/ChangePersonalDetail
+        /// <summary>
+        /// POST: /User/ChangePersonalDetail
+        /// Đổi thông tin tài khoản
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult ChangePersonalDetail(UserInfoViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = db.Users.FirstOrDefault(u => u.Username == model.Username);
+                SuccessAndMsg changeUserInfoResult = accountDAO.ChangePersonalDetail(model);
 
-                if (user != null)
+                if (changeUserInfoResult.IsSuccess)
                 {
-                    user.Username = model.Username;
-                    user.Address = model.Address;
-                    user.Email = model.Email;
-                    user.Name = model.Name;
-                    user.Phone = model.Phone;
-
-                    db.SaveChanges();
-                    ViewBag.UpdateInfoMsg = "Cập nhật thông tin thành công";
+                    // đổi thông tin tài khoản thành công
+                    ViewBag.UpdateInfoMsg = changeUserInfoResult.Message;
                 }
-                else ModelState.AddModelError("", "Cập nhật thông tin thất bại");
+                else
+                {
+                    // đổi thông tin tài khoản thất bại
+                    ModelState.AddModelError("", changeUserInfoResult.Message);
+                }
+            }
+            else
+            {
+                // nhập thiếu thông tin hoặc thông tin không hợp lệ
+                ModelState.AddModelError("", ActionMessage.MissingOrInvalidInfo);
             }
 
             return View(model);
@@ -203,45 +207,44 @@ namespace NYCshop.Controllers
 
         //
         // GET: /User/MyPost/
-        public ActionResult MyPost(int? page)
+        public ActionResult MyPost(int? page, string viewType, string search, string userAction)
         {
-            // 2. Hiển thị tất cả tin của tôi thành công
             if (Session["Username"] != null)
             {
-                string username = Session["Username"].ToString();
+                string username = Session["Username"] as string;
 
-                Dictionary<int, string> dictImages = new Dictionary<int, string>();
-                var images = from i in db.ImageUrls
-                             select i;
+                if (page == null)
+                {
+                    // 2. Hiển thị các bài đăng thành công
+                    int pageSize = 10;
+                    int pageNumber = (page ?? 1); // trả về giá trị của page nếu nó là 1 giá trị khác null, nếu không trả về 1
 
-                foreach (ImageUrl img in images)
-                    if (!dictImages.ContainsKey(img.ProductID))
-                        dictImages.Add(img.ProductID, img.Url);
+                    // lấy ra các bài viết theo người dùng hiện tại
+                    List<ProductManagerViewModel> products = dao.GetMyPost(username);
 
-                var products = (from p in db.Products
-                                where p.Username == username
-                                select new ProductManagerViewModel
-                                {
-                                    ProductID = p.ProductID,
-                                    ProductName = p.ProductName,
-                                    Price = p.Price,
-                                    Quanlity = p.Quanlity,
-                                    SaleStatus = p.SaleStatus,
-                                    DeleteProduct = false,
-                                    Image = ""
-                                }).ToList();
+                    ViewBag.PagedList = products.ToPagedList(pageNumber, pageSize);
+                    ViewBag.TotalPages = products.Count % 10 == 0 ? products.Count / 10 : products.Count / 10 + 1;
+                    return View(products.OrderByDescending(p => p.ProductID).Skip((pageNumber - 1) * 10).Take(10).ToList());
+                }
+                else
+                {
+                    // thiết lập lại các giá trị viewType, search để tránh gặp lỗi
+                    viewType = viewType == null ? "" : viewType;
+                    search = search == null ? "" : search;
 
-                foreach (ProductManagerViewModel p in products)
-                    if (dictImages.ContainsKey(p.ProductID))
-                    {
-                        p.Image = dictImages[p.ProductID];
-                    }
+                    // Trả về danh sách các sản phẩm theo điều kiện lọc
+                    List<ProductManagerViewModel> model = dao.GetMyPost(username, viewType, search);
 
-                int pageSize = 10;
-                int pageNumber = (page ?? 1); // trả về giá trị của page nếu nó là 1 giá trị khác null, nếu không trả về 1
+                    int pageSize = 10;
+                    int pageNumber = (page ?? 1); // trả về giá trị của page nếu nó là 1 giá trị khác null, nếu không trả về 1
 
-                ViewBag.PagedList = products.OrderByDescending(p => p.ProductID).ToPagedList(pageNumber, pageSize);
-                return View(products);
+                    ViewBag.PagedList = model.ToPagedList(pageNumber, pageSize);
+                    ViewBag.TotalPages = model.Count % 10 == 0 ? model.Count / 10 : model.Count / 10 + 1;
+                    ViewBag.ViewType = viewType;
+                    ViewBag.SearchKey = search;
+                    ViewBag.UserAction = userAction;
+                    return View(model.OrderByDescending(p => p.ProductID).Skip((pageNumber - 1) * 10).Take(10).ToList());
+                }
             }
 
             return View();
@@ -250,93 +253,82 @@ namespace NYCshop.Controllers
         //
         // POST: /User/MyPost/
         [HttpPost]
-        public ActionResult MyPost(List<ProductManagerViewModel> model, int? page)
+        public ActionResult MyPost(List<ProductManagerViewModel> model, int? page, string viewType, string search, string userAction)
         {
-            int pageSize = 10;
-            int pageNumber = (page ?? 1); // trả về giá trị của page nếu nó là 1 giá trị khác null, nếu không trả về 1
-
-            var deleteProduct = model.FirstOrDefault(m => m.DeleteProduct == true);
-            if(deleteProduct != null) // có sản phẩm bị xóa
+            if (Session["Username"] != null)
             {
-                if (Session["Username"] != null)
+                string username = Session["Username"] != null ? Session["Username"] as string: "";
+
+                // thực hiện hành động của người dùng
+                userAction = userAction == null ? "" : userAction;
+                switch (userAction)
                 {
-                    string username = Session["Username"].ToString();
+                    case "Báo hết hàng":
+                        dao.SetOutOfProducts(model);
+                        break;
+                    case "Báo còn hàng":
+                        dao.SetRemainProducts(model);
+                        break;
+                    case "Xóa":
+                        DeleteProductsResultType delResult = dao.PerformActionDelete(model);
 
-                    // xóa sản phẩm được chọn
-                    #region xóa sản phẩm được chọn
-                    List<ProductManagerViewModel> delProducts = model.FindAll(m => m.DeleteProduct == true);
-                    foreach(ProductManagerViewModel delProduct in delProducts)
-                    {
-                        var currDelProduct = db.Products.FirstOrDefault(p => p.ProductID == delProduct.ProductID);
-                        if (currDelProduct != null)
+                        if (delResult.IsSuccess)
                         {
-                            // xóa sản phẩm
-                            db.Products.Remove(currDelProduct);
-
-                            // xóa đường dẫn hình ảnh của sản phẩm đó trong CSDL
-                            var imageUrls = (from i in db.ImageUrls
-                                            where i.ProductID == delProduct.ProductID
-                                            select i).ToList();
-
-                            foreach(ImageUrl img in imageUrls)
-                                db.ImageUrls.Remove(img);
-
-                            // xóa các hình ảnh trên server hiện tại
-                            foreach (ImageUrl image in imageUrls)
-                            {
-                                string url = Request.MapPath("~" + image.Url);
-                                if (System.IO.File.Exists(url))
-                                    System.IO.File.Delete(url);
-                            }
-                        }   
-                    }
-                    #endregion
-
-                    // cập nhật sản phẩm đã hết hàng
-                    #region cập nhật sản phẩm đã hết hàng
-                    #endregion
-
-                    db.SaveChanges();
-
-                    // 2. Hiển thị tất cả tin của tôi thành công
-                    #region 2. Hiển thị tất cả tin của tôi thành công
-
-                    Dictionary<int, string> dictImages = new Dictionary<int, string>();
-                    var images = from i in db.ImageUrls
-                                 select i;
-
-                    foreach (ImageUrl img in images)
-                        if (!dictImages.ContainsKey(img.ProductID))
-                            dictImages.Add(img.ProductID, img.Url);
-
-                    var products = (from p in db.Products
-                                    where p.Username == username
-                                    select new ProductManagerViewModel
-                                    {
-                                        ProductID = p.ProductID,
-                                        ProductName = p.ProductName,
-                                        Price = p.Price,
-                                        Quanlity = p.Quanlity,
-                                        SaleStatus = p.SaleStatus,
-                                        DeleteProduct = false,
-                                        Image = ""
-                                    }).ToList();
-
-                    foreach (ProductManagerViewModel p in products)
-                        if (dictImages.ContainsKey(p.ProductID))
-                            p.Image = dictImages[p.ProductID];
-
-                    ViewBag.PagedList = products.OrderByDescending(p => p.ProductID).ToPagedList(pageNumber, pageSize);
-                    ModelState.Clear(); // xóa sạch các dữ liệu cũ của model, tránh trường hợp không làm mới được dữ liệu
-
-                    ViewBag.DeleteProductMsg = "Đã xóa " + delProducts.Count + " sản phẩm";
-                    return View(products);
-                    #endregion
+                            // xóa sản phẩm thành công
+                            Session["ListDeleteProduct"] = delResult.ListDelProducts;
+                            ViewBag.PerformActionMsg = delResult.Message;
+                        }
+                        else
+                        {
+                            // xóa sản phẩm thất bại
+                            ModelState.AddModelError("", delResult.Message);
+                        }
+                        break;
+                    default: // không làm gì cả
+                        break;
                 }
+
+                // xử lý theo từng cách hiển thị:
+                viewType = viewType == null ? "" : viewType;
+                search = search == null ? "" : search;
+
+                // Trả về danh sách các sản phẩm theo điều kiện lọc
+                model = dao.GetMyPost(username, viewType, search);
+
+                ModelState.Clear(); // xóa các dữ liệu cũ
+
+                int pageSize = 10;
+                int pageNumber = (page ?? 1); // trả về giá trị của page nếu nó là 1 giá trị khác null, nếu không trả về 1
+
+                ViewBag.PagedList = model.ToPagedList(pageNumber, pageSize);
+                ViewBag.TotalPages = model.Count % 10 == 0 ? model.Count / 10 : model.Count / 10 + 1;
+                ViewBag.ViewType = viewType;
+                ViewBag.SearchKey = search;
+                ViewBag.UserAction = userAction;
+                return View(model.OrderByDescending(p => p.ProductID).Skip((pageNumber - 1) * 10).Take(10).ToList());
             }
 
-            ViewBag.PagedList = model.OrderByDescending(p => p.ProductID).ToPagedList(pageNumber, pageSize);
             return View(model);
+        }
+
+        //
+        // GET: /User/UndoDeleteProduct
+        public ActionResult UndoDeleteProduct()
+        {
+            if(Session["ListDeleteProduct"] != null)
+            {
+                List<Product> lstDeleteProduct = Session["ListDeleteProduct"] as List<Product>;
+                if (lstDeleteProduct.Count > 0)
+                {
+                    db.Products.AddRange(lstDeleteProduct);
+                    db.SaveChanges();
+                }
+
+                Session["ListDeleteProduct"] = null;
+            }
+            
+
+            return RedirectToAction("MyPost", "User");
         }
 
         //
@@ -370,62 +362,23 @@ namespace NYCshop.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    if (files != null && files[0] != null)
+                    // Thêm sản phẩm mới
+                    string serverPath = Server.MapPath("~/Images/Products");
+                    SuccessAndMsg addProductResult = dao.AddProductToDb(username, model, files, serverPath);
+                    if (addProductResult.IsSuccess)
                     {
-                        // lấy productID lớn nhất
-                        var productMaxID = (from p in db.Products
-                                            select p).OrderByDescending(a => a.ProductID).FirstOrDefault().ProductID;
-
-                        // thêm sp vào CSDL
-                        model.SaleStatus = false;
-                        model.Username = username;
-                        model.ProductID = productMaxID + 1;
-
-                        db.Products.Add(model);
-
-                        // copy hình ảnh vào thư mục /Images/Products và đổi tên thích hợp
-                        #region copy hình ảnh vào thư mục /Images/Products và đổi tên thích hợp
-                        string path = Server.MapPath("~/Images/Products");
-                        if (!Directory.Exists(path))
-                        {
-                            Directory.CreateDirectory(path);
-                        }
-
-                        // lấy id lớn nhất trong ImagesUrl
-                        int imageMaxID = (from i in db.ImageUrls
-                                          select i).OrderByDescending(a => a.ImageID).FirstOrDefault().ImageID;
-
-                        int currentMaxID = imageMaxID + 1;
-
-                        List<ImageUrl> images = new List<ImageUrl>();
-                        for (int i = 0; i < files.Count; i++)
-                        {
-                            HttpPostedFileBase postedFile = files[i];
-                            if (files != null)
-                            {
-                                string extension = Path.GetExtension(postedFile.FileName);
-                                string fileName = model.ProductID + "_" + (i + 1).ToString() + extension;
-                                postedFile.SaveAs(Path.Combine(path, fileName));
-
-                                // thêm đường dẫn hình ảnh vào CSDL
-                                ImageUrl imageUrl = new ImageUrl();
-                                imageUrl.ImageID = currentMaxID;
-                                imageUrl.ProductID = model.ProductID;
-                                imageUrl.Url = "/Images/Products/" + fileName;
-                                images.Add(imageUrl);
-
-                                currentMaxID++;
-                            }
-                        }
-                        #endregion
-
-                        db.ImageUrls.AddRange(images);
-                        db.SaveChanges();
-                        ViewBag.AddProductMsg = "Thêm sản phẩm thành công";
+                        // thêm sản phẩm mới thành công
+                        ViewBag.AddProductMsg = addProductResult.Message;
                     }
-                    else ModelState.AddModelError("", "Bạn phải chọn ảnh cho sản phẩm");
+                    else
+                    {
+                        // thêm sản phẩm mới thất bại
+                        ModelState.AddModelError("", addProductResult.Message);
+                    }
                 }
+                else ModelState.AddModelError("", AddNewProductResult.AddProductFailed);
             }
+            else ModelState.AddModelError("", AddNewProductResult.AddProductFailed);
 
             return View();
         }
@@ -636,8 +589,9 @@ namespace NYCshop.Controllers
         {
             if (ModelState.IsValid)
             {
+                DateTime vietnamTime = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.Local);
                 model.ProductID = productID;
-                model.TimeComment = DateTime.Now; // thêm thời gian bình luận
+                model.TimeComment = vietnamTime; // thêm thời gian bình luận
 
                 db.Comments.Add(model);
                 db.SaveChanges();
@@ -654,7 +608,9 @@ namespace NYCshop.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.TimeReply = DateTime.Now; // thêm thời gian bình luận
+                DateTime vietnamTime = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.Local);
+
+                model.TimeReply = vietnamTime; // thêm thời gian bình luận
 
                 db.Replies.Add(model);
                 db.SaveChanges();

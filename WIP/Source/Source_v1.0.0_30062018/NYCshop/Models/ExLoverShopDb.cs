@@ -7,6 +7,9 @@ using System.Web;
 
 namespace NYCshop.Models
 {
+    /// <summary>
+    /// Lớp sử dụng kỹ thuật code first để thao tác với CSDL
+    /// </summary>
     public class ExLoverShopDb : DbContext
     {
         public DbSet<User> Users { get; set; }

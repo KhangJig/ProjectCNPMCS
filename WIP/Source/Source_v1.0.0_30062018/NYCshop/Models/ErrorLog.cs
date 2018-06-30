@@ -1,4 +1,4 @@
-﻿using NYCshop.Metadata;
+﻿using NYCshop.Metadata.ErrorLogMetadatas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

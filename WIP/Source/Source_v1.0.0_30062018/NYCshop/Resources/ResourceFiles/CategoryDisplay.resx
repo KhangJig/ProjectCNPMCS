@@ -120,6 +120,9 @@
   <data name="CategoryID" xml:space="preserve">
     <value>Mã loại sản phẩm</value>
   </data>
+  <data name="CategoryImage" xml:space="preserve">
+    <value>Ảnh loại sản phẩm</value>
+  </data>
   <data name="CategoryName" xml:space="preserve">
     <value>Tên loại sản phẩm</value>
   </data>

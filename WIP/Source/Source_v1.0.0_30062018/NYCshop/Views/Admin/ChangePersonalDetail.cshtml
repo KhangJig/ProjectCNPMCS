@@ -1,0 +1,87 @@
+﻿@model NYCshop.ViewModels.UserViewModel.UserInfoViewModel
+
+@{
+    ViewBag.Title = "Cập nhật thông tin cá nhân";
+    ViewBag.ParentActionName = "Index";
+    ViewBag.ParentSelectedFunction = "Tài khoản của tôi";
+    ViewBag.ChildActionName = "ChangePersonalDetail";
+    ViewBag.ChildSelectedFunction = "Cập nhật thông tin cá nhân";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<style>
+    .star {
+        color: red;
+    }
+</style>
+
+<div class="col-md-9">
+    <div class="box">
+        <h3>Cập nhật thông tin cá nhân</h3>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            if (!ViewData.ModelState.IsValidField(""))
+            {
+                <div class="alert alert-danger alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    @Html.ValidationSummary(true)
+                </div>
+            }
+            @Html.HiddenFor(model => model.Username)
+
+            if (ViewBag.UpdateInfoMsg != null)
+            {
+                <div class="alert alert-success alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Thành công!</strong> @ViewBag.UpdateInfoMsg
+                </div>
+            }
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name) (<span class="star">*</span>)
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email)
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Address) (<span class="star">*</span>)
+                        @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Address)
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Phone) (<span class="star">*</span>)
+                        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Phone)
+                    </div>
+                </div>
+            </div>
+                <!-- /.row -->
+
+            <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Lưu thay đổi</button>
+            </div><br /><br />
+        }
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

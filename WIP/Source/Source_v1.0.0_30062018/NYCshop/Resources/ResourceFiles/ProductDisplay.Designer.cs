@@ -61,6 +61,15 @@ namespace NYCshop.Resources.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kiểm duyệt.
+        /// </summary>
+        public static string Censor {
+            get {
+                return ResourceManager.GetString("Censor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Xóa.
         /// </summary>
         public static string DeleteProduct {
@@ -129,6 +138,24 @@ namespace NYCshop.Resources.ResourceFiles {
         public static string SaleStatus {
             get {
                 return ResourceManager.GetString("SaleStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngày đăng.
+        /// </summary>
+        public static string UploadDate {
+            get {
+                return ResourceManager.GetString("UploadDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đã xem.
+        /// </summary>
+        public static string Viewed {
+            get {
+                return ResourceManager.GetString("Viewed", resourceCulture);
             }
         }
     }

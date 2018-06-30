@@ -70,6 +70,15 @@ namespace NYCshop.Resources.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ảnh loại sản phẩm.
+        /// </summary>
+        public static string CategoryImage {
+            get {
+                return ResourceManager.GetString("CategoryImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tên loại sản phẩm.
         /// </summary>
         public static string CategoryName {

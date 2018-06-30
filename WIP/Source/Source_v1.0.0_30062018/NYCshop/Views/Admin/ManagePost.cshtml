@@ -1,0 +1,292 @@
+﻿@model List<NYCshop.ViewModels.ProductViewModel.ProductManagerViewModel>
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Quản lý tin";
+    ViewBag.ParentActionName = "ManagePost";
+    ViewBag.ParentSelectedFunction = "Quản lý tin";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+
+    PagedList.IPagedList pagedList = ViewBag.PagedList;
+
+    string viewType = ViewBag.ViewType != null ? ViewBag.ViewType : "Tin chưa duyệt";
+    string uploadDate = ViewBag.UploadDate;
+    string searchKey = ViewBag.SearchKey;
+    string adminAction = ViewBag.AdminAction;
+}
+
+<style>
+    .col {
+        width: 200px;
+    }
+
+    .book-cover {
+        width: 100px;
+    }
+
+    .delete-icon, .edit-icon {
+        width: 30px;
+        cursor: pointer;
+    }
+
+    input[type="checkbox"] {
+        cursor: pointer;
+        transform: scale(1.5);
+    }
+
+    .product-image {
+        height: 100px;
+    }
+
+    .btn-new-post {
+        margin-bottom: 15px;
+    }
+
+    .affix {
+        top: 20px;
+        z-index: 9999 !important;
+    }
+
+    .sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        z-index: 1;
+    }
+
+    div.row.sticky {
+        top: 0;
+        background-color: white;
+    }
+
+    table.sticky {
+        top: 50px;
+        background-color: white;
+    }
+</style>
+
+<div class="col-md-9 box">
+
+        <h3>Quản lý tin</h3>
+
+        @using (Html.BeginForm("ManagePost", "Admin", FormMethod.Post, new { @name = "model", id = "my-form" }))
+        {
+            if (ViewBag.PerformActionMsg != null)
+            {
+                <div class="alert alert-info alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Thành công!</strong> @ViewBag.PerformActionMsg <a href="@Url.Action("UndoDeleteProduct", "User")">Hoàn tác</a>
+                </div>
+            }
+            if (!ViewData.ModelState.IsValidField(""))
+            {
+                <div class="alert alert-danger alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    @Html.ValidationSummary(true)
+                </div>
+            }
+
+            <h4>Hiện tại bạn có <u>@Model.Count</u> @viewType.ToLower()</h4>
+
+            <div class="row sticky">
+                <input id="view-type-hidden" type="hidden" value="@viewType" />
+                <select id="view-type" name="viewType" class="col-md-3 form-control" style="width:auto; margin:5px;">
+                    <option>Tất cả</option>
+                    <option>Tin đã duyệt</option>
+                    <option>Tin chưa duyệt</option>
+                </select>
+                <input name="date" type="date" class="col-md-3 form-control" style="width:auto; margin:5px;" value="@uploadDate" />
+                <input name="search" type="text" placeholder="Tên người dùng/từ khóa" class="col-md-3 form-control" style="width:auto; margin:5px;" value="@searchKey" />
+                <input class="col-md-3 form-control btn btn-primary" style="width: auto; margin:5px;" type="submit" value="Xem" />
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                <div class="input-group">
+                                    @if (Model.Count > 0)
+                                    {
+                                        <span class="input-group-btn">
+                                            <input id="select-all-checkbox" type="checkbox" onchange="onCheckAll(this)" />
+                                        </span>
+                                        <span class="input-group-btn">
+                                            @switch (viewType)
+                                            {
+                                                case "Tất cả":
+                                                    <select id="action" name="adminAction" onchange="$('#my-form').submit();" class="form-control" style="width:auto; margin:5px; text-decoration: none;" disabled>
+                                                        <option selected hidden>Hành động</option>
+                                                        <option>Duyệt</option>
+                                                        <option>Không duyệt</option>
+                                                        <option disabled>--------------</option>
+                                                        <option>Xóa</option>
+                                                    </select>
+                                                    break;
+                                                case "Tin đã duyệt":
+                                                <select id="action" name="adminAction" onchange="$('#my-form').submit();" class="form-control" style="width:auto; margin:5px; text-decoration: none;" disabled>
+                                                    <option selected hidden>Hành động</option>
+                                                    <option>Không duyệt</option>
+                                                    <option disabled>--------------</option>
+                                                    <option>Xóa</option>
+                                                </select>
+                                                    break;
+                                                case "Tin chưa duyệt":
+                                                <select id="action" name="adminAction" onchange="$('#my-form').submit();" class="form-control" style="width:auto; margin:5px; text-decoration: none;" disabled>
+                                                    <option selected hidden>Hành động</option>
+                                                    <option>Duyệt</option>
+                                                    <option disabled>--------------</option>
+                                                    <option>Xóa</option>
+                                                </select>
+                                                    break;
+                                            }
+                                        </span>
+
+                                    }
+                                </div>
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model[0].Image)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model[0].ProductName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model[0].Price)
+                            </th>
+                            <th>
+                                Người đăng
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model[0].UploadDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model[0].Censor)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = pagedList.PageSize * (pagedList.PageNumber - 1); i < Model.Count && i < pagedList.PageSize * pagedList.PageNumber; i++)
+                        {
+                            <tr>
+                                <td class="col">
+                                    @Html.HiddenFor(modelItem => Model[i].ProductID)
+                                    @if (Model.Count > 0)
+                                    {
+                                        @Html.CheckBoxFor(modelItem => Model[i].PerformAction, new { @onchange = "onCheckedItem(this)" })
+                                    }
+                                </td>
+                                <td class="col">
+                                    @Html.HiddenFor(modelItem => Model[i].Image)
+                                    <img src="@Model[i].Image" class="product-image" />
+                                </td>
+                                <td class="col">
+                                    @Html.HiddenFor(modelItem => Model[i].ProductName)
+                                    @if (!Model[i].Censor)
+                                    {
+                                        <a href="@Url.Action("ShowDetailDemo", "Admin", new { Model[i].ProductID })" target="_blank">@Model[i].ProductName</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="@Url.Action("Detail", "Product", new { Model[i].ProductID })" target="_blank">@Model[i].ProductName</a>
+                                    }
+                                </td>
+                                <td class="col">
+                                    @Html.HiddenFor(modelItem => Model[i].Price)
+                                    @Html.DisplayFor(modelItem => Model[i].Price)
+                                </td>
+                                <td class="col">
+                                    @Html.HiddenFor(modelItem => Model[i].Username)
+                                    @Html.DisplayFor(modelItem => Model[i].Username)
+                                </td>
+                                <td class="col">
+                                    @Html.HiddenFor(modelItem => Model[i].UploadDate)
+                                    @Html.DisplayFor(modelItem => Model[i].UploadDate)
+                                </td>
+                                <td class="col">
+                                    @Html.HiddenFor(modelItem => Model[i].Censor)
+                                    @if (Model[i].Censor)
+                                    {
+                                        <label>Đã duyệt</label>
+                                    }
+                                    else
+                                    {
+                                        <label>Chưa duyệt</label>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        }
+
+        <label>Trang @(pagedList.PageCount < pagedList.PageNumber ? 0 : pagedList.PageNumber) / @pagedList.PageCount</label>
+        @Html.PagedListPager(pagedList, page => Url.Action("ManagePost", new { page, viewType, date = uploadDate, search = searchKey, adminAction }))
+
+
+
+</div>
+
+<script>
+    function onCheckAll(e) {
+        if (e.checked) {
+            $("input[name*='PerformAction']").each(function () {
+                $(this).prop('checked', true);
+            });
+
+            // cho phép thực hiện hành động
+            $("#action").prop('disabled', false);
+        }
+        else {
+            $("input[name*='PerformAction']").each(function () {
+                $(this).prop('checked', false);
+            });
+
+            // không cho phép thực hiện hành động
+            $("#action").prop('disabled', true);
+        }
+    }
+
+    function onSoldoutAllCheck(e) {
+        if (e.checked) {
+            $("input[name*='SaleStatus']").each(function () {
+                $(this).prop('checked', true);
+            });
+        }
+        else {
+            $("input[name*='SaleStatus']").each(function () {
+                $(this).prop('checked', false);
+            });
+        }
+    }
+
+    function onCheckedItem(e) {
+        var delProductCheckboxs = $("input[name*='PerformAction']:hidden");
+        var deleteAllCheckbox = document.getElementById("select-all-checkbox");
+        var checkedDelProduct = $("input[name*='PerformAction']:checked");
+        if (!e.checked) { // nếu bỏ 1 nút xóa con thì bỏ chọn lun cả nút xóa tất cả
+            if (deleteAllCheckbox.checked)
+                $(deleteAllCheckbox).prop('checked', false);
+        }
+        else { // nếu đã chọn tất cả các nút xóa con thì chọn lun cả nút xóa tất cả
+            if (delProductCheckboxs.length == checkedDelProduct.length)
+                $(deleteAllCheckbox).prop('checked', true);
+        }
+
+        if (checkedDelProduct.length == 0)
+            // không cho phép thực hiện hành động
+            $("#action").prop('disabled', true);
+        else // cho phép thực hiện hành động
+            $("#action").prop('disabled', false);
+    }
+
+    function onclickSaveButton() {
+        var checkedDelProduct = $("input[name*='PerformAction']:checked");
+        if (checkedDelProduct.length == 0)
+            alert("Chọn sản phẩm cần xóa");
+        else $("#myModal").modal();
+    }
+</script>
+
+@{Html.RenderAction("ConfirmPassword", "Account");}

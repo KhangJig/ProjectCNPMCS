@@ -11,15 +11,14 @@ namespace NYCshop.Attributes
     {
         public void OnAuthentication(AuthenticationContext context)
         {
-            if (context.HttpContext.Session["Username"] != null && context.HttpContext.Session["Role"] != null)
-            {
-                if (context.HttpContext.Session["Role"].ToString() != "User")
-                    context.Result = new HttpUnauthorizedResult(); // mark unauthorized
-            }
-            else
-            {
-                context.Result = new HttpUnauthorizedResult(); // mark unauthorized
-            }
+            //if (context.HttpContext.Session["Username"] != null && context.HttpContext.Session["Role"] != null)
+            //{
+
+            //}
+            //else
+            //{
+            //    context.Result = new HttpUnauthorizedResult(); // mark unauthorized
+            //}
         }
 
         public void OnAuthenticationChallenge(AuthenticationChallengeContext context)

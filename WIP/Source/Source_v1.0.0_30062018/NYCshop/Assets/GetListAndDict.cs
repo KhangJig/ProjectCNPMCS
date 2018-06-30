@@ -1,4 +1,6 @@
 ﻿using NYCshop.Models;
+using NYCshop.ViewModels.CommentViewModel;
+using NYCshop.ViewModels.ReplyViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

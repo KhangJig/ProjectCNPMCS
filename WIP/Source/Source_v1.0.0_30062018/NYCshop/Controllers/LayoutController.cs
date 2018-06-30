@@ -1,5 +1,6 @@
 ﻿using NYCshop.Models;
 using NYCshop.Resources.ResourceFiles;
+using NYCshop.ViewModels.CategoryViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,7 +54,7 @@ namespace NYCshop.Controllers
         // GET: /Layout/TopMenu
         public ActionResult TopMenu()
         {
-            List<CategoryViewModel> model = new List<CategoryViewModel>();
+            List<CateWithSubViewModel> model = new List<CateWithSubViewModel>();
             var categories = (from c in db.Categories
                               select c).ToList();
 
@@ -63,7 +64,7 @@ namespace NYCshop.Controllers
                                      where sc.CategoryID == cat.CategoryID
                                      select sc).ToList();
 
-                CategoryViewModel item = new CategoryViewModel();
+                CateWithSubViewModel item = new CateWithSubViewModel();
                 item.CategoryID = cat.CategoryID;
                 item.CategoryName = cat.CategoryName;
                 item.ListSubCats = subCategories;

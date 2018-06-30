@@ -4,7 +4,16 @@
     string parentActionName = ViewBag.ParentActionName ?? "";
     string childSelectedFunction = ViewBag.ChildSelectedFunction ?? "";
     string parentSelectedFunction = ViewBag.ParentSelectedFunction ?? "";
+    string role = Session["Role"] != null ? Session["Role"] as string : "";
 }
+
+<style>
+    .sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+    }
+</style>
 
 <div id="content">
     <div class="container">
@@ -13,7 +22,7 @@
 
             <ul class="breadcrumb">
                 <li>
-                    <a href="@Url.Action(parentActionName, "User")">@parentSelectedFunction</a>
+                    <a href="@Url.Action(parentActionName, role)">@parentSelectedFunction</a>
                 </li>
                 @if (childActionName != "")
                 {
@@ -31,12 +40,12 @@
                     }
                 }
             </ul>
-
+            
         </div>
 
         <div class="col-md-3">
             <!-- *** CUSTOMER MENU ***
-            _________________________________________________________ -->
+        _________________________________________________________ -->
             <div class="panel panel-default sidebar-menu">
 
                 <div class="panel-heading">
@@ -47,46 +56,78 @@
 
                     <ul class="nav nav-pills nav-stacked">
                         <!--Thiết lập xem mục nào được chọn-->
-                        @if(parentActionName.ToLower() == "index")
+                        @if (String.Compare("User", role) == 0)
                         {
-                            <li class="active">
-                                <a href="@Url.Action("Index", "User")"><i class="fa fa-user"></i> Tài khoản của tôi</a>
-                            </li>
+                            if (parentActionName.ToLower() == "index")
+                            {
+                                <li class="active">
+                                    <a href="@Url.Action("Index", "User")"><i class="fa fa-user"></i> Tài khoản của tôi</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="@Url.Action("Index", "User")"><i class="fa fa-user"></i> Tài khoản của tôi</a>
+                                </li>
+                            }
+
+                            if (parentActionName.ToLower() == "mypost")
+                            {
+                                <li class="active">
+                                    <a href="@Url.Action("MyPost", "User")"><i class="fa fa-list"></i> Quản lý tin</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="@Url.Action("MyPost", "User")"><i class="fa fa-list"></i> Quản lý tin</a>
+                                </li>
+                            }
+
+                            if (parentActionName.ToLower() == "mywishlist")
+                            {
+                                <li class="active">
+                                    <a href="customer-wishlist.html"><i class="fa fa-heart"></i> My wishlist</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="customer-wishlist.html"><i class="fa fa-heart"></i> My wishlist</a>
+                                </li>
+                            }
                         }
-                        else
+
+                        @if (String.Compare("Admin", role) == 0)
                         {
-                            <li>
-                                <a href="@Url.Action("Index", "User")"><i class="fa fa-user"></i> Tài khoản của tôi</a>
-                            </li>
-                        }
-                        
-                        @if (parentActionName.ToLower() == "mypost")
-                        {
-                            <li class="active">
-                                <a href="@Url.Action("MyPost", "User")"><i class="fa fa-list"></i> Quản lý tin</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li>
-                                <a href="@Url.Action("MyPost", "User")"><i class="fa fa-list"></i> Quản lý tin</a>
-                            </li>
-                        }
-                        
-                        @if (parentActionName.ToLower() == "mywishlist")
-                        {
-                            <li class="active">
-                                <a href="customer-wishlist.html"><i class="fa fa-heart"></i> My wishlist</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li>
-                                <a href="customer-wishlist.html"><i class="fa fa-heart"></i> My wishlist</a>
-                            </li>
+                            if (parentActionName.ToLower() == "index")
+                            {
+                                <li class="active">
+                                    <a href="@Url.Action("Index", "Admin")"><i class="fa fa-user"></i> Tài khoản của tôi</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="@Url.Action("Index", "Admin")"><i class="fa fa-user"></i> Tài khoản của tôi</a>
+                                </li>
+                            }
+
+                            if (parentActionName.ToLower() == "managepost")
+                            {
+                                <li class="active">
+                                    <a href="@Url.Action("ManagePost", "Admin")"><i class="fa fa-list"></i> Quản lý tin</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="@Url.Action("ManagePost", "Admin")"><i class="fa fa-list"></i> Quản lý tin</a>
+                                </li>
+                            }
                         }
                         <!--Thiết lập xem mục nào được chọn-->
-                        
+
                         <li id="log-off">
                             <a href="@Url.Action("LogOff", "Account")"><i class="fa fa-sign-out"></i> Đăng xuất</a>
                         </li>
@@ -98,9 +139,12 @@
             <!-- *** CUSTOMER MENU END *** -->
         </div>
 
+
+
         @RenderBody()
 
     </div>
     <!-- /.container -->
 </div>
 <!-- /#content -->
+

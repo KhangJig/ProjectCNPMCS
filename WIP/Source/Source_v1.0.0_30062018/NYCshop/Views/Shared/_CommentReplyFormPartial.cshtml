@@ -21,6 +21,7 @@
                         Trả lời <label>(<label class="required">*</label>)</label>
                     </label>
                     @Html.TextAreaFor(model => model.ReplyContent, new { @class = "form-control", rows = 4 })
+                    @Html.ValidationMessageFor(model => model.ReplyContent)
                 </div>
             </div>
         </div>

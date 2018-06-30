@@ -119,35 +119,48 @@
                     </div>
                     <div class="col-md-5">
                         <label for="files">Chọn hình sản phẩm</label>
-                        <input type="file" multiple id="gallery-photo-add" name="files" onchange="onchangeUploadFile(this)" value="Chọn hình">
+                        <input type="file" multiple accept="image/*" id="gallery-photo-add" name="files" onchange="onchangeUploadFile(this)" value="Chọn hình">
                         <div id="gallery"></div>
                         <!--Upload hình ảnh lên server-->
                         <script>
                             // Multiple images preview in browser
                             var imagesPreview = function (input, placeToInsertImagePreview) {
                                 if (input.files && input.files.length <= 6) {
-                                    var filesAmount = input.files.length;
-                                    $(".image-container").remove();
-
-                                    var files = $('#gallery-photo-add').prop("files");
-                                    var names = $.map(files, function (val) { return val.name; });
-
-                                    for (i = 0; i < filesAmount; i++) {
-                                        var reader = new FileReader();
-                                        reader.fileName = names[i];
-                                        reader.onload = function (event) {
-                                            var imageContainer = $('<div class="col-xs-6 image-container"></div>');
-                                            var imageSpan = $('<a href="" class="thumb preview"></a>').attr('src', event.target.result);
-                                            var image = $('<img class="img-responsive" />').attr('src', event.target.result);
-
-                                            imageSpan.append(image);
-                                            imageContainer.append(imageSpan);
-
-                                            $(placeToInsertImagePreview).append(imageContainer);
+                                    var valid = true;
+                                    for (var i = 0; i < input.files.length; i++) {
+                                        if (!(input.files[i].type.match("image.*") && input.files[i].name.match(/\.(jpg|jpeg|png|gif)$/i))) {
+                                            valid = false;
+                                            i = input.files.length;
                                         }
-
-                                        reader.readAsDataURL(input.files[i]);
                                     }
+                                    if (!valid) {
+                                        $(input).val("");
+                                        alert("Chỉ cho phép chọn hình ảnh");
+                                    }
+                                    else {
+                                        var filesAmount = input.files.length;
+                                        $(".image-container").remove();
+
+                                        var files = $('#gallery-photo-add').prop("files");
+                                        var names = $.map(files, function (val) { return val.name; });
+
+                                        for (i = 0; i < filesAmount; i++) {
+                                            var reader = new FileReader();
+                                            reader.fileName = names[i];
+                                            reader.onload = function (event) {
+                                                var imageContainer = $('<div class="col-xs-6 image-container"></div>');
+                                                var imageSpan = $('<a href="" class="thumb preview"></a>').attr('src', event.target.result);
+                                                var image = $('<img class="img-responsive" />').attr('src', event.target.result);
+
+                                                imageSpan.append(image);
+                                                imageContainer.append(imageSpan);
+
+                                                $(placeToInsertImagePreview).append(imageContainer);
+                                            }
+
+                                            reader.readAsDataURL(input.files[i]);
+                                        }
+                                    } 
                                 }
                                 else {
                                     $(input).val("");

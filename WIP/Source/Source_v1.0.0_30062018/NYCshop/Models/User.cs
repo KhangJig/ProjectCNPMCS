@@ -1,4 +1,7 @@
-﻿using NYCshop.Metadata;
+﻿using NYCshop.Assets;
+using NYCshop.Metadata;
+using NYCshop.Metadata.UserMetadatas;
+using NYCshop.ViewModels.UserViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,6 +14,23 @@ namespace NYCshop.Models
     [MetadataType(typeof(UserMetadata))]
     public class User
     {
+        private MD5Assets md5 = new MD5Assets();
+
+        public User() { }
+
+        public User(RegisterViewModel user)
+        {
+            this.Username = user.Username;
+            this.Name = user.Name;
+            this.Address = user.Address;
+            this.Email = user.Email;
+            this.Phone = user.Password;
+            this.Active = true;
+            this.Role = "User";
+            this.JoiningDate = DateTime.Now;
+            this.Password = md5.GetMd5Hash(user.Password);
+        }
+
         public string Username { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
@@ -20,56 +40,5 @@ namespace NYCshop.Models
         public string Phone { get; set; }
         public bool Active { get; set; }
         public DateTime JoiningDate { get; set; }
-    }
-
-    [NotMapped]
-    [MetadataType(typeof(RegisterViewModelMetadata))]
-    public class RegisterViewModel
-    {
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string ConfirmPassword { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Address { get; set; }
-        public string Phone { get; set; }
-    }
-
-    [NotMapped]
-    [MetadataType(typeof(LoginViewModelMetadata))]
-    public class LoginViewModel
-    {
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Role { get; set; }
-    }
-
-    [NotMapped]
-    [MetadataType(typeof(UserInfoViewModelMetadata))]
-    public class UserInfoViewModel
-    {
-        public string Username { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Address { get; set; }
-        public string Phone { get; set; }
-    }
-
-    [NotMapped]
-    [MetadataType(typeof(ChangePasswordViewModelMetadata))]
-    public class ChangePasswordViewModel
-    {
-        public string Username { get; set; }
-        public string OldPassword { get; set; }
-        public string NewPassword { get; set; }
-        public string ConfirmPassword { get; set; }
-    }
-
-    [MetadataType(typeof(ConfirmPasswordViewModelMetadata))]
-    public class ConfirmPasswordViewModel
-    {
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string CorrectPassword { get; set; }
     }
 }

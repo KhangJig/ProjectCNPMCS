@@ -70,6 +70,15 @@ namespace NYCshop.Resources.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Yêu cầu chọn ảnh loại sản phẩm.
+        /// </summary>
+        public static string CategoryImageRequired {
+            get {
+                return ResourceManager.GetString("CategoryImageRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chiều dài tối đa loại sản phẩm là 30.
         /// </summary>
         public static string CategoryNameMaxLength {

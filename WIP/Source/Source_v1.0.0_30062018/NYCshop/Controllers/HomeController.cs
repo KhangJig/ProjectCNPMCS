@@ -1,6 +1,8 @@
 ﻿using NYCshop.Metadata;
 using NYCshop.Models;
 using NYCshop.Resources.ResourceFiles;
+using NYCshop.ViewModels.CategoryViewModel;
+using NYCshop.ViewModels.ProductViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -80,7 +82,7 @@ namespace NYCshop.Controllers
             var categoryDetail = (from c in db.Categories
                                   from sc in db.SubCategories
                                   from p in db.Products
-                                  where categoryID == c.CategoryID && sc.SubCategoryID == p.SubCategoryID && sc.CategoryID == c.CategoryID && p.SaleStatus == false
+                                  where p.Censor == true && categoryID == c.CategoryID && sc.SubCategoryID == p.SubCategoryID && sc.CategoryID == c.CategoryID && p.SaleStatus == false
                                   select new CategoryDetailViewModel
                                   {
                                       ListImages = imageUrl,

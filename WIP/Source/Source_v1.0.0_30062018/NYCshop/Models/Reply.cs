@@ -1,4 +1,5 @@
 ﻿using NYCshop.Metadata;
+using NYCshop.Metadata.ReplyMetadatas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,16 +16,6 @@ namespace NYCshop.Models
         private User User { get; set; }
         public int CommentID { get; set; }
         private Comment Comment { get; set; }
-        public string ReplyContent { get; set; }
-        public DateTime TimeReply { get; set; }
-    }
-
-    [MetadataType(typeof(ReplyViewModelMetadata))]
-    public class ReplyViewModel
-    {
-        public int ReplyID { get; set; }
-        public string Name { get; set; }
-        public int CommentID { get; set; }
         public string ReplyContent { get; set; }
         public DateTime TimeReply { get; set; }
     }

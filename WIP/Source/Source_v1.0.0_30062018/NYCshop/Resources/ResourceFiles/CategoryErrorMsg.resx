@@ -121,6 +121,10 @@
     <value>Yêu cập nhập mã sản phẩm</value>
     <comment>required</comment>
   </data>
+  <data name="CategoryImageRequired" xml:space="preserve">
+    <value>Yêu cầu chọn ảnh loại sản phẩm</value>
+    <comment>required</comment>
+  </data>
   <data name="CategoryNameMaxLength" xml:space="preserve">
     <value>Chiều dài tối đa loại sản phẩm là 30</value>
     <comment>maxlength</comment>

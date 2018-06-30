@@ -1,4 +1,5 @@
 ﻿using NYCshop.Metadata;
+using NYCshop.Metadata.CategoryMetadatas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,5 +13,6 @@ namespace NYCshop.Models
     {
         public int CategoryID { get; set; }
         public string CategoryName { get; set; }
+        public string CategoryImage { get; set; }
     }
 }

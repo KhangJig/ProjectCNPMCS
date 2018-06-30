@@ -1,4 +1,4 @@
-﻿@model Dictionary<int, NYCshop.Models.CommentInProductViewModel>
+﻿@model Dictionary<int, NYCshop.ViewModels.CommentViewModel.CommentInProductViewModel>
 
 @{
     ViewBag.ProductID = ViewBag.ProductID;
@@ -6,44 +6,44 @@
     string username = Session["Username"] != null ? Session["Username"].ToString() : "";
 }
 
-<div class="box">
+<div class="box col-xs-12">
     <h3>Bình luận</h3>
     <h4><u>@totalComment bình luận</u></h4>
     <div class="nav nav-pills nav-stacked" id="comments">
-        @foreach (KeyValuePair<int, NYCshop.Models.CommentInProductViewModel> comment in Model)
+        @foreach (KeyValuePair<int, NYCshop.ViewModels.CommentViewModel.CommentInProductViewModel> comment in Model)
         {
             <div class="row comment">
-                <div class="col-sm-3 col-md-2 text-center-xs">
+                <div class="col-sm-2 col-md-1 text-center-xs">
                     <p>
                         <img src="~/Images/Avatars/blog-avatar2.jpg" class="img-responsive img-circle" alt="">
                     </p>
                 </div>
-                <div class="col-sm-9 col-md-10">
+                <div class="col-sm-10 col-md-11">
                     <div class="row">
                         <h5>@comment.Value.Name</h5>
                         <p class="posted"><i class="fa fa-clock-o"></i> @comment.Value.TimeComment</p>
                         <p>
                             @comment.Value.CommentContent
                         </p>
-                        @if(username != "")
+                        @if (username != "")
                         {
                             <p class="reply">
                                 <a href="#reply-form-@comment.Value.CommentID" class="scroll-to" onclick="viewReplyTextbox(@comment.Value.CommentID)"><i class="fa fa-reply"></i> Trả lời</a>
                             </p>
                         }
-                        
+
                     </div>
                     <!--Phản hồi ở đây-->
-                    @foreach (NYCshop.Models.ReplyViewModel reply in comment.Value.Replies)
+                    @foreach (NYCshop.ViewModels.ReplyViewModels.ReplyViewModel reply in comment.Value.Replies)
                     {
                         <div class="row">
-                            <div class="col-sm-3 col-md-2 text-center-xs">
+                            <div class="col-sm-2 col-md-1 text-center-xs">
                                 <p>
                                     <img src="~/Images/Avatars/blog-avatar.jpg" class="img-responsive img-circle" alt="">
                                 </p>
                             </div>
 
-                            <div class="col-sm-9 col-md-10">
+                            <div class="col-sm-10 col-md-11">
                                 <h5>@reply.Name</h5>
                                 <p class="posted"><i class="fa fa-clock-o"></i> @reply.TimeReply</p>
                                 <p>
@@ -68,7 +68,7 @@
 
 
             </div>
-        <!-- /.comment -->
+            <!-- /.comment -->
         }
 
     </div>

@@ -1,8 +1,12 @@
 ﻿using NYCshop.Assets;
 using NYCshop.Attributes;
+using NYCshop.CustomTypes;
+using NYCshop.DataAccess;
 using NYCshop.Metadata;
 using NYCshop.Models;
+using NYCshop.Resources.ActionMessageInController;
 using NYCshop.Resources.ResourceFiles;
+using NYCshop.ViewModels.UserViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +19,12 @@ namespace NYCshop.Controllers
     {
         private ExLoverShopDb db = new ExLoverShopDb();
         private MD5Assets md5 = new MD5Assets();
+        private AccountDAO dao = new AccountDAO();
 
+        /// <summary>
+        /// Xử lý các ngoại lệ xảy ra trong từng action hoặc giao diện (view)
+        /// </summary>
+        /// <param name="filterContext">Nội dung của ngoại lệ</param>
         protected override void OnException(ExceptionContext filterContext)
         {
             Exception e = filterContext.Exception;
@@ -23,22 +32,26 @@ namespace NYCshop.Controllers
             //string controllerName = filterContext.RouteData.Values["controller"] as string;
             string actionName = filterContext.RouteData.Values["action"] as string;
             string httpMethod = filterContext.HttpContext.Request.HttpMethod;
+
+            // khởi tạo đối tượng ghi lỗi xảy ra
             ErrorLog error = new ErrorLog();
+            error.OccurDate = DateTime.Now;
+            if (Session["Username"] != null)
+                error.Username = Session["Username"] as string;
+            error.ErrorContent = e.ToString();
+
+            // xác định xem lỗi xảy ra ở đâu?
             switch (actionName.ToLower())
             {
                 case "login":
-                    error.ErrorContent = e.ToString();
                     if (httpMethod.ToLower() == "get")
                         error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.Login + "'";
                     else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.Login + "'";
-                    if (Session["Username"] != null)
-                        error.Username = Session["Username"] as string;
 
                     db.ErrorLogs.Add(error);
                     db.SaveChanges();
                     break;
                 case "register":
-                    error.ErrorContent = e.ToString();
                     if (httpMethod.ToLower() == "get")
                         error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.Register + "'";
                     else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.Register + "'";
@@ -47,7 +60,6 @@ namespace NYCshop.Controllers
                     db.SaveChanges();
                     break;
                 case "logoff":
-                    error.ErrorContent = e.ToString();
                     if (httpMethod.ToLower() == "get")
                         error.FunctionName = "Lỗi xảy ra ở 'Trang " + FunctionNameDisplay.LogOff + "'";
                     else error.FunctionName = "Lỗi xảy ra ở Chức năng '" + FunctionNameDisplay.LogOff + "'";
@@ -57,10 +69,6 @@ namespace NYCshop.Controllers
                     break;
                 default: break;
             }
-
-            error.OccurDate = DateTime.Now;
-            if (Session["Username"] != null)
-                error.Username = Session["Username"] as string;
 
             //Log Exception e
             filterContext.ExceptionHandled = true;
@@ -87,28 +95,30 @@ namespace NYCshop.Controllers
         {
             if (ModelState.IsValid)
             {
-                string password = md5.GetMd5Hash(model.Password);
-                var currUser = db.Users.FirstOrDefault(u => u.Username == model.Username && u.Password == password);
+                LoginResultType loginResult = dao.Login(model);
 
-                // đăng nhập thành công
-                if (currUser != null)
+                if (loginResult.IsSuccess)
                 {
-                    if (!currUser.Active)
-                        // 1.3 Tài khoản bị khóa
-                        ModelState.AddModelError("", "Tài khoản đã bị khóa, liên hệ admin để mở tài khoản");
-                    else
-                    {
-                        Session["Username"] = currUser.Username;
-                        Session["Role"] = currUser.Role;
+                    Session["Username"] = loginResult.CurrentUser.Username;
+                    Session["Role"] = loginResult.CurrentUser.Role;
 
-                        if (returnUrl != null)
-                            return Redirect(returnUrl);
-                        else return RedirectToAction("Index", "Home");
-                    }
+                    // chuyển đến trang được yêu cầu trước đó
+                    if (returnUrl != null)
+                        return Redirect(returnUrl);
+                    
+                    // chuyển về trang chủ nếu không có trang yêu cầu trước đó
+                    return RedirectToAction("Index", "Home");
                 }
                 else
-                    // 1.1 Sai tên tài khoản hoặc mật khẩu
-                    ModelState.AddModelError("", "Sai tài khoản hoặc mật khẩu");
+                {
+                    ModelState.Clear();
+                    ModelState.AddModelError("", loginResult.Message);
+                }
+            }
+            else
+            {
+                // hiển thị thông báo lỗi cho người dùng
+                ModelState.AddModelError("", ActionMessage.MissingOrInvalidInfo);
             }
 
             return View();
@@ -118,64 +128,72 @@ namespace NYCshop.Controllers
         // GET: /User/Register
         public ActionResult Register()
         {
+            // nếu người dùng đã đăng nhập thì chuyển về trang chủ, ngược lại thì chuyển đến trang đăng ký
             if (Session["Username"] == null)
                 return View();
             else return RedirectToAction("Index", "Home");
         }
 
         //
-        // POST: /User/Login
+        // POST: /User/Register
         [HttpPost]
         public ActionResult Register(RegisterViewModel user)
         {
-            User newUser = new User();
             if (ModelState.IsValid)
             {
-                var findUser = db.Users.FirstOrDefault(u => u.Username == user.Username);
-                if(findUser == null) // chưa tồn tại người dùng
+                SuccessAndMsg registerResult = dao.Register(user);
+                if(registerResult.IsSuccess)
                 {
-                    newUser.Username = user.Username;
-                    newUser.Name = user.Name;
-                    newUser.Address = user.Address;
-                    newUser.Email = user.Email;
-                    newUser.Phone = user.Password;
-                    newUser.Active = true;
-                    newUser.Role = "User";
-                    newUser.JoiningDate = DateTime.Now;
-                    newUser.Password = md5.GetMd5Hash(user.Password);
+                    // hiển thị thông báo đăng ký thành công
+                    ViewBag.RegisterMsg = registerResult.Message;
 
-                    db.Users.Add(newUser);
-                    db.SaveChanges();
-
-                    ViewBag.RegisterMsg = "Thêm người dùng mới thành công";
+                    // xóa dữ liệu cũ đi
+                    ModelState.Clear();
                 }
-                else // đã tồn tại người dùng
+                else // lỗi đăng ký: tài khoản đã tồn tại
                 {
-                    ViewBag.RegisterErrorMsg = "Người dùng đã tồn tại";
-                    ModelState.AddModelError("", UserErrorMsg.UsernameExist);
+                    ModelState.AddModelError("", registerResult.Message);
                     return View(user);
                 }
+            }
+            else
+            {
+                // hiển thị thông báo lỗi cho người dùng
+                ModelState.AddModelError("", ActionMessage.MissingOrInvalidInfo);
             }
 
             return View();
         }
 
+        /// <summary>
+        /// Kiểm tra xem người dùng có tồn tại hay không
+        /// </summary>
+        /// <param name="Username">Tên người dùng</param>
+        /// <returns></returns>
         public JsonResult IsUsernameExist(string Username)
         {
             return Json(!db.Users.Any(user => user.Username == Username), JsonRequestBehavior.AllowGet);
         }
 
-        //
-        // GET: /Account/LogOff
+        /// <summary>
+        /// GET: /Account/LogOff
+        /// Đăng xuất
+        /// </summary>
+        /// <returns></returns>
         [CheckAnynomous]
         public ActionResult LogOff()
         {
+            // xóa phiên làm việc của người dùng
             Session["Username"] = null;
             Session["Role"] = null;
 
             return View("Index", "Home");
         }
 
+        /// <summary>
+        /// Xác nhận mật khẩu cho thao tác xóa
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ConfirmPassword()
         {
             ConfirmPasswordViewModel model = new ConfirmPasswordViewModel();

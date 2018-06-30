@@ -1,9 +1,11 @@
-﻿@model NYCshop.Models.ProductDetailViewModel
+﻿@model NYCshop.ViewModels.ProductViewModel.ProductDetailViewModel
 @{
     ViewBag.Title = "Chi tiết sản phẩm";
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.ProductID = Model.ProductID;
 }
+
+<link href="~/Content/emoji_one_area/heart.css" rel="stylesheet" />
 
 <style>
     .thumb {
@@ -20,15 +22,20 @@
         font-weight: 300;
         text-align: center;
         margin-top: 40px;
+        color: green;
     }
 
     .required {
         color: red;
     }
+
+    .item {
+        width: 70%;
+    }
 </style>
 
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-8">
         <div class="row box" id="productMain">
             <div class="col-sm-6">
                 <div id="mainImage">
@@ -37,23 +44,7 @@
                         <img src="@Model.ListImages[0]" alt="" class="img-responsive">
                     }
                 </div>
-            </div>
-            <div class="col-sm-6 text-center">
-                <div class="box">
-                    <h1 class="text-center">@Model.ProductName</h1>
-                    <p class="goToDescription">
-                        <a href="#details" class="scroll-to">Mô tả</a>
-                        <a href="#comments" class="scroll-to">Bình luận</a>
-                    </p>
-                    <p class="price">@Html.DisplayFor(model => model.Price)</p>
-
-                    <p class="text-center buttons">
-                        <a href="basket.html" class="btn btn-default"><i class="fa fa-heart"></i> Thêm vào wishlist</a>
-                    </p>
-
-
-                </div>
-
+                <br />
                 <div class="row" id="thumbs">
                     @for (int i = 0; i < Model.ListImages.Count; i++)
                     {
@@ -65,27 +56,95 @@
                     }
                 </div>
             </div>
+            <div class="col-sm-6 text-center">
+                <div class="box">
+                    <h1 class="text-center">@Model.ProductName</h1>
+
+                    <p><a href="" style="font-size: 20px;">@Model.Name</a></p>
+
+                    <hr />
+
+                    <p class="goToDescription">
+                        <a href="#memory" class="scroll-to">Chi tiết & Kỷ niệm</a>
+                    </p>
+
+                    <p class="price">@Html.DisplayFor(model => model.Price)</p>
+
+                    <p class="text-center buttons">
+                        <a href="basket.html" class="btn btn-default"><i class="fa fa-heart"></i> Thêm vào wishlist</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+
         </div>
     </div>
-    <div class="col-md-3">
-        
+    @{Html.RenderAction("GetRecommendProducts", "Product", new { productID = @Model.ProductID, categoryID = @Model.CategoryID });}
+</div>
+
+<div class="box col-xs-12">
+    <div id="details">
+        <h4>Chi tiết sản phẩm</h4>
+        <span>@Model.Describe</span>
+        <div id="memory">
+            <h4>Kỷ niệm</h4>
+            <div>
+                <div class="feed" id="feed1">
+                    <div>Lorem ipsum dolor 😍 sit amet, consectetur 👻 adipiscing elit, 🖐 sed do eiusmod tempor ☔ incididunt ut labore et dolore magna aliqua 🐬.</div>
+                    <div onclick="onclickHeart(this)" class="heart" id="like1" rel="like"></div> <div class="likeCount" id="likeCount1">14</div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <div class="social">
+            <h4>Chia sẻ cho bạn bè</h4>
+            <p>
+                <a href="#" class="external facebook" data-animate-hover="pulse"><i class="fa fa-facebook"></i></a>
+                <a href="#" class="external gplus" data-animate-hover="pulse"><i class="fa fa-google-plus"></i></a>
+                <a href="#" class="external twitter" data-animate-hover="pulse"><i class="fa fa-twitter"></i></a>
+                <a href="#" class="email" data-animate-hover="pulse"><i class="fa fa-envelope"></i></a>
+            </p>
+        </div>
     </div>
 </div>
 
-
-<div class="box col-xs-12" id="details">
-    <h4>Chi tiết sản phẩm</h4>
-    <span>@Model.Describe</span>
-
-    <hr>
-    <div class="social">
-        <h4>Chia sẻ cho bạn bè</h4>
-        <p>
-            <a href="#" class="external facebook" data-animate-hover="pulse"><i class="fa fa-facebook"></i></a>
-            <a href="#" class="external gplus" data-animate-hover="pulse"><i class="fa fa-google-plus"></i></a>
-            <a href="#" class="external twitter" data-animate-hover="pulse"><i class="fa fa-twitter"></i></a>
-            <a href="#" class="email" data-animate-hover="pulse"><i class="fa fa-envelope"></i></a>
-        </p>
-    </div>
-</div>
 @{Html.RenderAction("Comment", "Product", new { productID = Model.ProductID });}
+
+
+<script>
+    function viewPhoneNumber(e) {
+        var phoneNumber = $("#phone-number");
+        if (phoneNumber.prop("hidden")) {
+            $(e).css("top", "-999999px");
+            $(e).css("position", "absolute");
+            phoneNumber.prop("hidden", false);
+        } 
+    }
+
+    function onclickHeart(e) {
+        var A = $(e).attr("id");
+        var B = A.split("like");
+        var messageID = B[1];
+        var C = parseInt($("#likeCount" + messageID).html());
+        $(e).css("background-position", "")
+        var D = $(e).attr("rel");
+
+        if (D === 'like') {
+            $("#likeCount" + messageID).html(C + 1);
+            $(e).addClass("heartAnimation").attr("rel", "unlike");
+
+        }
+        else {
+            $("#likeCount" + messageID).html(C - 1);
+            $(e).removeClass("heartAnimation").attr("rel", "like");
+            $(e).css("background-position", "left");
+        }
+    }
+</script>
+
+<link href="~/Content/emoji_one_area/emojionearea.css" rel="stylesheet" />
+<link href="~/Content/emoji_one_area/emojionearea.min.css" rel="stylesheet" />
+<script src="~/Scripts/emoji_one_area/emojionearea.js"></script>
+<script src="~/Scripts/emoji_one_area/emojionearea.min.js"></script>

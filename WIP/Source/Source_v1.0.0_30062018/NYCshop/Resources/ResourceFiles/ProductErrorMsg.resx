@@ -117,6 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CensorRequired" xml:space="preserve">
+    <value>Yêu cầu chọn trạng thái kiểm duyệt</value>
+    <comment>required</comment>
+  </data>
   <data name="DescribeRequired" xml:space="preserve">
     <value>Yêu cầu nhập mô tả</value>
     <comment>required</comment>
@@ -147,6 +151,14 @@
   </data>
   <data name="SaleStatusRequired" xml:space="preserve">
     <value>Yêu cầu chọn trạng thái bán</value>
+    <comment>required</comment>
+  </data>
+  <data name="UploadDateRequired" xml:space="preserve">
+    <value>Yêu cầu nhập ngày đăng</value>
+    <comment>required</comment>
+  </data>
+  <data name="ViewedRequired" xml:space="preserve">
+    <value>Yêu cầu chọn trạng thái xem</value>
     <comment>required</comment>
   </data>
 </root>

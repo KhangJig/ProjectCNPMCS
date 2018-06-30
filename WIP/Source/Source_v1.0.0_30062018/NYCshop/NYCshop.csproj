@@ -131,6 +131,10 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\custom.css" />
+    <Content Include="Content\emoji_one_area\emojionearea.css" />
+    <Content Include="Content\emoji_one_area\emojionearea.min.css" />
+    <Content Include="Content\emoji_one_area\images\web_heart_animation.png" />
+    <Content Include="Content\emoji_one_area\heart.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\fonts\flexslider-icon.svg" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
@@ -146,6 +150,7 @@
     <Content Include="Content\style.pink.css" />
     <Content Include="Content\style.violet.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\background.jpg" />
     <Content Include="Images\banner.png" />
     <Content Include="Images\Icons\bg-01.jpg" />
     <Content Include="Images\Icons\delete-icon.png" />
@@ -165,6 +170,12 @@
     <Content Include="Images\Slides\slide1.jpg" />
     <Content Include="Images\Slides\slide2.jpg" />
     <Content Include="Images\Slides\slide3.jpg" />
+    <Content Include="Images\test\product1.jpg" />
+    <Content Include="Images\test\product1_2.jpg" />
+    <Content Include="Images\test\product2.jpg" />
+    <Content Include="Images\test\product2_2.jpg" />
+    <Content Include="Images\test\product3.jpg" />
+    <Content Include="Images\test\product3_2.jpg" />
     <Content Include="Images\UIT.png" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\fonts\flexslider-icon.eot" />
@@ -183,7 +194,10 @@
     <Content Include="Scripts\dropzone\dropzone.min.css" />
     <Content Include="Scripts\dropzone\dropzone.min.js" />
     <Content Include="Scripts\dropdown-checkbox.js" />
+    <Content Include="Scripts\emoji_one_area\emojionearea.js" />
+    <Content Include="Scripts\emoji_one_area\emojionearea.min.js" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Content\emoji_one_area\images\.DS_Store" />
     <None Include="Scripts\jquery-1.8.0.intellisense.js" />
     <Content Include="Scripts\bootstrap-hover-dropdown.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -215,7 +229,9 @@
     <Content Include="Scripts\view-large-image\view-large-image-main.js" />
     <Content Include="Scripts\waypoints.min.js" />
     <None Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -227,6 +243,7 @@
     <Compile Include="Attributes\CheckUserAttribute.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
@@ -235,48 +252,89 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="CustomTypes\DeleteProductsResultType.cs" />
+    <Compile Include="CustomTypes\LoginResultType.cs" />
+    <Compile Include="CustomTypes\SuccessAndMsg.cs" />
+    <Compile Include="DataAccess\AccountDAO.cs" />
+    <Compile Include="DataAccess\CategoryDAO.cs" />
+    <Compile Include="DataAccess\ImageDAO.cs" />
+    <Compile Include="DataAccess\ProductDAO.cs" />
+    <Compile Include="DataAccess\UserDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Metadata\CategoryMetadata.cs" />
-    <Compile Include="Metadata\CategoryViewModelMetadata.cs" />
-    <Compile Include="Metadata\CommentMetadata.cs" />
-    <Compile Include="Metadata\ErrorLogMetadata.cs" />
-    <Compile Include="Metadata\ImageUrlMetadata.cs" />
-    <Compile Include="Metadata\ProductMetadata.cs" />
-    <Compile Include="Metadata\ReplyMetadata.cs" />
-    <Compile Include="Metadata\SearchViewModelMetadata.cs" />
-    <Compile Include="Migrations\201805160309188_AddTableErrorLog.cs" />
-    <Compile Include="Migrations\201805160309188_AddTableErrorLog.Designer.cs">
-      <DependentUpon>201805160309188_AddTableErrorLog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805280630396_AddTableComment.cs" />
-    <Compile Include="Migrations\201805280630396_AddTableComment.Designer.cs">
-      <DependentUpon>201805280630396_AddTableComment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805280644089_AddColumnTimeCommentToTableComment.cs" />
-    <Compile Include="Migrations\201805280644089_AddColumnTimeCommentToTableComment.Designer.cs">
-      <DependentUpon>201805280644089_AddColumnTimeCommentToTableComment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805280647453_AddTableReply.cs" />
-    <Compile Include="Migrations\201805280647453_AddTableReply.Designer.cs">
-      <DependentUpon>201805280647453_AddTableReply.cs</DependentUpon>
+    <Compile Include="Metadata\CategoryMetadatas\CategoryDetailViewModelMetadata.cs" />
+    <Compile Include="Metadata\CategoryMetadatas\CategoryMetadata.cs" />
+    <Compile Include="Metadata\CategoryMetadatas\CateWithSubViewModelMetadata.cs" />
+    <Compile Include="Metadata\CommentMetadatas\CommentInProductViewModelMetadata.cs" />
+    <Compile Include="Metadata\CommentMetadatas\CommentMetadata.cs" />
+    <Compile Include="Metadata\ErrorLogMetadatas\ErrorLogMetadata.cs" />
+    <Compile Include="Metadata\ImageUrlMetadatas\ImageUrlMetadata.cs" />
+    <Compile Include="Metadata\ProductMetadatas\EditProductViewModelMetadata.cs" />
+    <Compile Include="Metadata\ProductMetadatas\ProductDetailViewModelMetadata.cs" />
+    <Compile Include="Metadata\ProductMetadatas\ProductManagerViewModelMetadata.cs" />
+    <Compile Include="Metadata\ProductMetadatas\ProductMetadata.cs" />
+    <Compile Include="Metadata\ReplyMetadatas\ReplyMetadata.cs" />
+    <Compile Include="Metadata\ReplyMetadatas\ReplyViewModelMetadata.cs" />
+    <Compile Include="Metadata\SearchMetadata\SearchProductViewModelMetadata.cs" />
+    <Compile Include="Metadata\SearchMetadata\SearchViewModelMetadata.cs" />
+    <Compile Include="Metadata\SubCategoryMetadatas\SubCategoryMetadata.cs" />
+    <Compile Include="Metadata\UserMetadatas\ChangePasswordViewModelMetadata.cs" />
+    <Compile Include="Metadata\UserMetadatas\ConfirmPasswordViewModelMetadata.cs" />
+    <Compile Include="Metadata\UserMetadatas\LoginViewModelMetadata.cs" />
+    <Compile Include="Metadata\UserMetadatas\RegisterViewModelMetadata.cs" />
+    <Compile Include="Metadata\UserMetadatas\UserInfoViewModelMetadata.cs" />
+    <Compile Include="Metadata\UserMetadatas\UserMetadata.cs" />
+    <Compile Include="Migrations\201806270320314_FirstMigration.cs" />
+    <Compile Include="Migrations\201806270320314_FirstMigration.Designer.cs">
+      <DependentUpon>201806270320314_FirstMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\ErrorLog.cs" />
     <Compile Include="Models\Reply.cs" />
-    <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Models\SubCategory.cs" />
-    <Compile Include="Metadata\SubCategoryMetadata.cs" />
-    <Compile Include="Metadata\UserMetadata.cs" />
     <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\ExLoverShopDb.cs" />
     <Compile Include="Models\ImageUrl.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\ActionMessageInController\ActionMessage.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ActionMessage.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ActionMessageInController\AddNewProductResult.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AddNewProductResult.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ActionMessageInController\ChangePassResult.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangePassResult.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ActionMessageInController\ChangeUserInfoResult.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangeUserInfoResult.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ActionMessageInController\DeleteProductResult.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DeleteProductResult.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ActionMessageInController\LoginResult.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LoginResult.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ActionMessageInController\RegisterResult.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RegisterResult.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\ResourceFiles\CategoryDisplay.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -357,6 +415,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UserErrorMsg.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\CategoryViewModel\CategoryDetailViewModel.cs" />
+    <Compile Include="ViewModels\CategoryViewModel\CateWithSubViewModel.cs" />
+    <Compile Include="ViewModels\CommentViewModel\CommentInProductViewModel.cs" />
+    <Compile Include="ViewModels\ProductViewModel\EditProductViewModel.cs" />
+    <Compile Include="ViewModels\ProductViewModel\ProductDetailViewModel.cs" />
+    <Compile Include="ViewModels\ProductViewModel\ProductManagerViewModel.cs" />
+    <Compile Include="ViewModels\ReplyViewModels\ReplyViewModel.cs" />
+    <Compile Include="ViewModels\SearchViewModel\SearchProductViewModel.cs" />
+    <Compile Include="ViewModels\SearchViewModel\SearchViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel\ConfirmPasswordViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel\UserInfoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -391,6 +463,13 @@
     <Content Include="Views\Shared\_CommentViewPartial.cshtml" />
     <Content Include="Views\Shared\_CommentFormPartial.cshtml" />
     <Content Include="Views\Shared\_CommentReplyFormPartial.cshtml" />
+    <Content Include="Views\Shared\_RecommendProductsPartial.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\ChangePassword.cshtml" />
+    <Content Include="Views\Admin\ChangePersonalDetail.cshtml" />
+    <Content Include="Views\Admin\ManagePost.cshtml" />
+    <Content Include="Views\Admin\ShowDetailDemo.cshtml" />
+    <Content Include="Views\Product\ProductNotFound.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -400,19 +479,39 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Info\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201805160309188_AddTableErrorLog.resx">
-      <DependentUpon>201805160309188_AddTableErrorLog.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806270320314_FirstMigration.resx">
+      <DependentUpon>201806270320314_FirstMigration.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805280630396_AddTableComment.resx">
-      <DependentUpon>201805280630396_AddTableComment.cs</DependentUpon>
+    <EmbeddedResource Include="Resources\ActionMessageInController\ActionMessage.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ActionMessage.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805280644089_AddColumnTimeCommentToTableComment.resx">
-      <DependentUpon>201805280644089_AddColumnTimeCommentToTableComment.cs</DependentUpon>
+    <EmbeddedResource Include="Resources\ActionMessageInController\AddNewProductResult.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddNewProductResult.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805280647453_AddTableReply.resx">
-      <DependentUpon>201805280647453_AddTableReply.cs</DependentUpon>
+    <EmbeddedResource Include="Resources\ActionMessageInController\ChangePassResult.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ChangePassResult.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ActionMessageInController\ChangeUserInfoResult.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ChangeUserInfoResult.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ActionMessageInController\DeleteProductResult.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DeleteProductResult.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ActionMessageInController\LoginResult.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LoginResult.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ActionMessageInController\RegisterResult.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>RegisterResult.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ResourceFiles\CategoryDisplay.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

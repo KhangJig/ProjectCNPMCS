@@ -1,4 +1,4 @@
-﻿using NYCshop.Metadata;
+﻿using NYCshop.Metadata.SubCategoryMetadatas;
 using NYCshop.Models;
 using System;
 using System.Collections.Generic;

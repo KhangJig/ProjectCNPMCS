@@ -7,6 +7,9 @@ using System.Web.Mvc;
 using PagedList;
 using NYCshop.Resources.ResourceFiles;
 using NYCshop.Assets;
+using NYCshop.ViewModels.CommentViewModel;
+using NYCshop.ViewModels.ProductViewModel;
+using NYCshop.ViewModels.CategoryViewModel;
 
 namespace NYCshop.Controllers
 {
@@ -93,6 +96,10 @@ namespace NYCshop.Controllers
                 product.ListImages = images;
             }
 
+            var category = db.Categories.FirstOrDefault(c => c.CategoryID == categoryID);
+            if (category != null)
+                ViewBag.CategoryName = category.CategoryName;
+
             model = categoryDetail;
 
             ViewBag.CategoryID = categoryID;
@@ -106,8 +113,9 @@ namespace NYCshop.Controllers
         // GET: /Product/Detail
         public ActionResult Detail(int productID)
         {
+
             ProductDetailViewModel model = new ProductDetailViewModel();
-            var product = db.Products.FirstOrDefault(p => p.ProductID == productID);
+            var product = db.Products.FirstOrDefault(p => p.ProductID == productID && p.Censor == true);
             if (product != null)
             {
                 var subCategory = db.SubCategories.FirstOrDefault(sc => sc.SubCategoryID == product.SubCategoryID);
@@ -121,6 +129,17 @@ namespace NYCshop.Controllers
                     foreach (ImageUrl img in imageUrl)
                         lstImages.Add(img.Url);
                 }
+
+                // lấy tên người dùng và số điện thoại
+                var user = db.Users.FirstOrDefault(u => u.Username == product.Username);
+                string name = string.Empty;
+                string phone = string.Empty;
+                if(user != null)
+                {
+                    name = user.Name;
+                    phone = user.Phone;
+                }
+
                 model.ProductID = product.ProductID;
                 model.Describe = product.Describe;
                 model.Price = product.Price;
@@ -128,9 +147,24 @@ namespace NYCshop.Controllers
                 model.SubCategory = subCategory.SubCategoryName;
                 model.Category = category.CategoryName;
                 model.ListImages = lstImages;
-            }
+                model.Name = name;
+                model.Phone = phone;
+                model.CategoryID = category.CategoryID;
 
-            return View(model);
+                return View(model);
+            }
+            
+            return RedirectToAction("ProductNotFound", "Product");
+        }
+
+        /// <summary>
+        /// GET: /Product/ProductNotFound
+        /// Không tìm thấy sản phẩm
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ProductNotFound()
+        {
+            return View();
         }
 
         // Hiển thị bình luận của sản phẩm
@@ -141,6 +175,47 @@ namespace NYCshop.Controllers
             ViewData["ProductID"] = productID;
 
             return PartialView("_CommentViewPartial", dictComments);
+        }
+
+        // Hiển thị các sản phẩm liên quan
+        // GET: /Product/GetRecommendProducts
+        public ActionResult GetRecommendProducts(int productID, int categoryID)
+        {
+            List<CategoryDetailViewModel> model = new List<CategoryDetailViewModel>();
+
+            List<string> imageUrl = new List<string>();
+            // lấy danh sách các sản phẩm
+            var categoryDetail = (from c in db.Categories
+                                  from sc in db.SubCategories
+                                  from p in db.Products
+                                  where categoryID == c.CategoryID && sc.SubCategoryID == p.SubCategoryID && sc.CategoryID == c.CategoryID
+                                  select new CategoryDetailViewModel
+                                  {
+                                      ListImages = imageUrl,
+                                      Price = p.Price,
+                                      ProductID = p.ProductID,
+                                      ProductName = p.ProductName
+                                  }).Take(5).Where(cd => cd.ProductID != productID).ToList();
+
+            // thiết lập các ảnh của sản phẩm
+            foreach (CategoryDetailViewModel product in categoryDetail)
+            {
+                var images = (from i in db.ImageUrls
+                              where i.ProductID == product.ProductID
+                              select i.Url).ToList();
+
+                product.ListImages = images;
+            }
+
+            var category = db.Categories.FirstOrDefault(c => c.CategoryID == categoryID);
+            if (category != null)
+                ViewBag.CategoryName = category.CategoryName;
+
+            model = categoryDetail;
+
+            ViewBag.CategoryID = categoryID;
+
+            return PartialView("_RecommendProductsPartial", model);
         }
 	}
 }

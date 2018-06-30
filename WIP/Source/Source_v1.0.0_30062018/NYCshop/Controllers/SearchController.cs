@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using NYCshop.Resources.ResourceFiles;
+using NYCshop.ViewModels.ProductViewModel;
+using NYCshop.ViewModels.SearchViewModel;
 
 namespace NYCshop.Controllers
 {

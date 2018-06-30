@@ -18,7 +18,16 @@
     <link href="~/Content/style.blue.css" rel="stylesheet" id="theme-stylesheet">
     <link href="~/Content/custom.css" rel="stylesheet">
     <link href="~/Content/Site.css" rel="stylesheet">
-    
+
+    <style>
+        body {
+            background-image: url("/Images/background.jpg");
+            background-repeat: repeat-y;
+            background-attachment: fixed;
+            background-size: 100%;
+            opacity: 0.95;
+        }
+    </style>
 </head>
 <body>
     <div id="top">
@@ -212,3 +221,9 @@
 <script src="~/Scripts/owl.carousel.min.js"></script>
 <script src="~/Scripts/front.js"></script>
 <script src="~/Scripts/respond.min.js"></script>
+
+<script>
+    $(window).load(function () {
+        $("#view-type").val($("#view-type-hidden").val());
+    });
+</script>
