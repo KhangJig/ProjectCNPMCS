@@ -117,6 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActiveRequired" xml:space="preserve">
+    <value>Yêu cầu chọn trạng thái người dùng</value>
+    <comment>required</comment>
+  </data>
   <data name="AddressRequired" xml:space="preserve">
     <value>Yêu cầu nhập địa chỉ</value>
     <comment>required</comment>
@@ -136,6 +140,10 @@
   <data name="InvalidUsername" xml:space="preserve">
     <value>Tên người dùng không được chứa khoảng trắng</value>
     <comment>invalid</comment>
+  </data>
+  <data name="JoiningDateRequired" xml:space="preserve">
+    <value>Yêu cầu nhập ngày đăng ký tài khoản</value>
+    <comment>required</comment>
   </data>
   <data name="NameRequired" xml:space="preserve">
     <value>Yêu cầu nhập họ tên của bạn</value>
@@ -159,6 +167,10 @@
   </data>
   <data name="PhoneRequired" xml:space="preserve">
     <value>Yêu cầu nhập số điện thoại</value>
+    <comment>required</comment>
+  </data>
+  <data name="RoleRequired" xml:space="preserve">
+    <value>Yêu cầu nhập vai trò người dùng</value>
     <comment>required</comment>
   </data>
   <data name="UsernameExist" xml:space="preserve">

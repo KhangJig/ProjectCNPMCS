@@ -1,6 +1,6 @@
 ﻿@model NYCshop.ViewModels.ProductViewModel.ProductDetailViewModel
 @{
-    ViewBag.Title = "Chi tiết sản phẩm";
+    ViewBag.Title = Model.ProductName;
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.ProductID = Model.ProductID;
 }
@@ -73,7 +73,7 @@
                     <p class="price">@Html.DisplayFor(model => model.Price)</p>
 
                     <p class="text-center buttons">
-                        <a href="basket.html" class="btn btn-default"><i class="fa fa-heart"></i> Thêm vào wishlist</a>
+                        <a href="@Url.Action("AddProductToWishList", "WishList", new { productID = Model.ProductID })" class="btn btn-default"><i class="fa fa-heart"></i> Thêm vào wishlist</a>
                     </p>
 
                     <hr />

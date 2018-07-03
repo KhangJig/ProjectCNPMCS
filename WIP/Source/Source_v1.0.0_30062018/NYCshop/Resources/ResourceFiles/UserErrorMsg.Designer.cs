@@ -61,6 +61,15 @@ namespace NYCshop.Resources.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Yêu cầu chọn trạng thái người dùng.
+        /// </summary>
+        public static string ActiveRequired {
+            get {
+                return ResourceManager.GetString("ActiveRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yêu cầu nhập địa chỉ.
         /// </summary>
         public static string AddressRequired {
@@ -102,6 +111,15 @@ namespace NYCshop.Resources.ResourceFiles {
         public static string InvalidUsername {
             get {
                 return ResourceManager.GetString("InvalidUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yêu cầu nhập ngày đăng ký tài khoản.
+        /// </summary>
+        public static string JoiningDateRequired {
+            get {
+                return ResourceManager.GetString("JoiningDateRequired", resourceCulture);
             }
         }
         
@@ -156,6 +174,15 @@ namespace NYCshop.Resources.ResourceFiles {
         public static string PhoneRequired {
             get {
                 return ResourceManager.GetString("PhoneRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yêu cầu nhập vai trò người dùng.
+        /// </summary>
+        public static string RoleRequired {
+            get {
+                return ResourceManager.GetString("RoleRequired", resourceCulture);
             }
         }
         

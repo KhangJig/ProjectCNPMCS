@@ -21,5 +21,6 @@ namespace NYCshop.Models
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Reply> Replies { get; set; }
         public DbSet<Spam> Spams { get; set; }
+        public DbSet<WishList> WishLists { get; set; }
     }
 }

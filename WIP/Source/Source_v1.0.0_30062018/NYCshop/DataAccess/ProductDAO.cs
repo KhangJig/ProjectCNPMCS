@@ -151,5 +151,16 @@ namespace NYCshop.DataAccess
 
             return new SuccessAndMsg(false, ProductDAOMsg.GetProductReportFailed);
         }
+
+        public SuccessAndMsg GetProduct(int productID)
+        {
+            Product product = db.Products.FirstOrDefault(p => p.ProductID == productID);
+            if (product != null)
+            {
+                return new SuccessAndMsg(true, ProductDAOMsg.GetProductSuccessful, product);
+            }
+
+            return new SuccessAndMsg(false, ProductDAOMsg.GetProductFailed);
+        }
     }
 }

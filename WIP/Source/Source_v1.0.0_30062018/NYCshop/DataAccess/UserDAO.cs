@@ -375,5 +375,23 @@ namespace NYCshop.DataAccess
 
             return new SuccessAndMsg(false, UserDAOMsg.GetUserFailed);
         }
+
+        /// <summary>
+        /// Kiểm tra xem người dùng có tồn tại không
+        /// </summary>
+        /// <param name="username">Tên người dùng</param>
+        /// <returns></returns>
+        public bool IsUsernameExist(string username)
+        {
+            try
+            {
+                bool exist = db.Users.Any(u => u.Username == username);
+                return exist;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

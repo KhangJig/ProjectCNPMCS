@@ -142,6 +142,15 @@ namespace NYCshop.Resources.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Yêu cầu nhập tên người bán.
+        /// </summary>
+        public static string SellerNameRequired {
+            get {
+                return ResourceManager.GetString("SellerNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yêu cầu nhập ngày đăng.
         /// </summary>
         public static string UploadDateRequired {

@@ -10,6 +10,9 @@ using PagedList;
 using NYCshop.Resources.ResourceFiles;
 using NYCshop.ViewModels.UserViewModel;
 using NYCshop.ViewModels.ProductViewModel;
+using NYCshop.CustomTypes;
+using NYCshop.DataAccess;
+using NYCshop.ViewModels.ErrorViewModels;
 
 namespace NYCshop.Controllers
 {
@@ -19,6 +22,8 @@ namespace NYCshop.Controllers
         private ExLoverShopDb db = new ExLoverShopDb();
         private MD5Assets md5 = new MD5Assets();
         private GetListAndDict listAndDict = new GetListAndDict();
+        private UserDAO userDAO = new UserDAO();
+        private AdminDAO dao = new AdminDAO();
 
         /// <summary>
         /// Xử lý các ngoại lệ xảy ra trong từng action hoặc giao diện (view)
@@ -545,6 +550,107 @@ namespace NYCshop.Controllers
                 model.Name = name;
                 model.Phone = phone;
                 model.CategoryID = category.CategoryID;
+            }
+
+            return View(model);
+        }
+
+        //
+        // GET: /Admin/ManageAccount
+        public ActionResult ManageAccount(int? page, string viewType, string search, string userAction)
+        {
+            if (Session["Username"] != null)
+            {
+                SuccessAndMsg getListUsersResult = dao.GetListAccInManageAccs(viewType, search);
+
+                // lần đầu hiển thị
+                if(page == null)
+                {
+                    if (getListUsersResult.IsSuccess)
+                    {
+                        List<AccInManageAccViewModel> model = getListUsersResult.Value as List<AccInManageAccViewModel>;
+
+                        int pageSize = 10;
+                        int pageNumber = (page ?? 1); // trả về giá trị của page nếu nó là 1 giá trị khác null, nếu không trả về 1
+
+                        ViewBag.PagedList = model.ToPagedList(pageNumber, pageSize);
+                        ViewBag.TotalPages = model.Count % 10 == 0 ? model.Count / 10 : model.Count / 10 + 1;
+                        return View(model.OrderByDescending(u => u.Username).Skip((pageNumber - 1) * 10).Take(10).ToList());
+                    }
+
+                    // lấy danh sách các tài khoản thất bại
+                    TempData["Error"] = new ErrorViewModel(getListUsersResult.Message);
+                    return RedirectToAction("SharedError", "Error");
+                }
+                else
+                {
+                    // thiết lập lại các giá trị viewType, search để tránh gặp lỗi
+                    viewType = viewType == null ? "" : viewType;
+                    search = search == null ? "" : search;
+
+                    // Trả về danh sách các sản phẩm theo điều kiện lọc
+                    List<AccInManageAccViewModel> model = getListUsersResult.Value as List<AccInManageAccViewModel>;
+
+                    int pageSize = 10;
+                    int pageNumber = (page ?? 1); // trả về giá trị của page nếu nó là 1 giá trị khác null, nếu không trả về 1
+
+                    ViewBag.PagedList = model.ToPagedList(pageNumber, pageSize);
+                    ViewBag.TotalPages = model.Count % 10 == 0 ? model.Count / 10 : model.Count / 10 + 1;
+                    ViewBag.ViewType = viewType;
+                    ViewBag.SearchKey = search;
+                    ViewBag.UserAction = userAction;
+                    return View(model.OrderByDescending(u => u.Username).Skip((pageNumber - 1) * 10).Take(10).ToList());
+                }
+            }
+
+            return RedirectToAction("SharedError", "Error");
+        }
+
+        //
+        // POST: /Admin/ManageAccount
+        [HttpPost]
+        public ActionResult ManageAccount(List<AccInManageAccViewModel> model, int? page, string viewType, string search, string userAction)
+        {
+            if (Session["Username"] != null)
+            {
+                string username = Session["Username"] != null ? Session["Username"] as string : string.Empty;
+
+                // thực hiện hành động của người dùng
+                userAction = userAction == null ? string.Empty : userAction;
+                switch (userAction)
+                {
+                    case "Khóa tài khoản":
+                        dao.BlockAccounts(model);
+                        break;
+                    case "Mở khóa tài khoản":
+                        dao.UnlockAccounts(model);
+                        break;
+                    default: // không làm gì cả
+                        break;
+                }
+
+                // xử lý theo từng cách hiển thị:
+                viewType = viewType == null ? "" : viewType;
+                search = search == null ? "" : search;
+
+                SuccessAndMsg getListUsersResult = dao.GetListAccInManageAccs(viewType, search);
+                if(getListUsersResult.IsSuccess)
+                {
+                    // Trả về danh sách các sản phẩm theo điều kiện lọc
+                    model = getListUsersResult.Value as List<AccInManageAccViewModel>;
+
+                    ModelState.Clear(); // xóa các dữ liệu cũ
+
+                    int pageSize = 10;
+                    int pageNumber = (page ?? 1); // trả về giá trị của page nếu nó là 1 giá trị khác null, nếu không trả về 1
+
+                    ViewBag.PagedList = model.ToPagedList(pageNumber, pageSize);
+                    ViewBag.TotalPages = model.Count % 10 == 0 ? model.Count / 10 : model.Count / 10 + 1;
+                    ViewBag.ViewType = viewType;
+                    ViewBag.SearchKey = search;
+                    ViewBag.UserAction = userAction;
+                    return View(model.OrderByDescending(u => u.Username).Skip((pageNumber - 1) * 10).Take(10).ToList());
+                }
             }
 
             return View(model);

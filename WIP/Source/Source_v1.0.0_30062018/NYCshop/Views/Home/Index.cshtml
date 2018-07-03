@@ -1,6 +1,6 @@
 ﻿@model List<NYCshop.Models.Category>
 @{
-    ViewBag.Title = "Trang chủ";
+    ViewBag.Title = "NYC Shop - Shop mua bán đồ người yêu cũ ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -14,37 +14,47 @@
     <div class="col-md-12">
         <div id="main-slider">
             <div class="item">
-                <img src="~/Images/Slides/slide1.jpg" alt="" class="img-responsive">
+                <img class="img-responsive" src="~/Images/Slides/Love-Breakup-Status-2.jpg" alt="">
             </div>
             <div class="item">
-                <img class="img-responsive" src="~/Images/Slides/slide2.jpg" alt="">
+                <img class="img-responsive" src="~/Images/Slides/Love-Breakup-Status-3.jpg" alt="">
             </div>
             <div class="item">
-                <img class="img-responsive" src="~/Images/Slides/slide3.jpg" alt="">
+                <img class="img-responsive" src="~/Images/Slides/Love-Breakup-Status-4.jpg" alt="">
             </div>
+            <div class="item">
+                <img class="img-responsive" src="~/Images/Slides/Love-Breakup-Status-5.jpg" alt="">
+            </div>
+            <div class="item">
+                <img class="img-responsive" src="~/Images/Slides/Love-Breakup-Status-6.jpg" alt="">
+            </div>
+            <div class="item">
+                <img class="img-responsive" src="~/Images/Slides/Love-Breakup-Status-1.jpg" alt="">
+            </div>
+
         </div>
         <!-- /#main-slider -->
     </div>
 </div>
 
-    @foreach (var item in Model)
-    {
-        <div id="hot">
-            <div class="box">
-                <div class="container">
-                    <div class="col-md-12">
-                        <h2><img class="category-image" src="@item.CategoryImage" /> @item.CategoryName <img class="category-image" src="@item.CategoryImage" /></h2>
-                    </div>
-                </div>
-            </div>
-
+@foreach (var item in Model)
+{
+    <div id="hot">
+        <div class="box">
             <div class="container">
-                <div class="container">
-                    @{Html.RenderAction("CategoryDetail", "Home", new { @item.CategoryID });}
+                <div class="col-md-12">
+                    <h2><img class="category-image" src="@item.CategoryImage" /> @item.CategoryName <img class="category-image" src="@item.CategoryImage" /></h2>
                 </div>
             </div>
         </div>
-    }
+
+        <div class="container">
+            <div class="container">
+                @{Html.RenderAction("CategoryDetail", "Home", new { @item.CategoryID });}
+            </div>
+        </div>
+    </div>
+}
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/validate")

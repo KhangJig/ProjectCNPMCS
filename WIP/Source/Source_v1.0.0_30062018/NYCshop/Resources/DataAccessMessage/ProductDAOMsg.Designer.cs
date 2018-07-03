@@ -61,6 +61,15 @@ namespace NYCshop.Resources.DataAccessMessage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lấy ra sản phẩm thất bại.
+        /// </summary>
+        public static string GetProductFailed {
+            get {
+                return ResourceManager.GetString("GetProductFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lấy ra sản phẩm bị báo cáo thất bại.
         /// </summary>
         public static string GetProductReportFailed {
@@ -75,6 +84,15 @@ namespace NYCshop.Resources.DataAccessMessage {
         public static string GetProductReportSuccessful {
             get {
                 return ResourceManager.GetString("GetProductReportSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lấy ra sản phẩm thành công.
+        /// </summary>
+        public static string GetProductSuccessful {
+            get {
+                return ResourceManager.GetString("GetProductSuccessful", resourceCulture);
             }
         }
     }

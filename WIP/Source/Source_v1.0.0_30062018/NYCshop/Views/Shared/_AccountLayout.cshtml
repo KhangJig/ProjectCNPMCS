@@ -125,6 +125,19 @@
                                     <a href="@Url.Action("ManagePost", "Admin")"><i class="fa fa-list"></i> Quản lý tin</a>
                                 </li>
                             }
+                            
+                            if (parentActionName.ToLower() == "manageaccount")
+                            {
+                                <li class="active">
+                                    <a href="@Url.Action("ManageAccount", "Admin")"><i class="fa fa-list"></i> Quản lý tài khoản</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="@Url.Action("ManageAccount", "Admin")"><i class="fa fa-list"></i> Quản lý tài khoản</a>
+                                </li>
+                            }
                         }
                         <!--Thiết lập xem mục nào được chọn-->
 

@@ -153,6 +153,10 @@
     <value>Yêu cầu chọn trạng thái bán</value>
     <comment>required</comment>
   </data>
+  <data name="SellerNameRequired" xml:space="preserve">
+    <value>Yêu cầu nhập tên người bán</value>
+    <comment>required</comment>
+  </data>
   <data name="UploadDateRequired" xml:space="preserve">
     <value>Yêu cầu nhập ngày đăng</value>
     <comment>required</comment>

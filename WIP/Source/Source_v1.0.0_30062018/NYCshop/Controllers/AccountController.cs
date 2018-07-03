@@ -6,6 +6,8 @@ using NYCshop.Metadata;
 using NYCshop.Models;
 using NYCshop.Resources.ActionMessageInController;
 using NYCshop.Resources.ResourceFiles;
+using NYCshop.ViewModels.ErrorViewModels;
+using NYCshop.ViewModels.ProductViewModel;
 using NYCshop.ViewModels.UserViewModel;
 using System;
 using System.Collections.Generic;
@@ -20,6 +22,7 @@ namespace NYCshop.Controllers
         private ExLoverShopDb db = new ExLoverShopDb();
         private MD5Assets md5 = new MD5Assets();
         private AccountDAO dao = new AccountDAO();
+        private WishListDAO wishListDAO = new WishListDAO();
 
         /// <summary>
         /// Xử lý các ngoại lệ xảy ra trong từng action hoặc giao diện (view)
@@ -101,6 +104,29 @@ namespace NYCshop.Controllers
                 {
                     Session["Username"] = loginResult.CurrentUser.Username;
                     Session["Role"] = loginResult.CurrentUser.Role;
+
+                    // lấy ra Danh sách sản phẩm muốn mua trong session
+                    Dictionary<int, ProductInWishListViewModel> wishList = Session["WishList"] != null ? Session["WishList"] as Dictionary<int, ProductInWishListViewModel> : new Dictionary<int, ProductInWishListViewModel>();
+
+                    SuccessAndMsg getWishListInDb = wishListDAO.GetWishListInDb(loginResult.CurrentUser.Username);
+                    if (!getWishListInDb.IsSuccess)
+                    {
+                        // lấy ra Danh sách sản phẩm muốn mua thất bại
+                        TempData["Error"] = new ErrorViewModel(getWishListInDb.Message);
+                        return RedirectToAction("SharedError", "Error");
+                    }
+
+                    // gộp 2 Danh sách sản phẩm muốn mua
+                    SuccessAndMsg combineWishList = wishListDAO.CombineWishList(getWishListInDb.Value as Dictionary<int, ProductInWishListViewModel>, wishList);
+                    if (!combineWishList.IsSuccess)
+                    {
+                        // gộp 2 Danh sách sản phẩm muốn mua thất bại
+                        TempData["Error"] = new ErrorViewModel(combineWishList.Message);
+                        return RedirectToAction("SharedError", "Error");
+                    }
+
+                    // lưu Danh sách sản phẩm muốn mua mới vào Session
+                    Session["WishList"] = combineWishList.Value as Dictionary<int, ProductInWishListViewModel>;
 
                     // chuyển đến trang được yêu cầu trước đó
                     if (returnUrl != null)
@@ -186,6 +212,7 @@ namespace NYCshop.Controllers
             // xóa phiên làm việc của người dùng
             Session["Username"] = null;
             Session["Role"] = null;
+            Session["WishList"] = null;
 
             return View("Index", "Home");
         }

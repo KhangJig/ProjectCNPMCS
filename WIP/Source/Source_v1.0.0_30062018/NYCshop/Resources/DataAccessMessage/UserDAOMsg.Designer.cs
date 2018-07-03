@@ -61,6 +61,24 @@ namespace NYCshop.Resources.DataAccessMessage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lấy ra danh sách người dùng kiểu AccInManageAccViewModel thất bại.
+        /// </summary>
+        public static string GetListAccInManageAccsFailed {
+            get {
+                return ResourceManager.GetString("GetListAccInManageAccsFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lấy ra danh sách người dùng kiểu AccInManageAccViewModel thành công.
+        /// </summary>
+        public static string GetListAccInManageAccsSuccessful {
+            get {
+                return ResourceManager.GetString("GetListAccInManageAccsSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lấy ra người dùng thất bại.
         /// </summary>
         public static string GetUserFailed {

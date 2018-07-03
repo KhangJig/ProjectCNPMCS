@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="GetProductFailed" xml:space="preserve">
+    <value>Lấy ra sản phẩm thất bại</value>
+  </data>
   <data name="GetProductReportFailed" xml:space="preserve">
     <value>Lấy ra sản phẩm bị báo cáo thất bại</value>
   </data>
   <data name="GetProductReportSuccessful" xml:space="preserve">
     <value>Lấy ra sản phẩm bị báo cáo thành công</value>
+  </data>
+  <data name="GetProductSuccessful" xml:space="preserve">
+    <value>Lấy ra sản phẩm thành công</value>
   </data>
 </root>

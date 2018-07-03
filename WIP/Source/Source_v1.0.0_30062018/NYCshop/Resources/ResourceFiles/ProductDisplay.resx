@@ -144,6 +144,9 @@
   <data name="SaleStatus" xml:space="preserve">
     <value>Hết hàng</value>
   </data>
+  <data name="SellerName" xml:space="preserve">
+    <value>Tên người bán</value>
+  </data>
   <data name="UploadDate" xml:space="preserve">
     <value>Ngày đăng</value>
   </data>
