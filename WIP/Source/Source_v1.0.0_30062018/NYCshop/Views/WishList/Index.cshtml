@@ -1,0 +1,101 @@
+﻿@model List<NYCshop.ViewModels.ProductViewModel.ProductInWishListViewModel>
+
+@{
+    ViewBag.Title = "Sản phẩm muốn mua";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Trang chủ</a>
+            </li>
+            <li>Danh sách sản phẩm muốn mua</li>
+        </ul>
+    </div>
+
+    <div id="basket">
+
+        <div class="box">
+            @using (Html.BeginForm("Index", "WishList", FormMethod.Post, new { @id = "wish-list-form" }))
+            {
+                <h2>Danh sách sản phẩm muốn mua</h2>
+                <p class="text-muted">Bạn hiện có <u><b>@Model.Count</b></u> sản phẩm.</p>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th colspan="2">Sản phẩm</th>
+                                <th>Giá cả</th>
+                                <th>Người bán</th>
+                                <th>Số điện thoại</th>
+                                <th>Xóa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @for (int i = 0; i < Model.Count; i++ )
+                            {
+                                <tr id="row-@i">
+                                    @Html.HiddenFor(modelItem => Model[i].ProductID)
+                                    @Html.HiddenFor(modelItem => Model[i].ImageUrl)
+                                    @Html.HiddenFor(modelItem => Model[i].Price)
+                                    @Html.HiddenFor(modelItem => Model[i].SellerName)
+                                    @Html.HiddenFor(modelItem => Model[i].Phone)
+                                    @Html.HiddenFor(modelItem => Model[i].Username)
+                                    @Html.HiddenFor(modelItem => Model[i].ProductName)
+                                    @Html.HiddenFor(modelItem => Model[i].Delete)
+
+                                    <td>
+                                        <a href="@Url.Action("Detail", "Product", new { productID = Model[i].ProductID })" target="_blank">
+                                            <img src="@Model[i].ImageUrl" alt="@Model[i].ProductName">
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Detail", "Product", new { productID = Model[i].ProductID })" target="_blank">@Model[i].ProductName</a>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => Model[i].Price)
+                                    </td>
+                                    <td>
+                                        @Model[i].SellerName
+                                    </td>
+                                    <td>
+                                        @Model[i].Phone
+                                    </td>
+                                    <td>
+                                        <a onclick="removeProduct(@i)"><i class="fa fa-trash-o"></i></a>
+                                        <script>
+                                            function removeProduct(index) {
+                                                event.preventDefault();
+                                                // ẩn đi sản phẩm được chọn
+                                                $("#row-" + index).hide();
+
+                                                // thiết lập thuộc tính cho biết xóa sản phẩm này
+                                                $("input[name='[" + index + "].Delete']").val(true); 
+                                            }
+                                        </script>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.table-responsive -->
+
+                <div class="box-footer">
+                    <div class="pull-left">
+                        <button type="submit" class="btn btn-default"><i class="fa fa-refresh"></i> Cập nhật danh sách</button>
+                        <a href="@Url.Action("Index", "Home")" class="btn btn-default">Tiếp tục xem hàng <i class="fa fa-chevron-right"></i></a>
+                    </div>
+                </div>
+            }
+        </div>
+        <!-- /.box -->
+
+
+    </div>
+    <!-- /.col-md-12 -->
+</div>
